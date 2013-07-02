@@ -1,0 +1,54 @@
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<div id="main">
+    <article id="content">
+        <section class="posts-block">
+            <ul class="posts">
+
+                <?php foreach($this->publicList->data as $public): ?>
+                    <?php $publicContent = $public->getContent()->getFields();
+                    $publicContentText = strip_tags($publicContent['content']->getFieldText()); ?>
+                    <li>
+                        <div class="visual">
+                            <a href="<?php echo $public->getRoute()->getUrl();?>">
+                                <img src="<?php echo $public->getPhoto1()->getPath('180:125')?>" alt="<?php echo $publicContent['contentName']->getFieldText();?>" width="180" height="125" />
+                            </a>
+                        </div>
+                        <div class="text-box">
+                            <h3><a href="<?php echo $public->getRoute()->getUrl();?>"><?php echo $publicContent['contentName']->getFieldText();?></a></h3>
+                            <ul class="terms">
+                                <li><?php echo $public->getCategoryTextByProduct($this->category);?></li>
+                            </ul>
+                            <p><?php echo mb_substr($publicContentText, 0, 250, 'utf8'); ?>...<a href="<?php echo $public->getRoute()->getUrl();?>" class="more">Читать &raquo;</a></p>
+                        </div>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+            <?php echo $this->paginationControl($this->publicList->paginator, 'Sliding', 'block/paginator.phtml')?>
+        </section>
+        <p><?php echo isset($this->categoryContent['content'])?$this->categoryContent['content']->getFieldText():$this->contentPage['content']->getFieldText();?></p>
+    </article>
+    <aside id="sidebar">
+        <?php echo $this->ShowCategorys();?>
+        <?php echo $this->ShowRecomend();?>
+        <br/>
+        <div class="block">
+            <h3 class="top-title"><span>И ЕЩЕ</span></h3>
+            <div class="ad">
+                <div class="box">
+                    <script type="text/javascript"><!--
+                    google_ad_client = "ca-pub-3861532892125732";
+                    /* wifi_right_linog */
+                    google_ad_slot = "0666393957";
+                    google_ad_width = 160;
+                    google_ad_height = 600;
+                    //-->
+                    </script>
+                    <script type="text/javascript"
+                            src="http://pagead2.googlesyndication.com/pagead/show_ads.js">
+                    </script>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>

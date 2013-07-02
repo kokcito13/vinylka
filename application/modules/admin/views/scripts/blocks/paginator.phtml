@@ -1,0 +1,15 @@
+<div class="pages" style="padding-bottom: 25px;">
+    <?php if (isset($this->previous)): ?>
+        <a class="prew" href="<?= $this->url(array("page" => $this->previous)) ?>"> &laquo; </a>
+    <?php endif; ?>
+    <?php foreach ($this->pagesInRange as $page): ?>
+        <?php if ($page != $this->current): ?>
+            <a href="<?= $this->url(array("page" => $page)) ?>"><?= $page; ?></a>
+        <?php else: ?>
+            <a class="active"><?= $page; ?></a>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <?php if (isset($this->next)): ?>
+        <a class="next" href="<?= $this->url(array("page" => $this->next)) ?>"> &raquo; </a>
+    <?php endif; ?>
+</div>

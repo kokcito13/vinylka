@@ -1,0 +1,43 @@
+<?=$this->partial('blocks/menus/top.phtml');?>
+<table class="zebra"> 
+	<thead> 
+    	<tr> 
+        	<td width="5%">&nbsp;</td> 
+        	<td width="60%"></td>
+            <td width="10%"></td> 
+            <td width="5%"></td> 
+            <td width="5%">&nbsp;</td> 
+		</tr>
+	</thead>
+<?php if (count($this->pageList->data)): ?>
+	<?php $class = ''; ?>
+	<tbody>
+	<? $i = 0; ?>
+	<? foreach ($this->pageList->data as $item): ?>
+		<? $i++;?>
+		<? ($class === 'grey') ? $class = '' : $class='grey'; ?>
+		<tr class="<?=$class; ?> id_<?=$item->getIdPage()?>">
+			<td>
+				<a href="<?=$this->url(array('idPage' => $item->getId(), 'page' => $this->page), 'admin-page-edit');?>" class="edit" title="Редактировать">
+					<img src="/static/admin/images/edit.png" alt="Edit" width="16" height="16" />
+				</a>
+			</td>
+			<td><?=Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($item->getContent()->getId(), 'contentName')->getFieldText()?></td> 
+			<? $StatusTitle = (!$item->getStatus()) ? 'Показать' : 'Скрыть'; ?>
+            <td>
+                <?php if($item->getIdPage() == 4): ?>
+                    <a href="<?=$this->url(array('idProduct'=>$item->getId(), 'type'=> Application_Model_Kernel_Comment::TYPE_PAGE), 'admin-comment-index');?>">Комменты</a>
+                <?php endif; ?>
+            </td>
+			<td>
+				<a href="<?=$item->getRoute()->getUrl()?>" target="_black" title="Просмотр"><img src="/static/admin/images/eye.png" alt="" width="16" height="16"></a>&nbsp;&nbsp;
+			</td>
+			<td>&nbsp;<a href="" alt="" width="9" height="8" /></a>
+			</td>
+		</tr>
+	<?php endforeach; ?>
+	</tbody>
+<?php endif; ?>
+  </table> 
+<?= $this->paginationControl($this->pageList->paginator, 'Sliding', 'blocks/paginator.phtml')?>
+<input id="statusUrl" type="hidden" value="<?//=$this->url(array(),'admin-page-status')?>"/>

@@ -1,0 +1,175 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title><?php echo $this->title ?></title>
+    <meta name="keywords" content="<?= $this->keywords ?>" />
+    <meta name="description" content="<?= $this->description ?>" />
+    <?php echo $this->headMeta() ?>
+    <link rel="stylesheet" href="/static/default/css/styles.css" />
+    <script src="/static/default/js/jquery-1.7.1.min.js"></script>
+    <!--[if lt IE 9]>
+    <link rel="stylesheet" href="/static/default/css/styles.ie.css" />
+    <![endif]-->
+
+    <script src="/static/default/js/common.js"></script>
+
+    <script>
+        $(function(){
+            InitCommonFeatures();
+        });
+    </script>
+    <?=$this->headScript()?>
+    <style>
+        #span_delivery_link {
+            padding: 10px;
+            /*border-radius: 13%;*/
+            font-size: 14px;
+            font-weight: bold;
+            color: #0065c3;
+            border: 1px solid #b2d0ed;
+        }
+        #span_delivery_link:hover {
+            background-color: #b2d0ed;
+        }
+        .types_inpt {
+            color: blueviolet;
+            font-weight: bold;
+            padding: 0px 15px 0px 15px;
+            float: left;
+        }
+        .fb-like {
+            margin-top: -10px;
+            margin-bottom: 6px;
+        }
+        body a:visited{
+            color: #0065c3;
+        }
+        a.menu__item_state_active:visited{
+            color: #139e00;
+        }
+    </style>
+    <script type="text/javascript" src="//vk.com/js/api/openapi.js?96"></script>
+    <script type="text/javascript">
+        VK.init({apiId: 3688273, onlyWidgets: true});
+    </script>
+</head>
+
+<body>
+<script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-11535685-11', 'vinylka.com.ua');
+    ga('send', 'pageview');
+
+</script>
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/ru_RU/all.js#xfbml=1";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<div class="body-decor"></div>
+<div class="body__inner"></div>
+<div class="container">
+    <div class="hdr line">
+        <a href="/" class="hdr__logo">
+            <img src="/static/default/img/logo.png" alt="" height="75px" style="margin-top: -20px;"/>
+        </a>
+        <div class="hdr__contacts">
+            <a href="<?=$this->url(array(), 'public-page-44')?>" class="b-link">
+                <span class="b-link__inner" id="span_delivery_link">Доставка и оплата</span>
+            </a>
+<!--            <a href="#" class="b-link"><span class="b-link__inner">Контакты</span></a>-->
+        </div>
+
+        <div class="hdr__block">
+            Телефон для заказов
+            <div class="hdr__val">(093) 460-59-33</div>
+        </div>
+        <div class="hdr__block">
+            Электронный ящик
+            <div class="hdr__val">&#109;&#097;&#110;&#097;&#103;&#101;&#114;&#064;&#118;&#105;&#110;&#121;&#108;&#107;&#097;&#046;&#099;&#111;&#109;&#046;&#117;&#097;</div>
+        </div>
+        <div class="hdr__block" style="margin-top: -20px;">
+            <div id="vk_like"></div>
+            <script type="text/javascript">
+                VK.Widgets.Like("vk_like", {type: "mini"}, 'index');
+            </script>
+            <br/>
+            <div class="fb-like" data-href="http://vinylka.com.ua" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-font="arial"></div>
+            <br/>
+            <div class="g-plusone" data-size="medium" data-href="http://vinylka.com.ua"></div>
+            <!-- Place this tag after the last +1 button tag. -->
+            <script type="text/javascript">
+                window.___gcfg = {lang: 'uk'};
+
+                (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+        </div>
+    </div>
+    <div class="cnt line">
+        <div class="cnt__main">
+            <? echo $this->partial('blocks/menu.phtml', array('menu' => $this->menu, 'blocks'=>$this->blocks,'siteSetings'=>$this->siteSetings)) ?>
+            <? if (isset($this->filter) && $this->filter):?>
+                <? $typres = Application_Model_Kernel_Category::getListParent();?>
+                <div class="menu line" style="height: 28px; padding-top: 13px; background: #fff; border: 1px solid #e8e8e1;">
+                    <? foreach ($typres as $type): ?>
+                        <? if(!$type->isStatusShow()) continue;?>
+                        <? $typeContent = $type->getContent()->getFields();?>
+                        <div class="types_inpt">
+                            <label for="first"><?=$typeContent['contentName']->getFieldText();?></label>
+                            <input type="checkbox" id="first" name="types" value="<?=$type->getId()?>"
+                                   onchange="common.goToPage(1);" />
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <? endif; ?>
+            <div class="box box_type_content line">
+                <?php echo $this->layout()->content ?>
+            </div>
+        </div>
+    </div>
+    <?php echo $this->partial('blocks/footer.phtml', array(
+                                                          'blocks'=>$this->blocks,
+                                                          'siteSetings'=>$this->siteSetings,
+                                                           'text'=> $this->text
+                                                     )) ?>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript">
+        (function (d, w, c) {
+            (w[c] = w[c] || []).push(function() {
+                try {
+                    w.yaCounter21420952 = new Ya.Metrika({id:21420952,
+                        webvisor:true,
+                        clickmap:true,
+                        trackLinks:true,
+                        accurateTrackBounce:true});
+                } catch(e) { }
+            });
+
+            var n = d.getElementsByTagName("script")[0],
+                s = d.createElement("script"),
+                f = function () { n.parentNode.insertBefore(s, n); };
+            s.type = "text/javascript";
+            s.async = true;
+            s.src = (d.location.protocol == "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+            if (w.opera == "[object Opera]") {
+                d.addEventListener("DOMContentLoaded", f, false);
+            } else { f(); }
+        })(document, window, "yandex_metrika_callbacks");
+    </script>
+    <noscript><div><img src="//mc.yandex.ru/watch/21420952" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+</body>
+</html>

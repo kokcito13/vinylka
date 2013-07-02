@@ -1,0 +1,31 @@
+<? $view = $this->Layout()->getView();
+?><div class="top_head"><?php
+	if ($view->back):
+		?><div class="back">
+			<a href="javascript:history.back(1);"><img src="/static/admin/images/icon_back.gif" alt="Назад" title="Назад" width="16" height="14"> Назад</a>
+		</div><?php
+	endif; 
+	?><div class="text"><?php
+			$last = sizeof($view->breadcrumbs);
+			$i = 0;
+			foreach ($view->breadcrumbs as $name => $url):
+				$i++;
+				if ($i === $last):
+					echo $name;
+				else:
+					?><a href="<?=$url?>"><?=$name?></a> =&gt; <?
+				endif;
+				
+			endforeach; 
+	?></div>
+</div>
+<div class="top_links"><?php 
+	if ($view->add) : 
+		?><a href="<?=$view->add->link?>" class="add">
+			<img src="/static/admin/images/icon_add.gif" alt="<?=$view->add->alt?> " width="16" height="14">
+			<span><?=$view->add->text?></span>
+		</a>
+		<span class="sep"></span><?php
+	 endif;
+	?><div class="clear"></div> 
+</div>

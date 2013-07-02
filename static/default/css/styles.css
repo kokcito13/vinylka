@@ -1,0 +1,591 @@
+
+/*
+----------------------------------------------------------------------------------------------------
+[Table of Contents]
+
+1. Base page configuration
+2. Elements of interfase, Global classes and other blocks
+3. Layouts
+4. Blocks
+	4.1 Icons							| .ico
+	4.2 Button							| .btn 
+	4.3
+	4.4 Elements						
+
+----------------------------------------------------------------------------------------------------
+*/
+
+
+
+/*
+####################################################################################################
+[1. Base page configuration]
+####################################################################################################
+*/
+
+body,div,dl,dt,dd,ul,ol,li,form,table,tr,td,
+h1,h2,h3,h4,h5,h6,pre,p,span,b,i,
+input,textarea, fieldset {margin:0; padding:0;}
+
+ul {list-style-type:none;}
+img, fieldset {border:none;}
+table {border-collapse:collapse; border-spacing:0;}
+
+html,body {height:100%;}
+body {
+	font-family:Arial, sans-serif;
+	font-size:0.75em;	/* default page font size is 12px (1em) */
+	color:#37332c;
+	background:#fff url(../img/body-bg.jpg) 0 3px repeat-x;
+	}
+	
+
+input, textarea, select, label {font-size:1em; font-family:inherit;}
+input[type="submit"] {cursor:pointer;}
+
+a {text-decoration:none;}
+
+:link {	
+	color:#0065c3;
+	-webkit-transition:color .2s ease;
+       -moz-transition:color .2s ease;
+	    -ms-transition:color .2s ease;
+         -o-transition:color .2s ease;
+            transition:color .2s ease;
+	}
+a:hover {color:#0065c3;}
+
+/* ===== [ link-preset ] ===== */
+
+.b-link {text-decoration:none;}
+
+	.b-link .b-link__inner {display:inline-block; line-height:1.1;  border-bottom:1px solid #b2d0ed;}
+
+/* page decoration */
+
+.body-decor {
+    position:absolute;
+    z-index:5;
+    top:0;
+    left:0;
+    height:3px;
+    width:100%;
+    background: #1bd400;
+    background: -moz-linear-gradient(left,  #1bd400 0%, #007bee 38%, #f24b18 100%);
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#1bd400), color-stop(38%,#007bee), color-stop(100%,#f24b18));
+    background: -webkit-linear-gradient(left,  #1bd400 0%,#007bee 38%,#f24b18 100%);
+    background: -o-linear-gradient(left,  #1bd400 0%,#007bee 38%,#f24b18 100%);
+    background: -ms-linear-gradient(left,  #1bd400 0%,#007bee 38%,#f24b18 100%);
+    background: linear-gradient(left,  #1bd400 0%,#007bee 38%,#f24b18 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1bd400', endColorstr='#f24b18',GradientType=1 );
+
+}
+
+.body__inner {
+    position: absolute;
+    top:0;
+    left:0;
+    z-index:1;
+    height: 114px;
+    width: 100%;    
+    background:url("../img/hdr-bg.png") 50% 0 no-repeat;
+}
+
+/*
+####################################################################################################
+[2. Elements of interfase, Global classes and other blocks]
+####################################################################################################
+*/
+
+  .g-clear {clear:both;}
+  .g-right {float:right !important;}
+  .g-left {float:left !important;}
+  
+  .g-mr {margin-right:84px;}
+  .g-hover {z-index:5;}
+  
+  .g-pink {color:#c0003f !important;}
+  .g-black {color:#474747 !important;}
+  .g-blue {color:#0077b5 !important;}
+  .g-grey {color:#a5a5a5 !important;}
+  .g-green {color:#5cb414 !important;}
+  
+  .line {overflow:visible;}
+
+	.line:after {
+		font-size:0;
+		content:".";
+		display:block;
+		height:0;
+		clear:both;
+		visibility:hidden;
+		}
+      
+
+/*---------------------------------------------------------------------------
+    [Content area]
+---------------------------------------------------------------------------*/
+
+/* text block */
+.tovar .b-txt {color:#3d483b;}
+
+.b-txt {line-height:19px;}
+ 
+ 	.b-txt__sub-ttl {font-weight:bold; margin-botom:6px;}
+     .b-txt__ttl {font-size:18px; margin-bottom:11px; color:#535353;}
+
+     .b-txt p {margin-bottom:19px;}
+
+	.b-txt ol,
+	.b-txt ul {margin-bottom:27px;}
+	
+	.b-txt ol {padding-left:28px;}
+	
+		.b-txt ol li {}
+		
+	.b-txt ul {}
+	
+		.b-txt ul li {}
+
+    .b-txt_type_delivery {padding-top:9px; width:750px;}
+    .b-txt_type_delivery p {margin-bottom:32px;}
+	
+		
+
+/* ###########################################################################
+    [3. Layouts]
+########################################################################### */
+.container,
+.ftr-i {width:1000px; margin:auto;}
+
+	.container {position:relative; z-index:2; height:auto !important; height:100%; min-height:100%;}
+	
+	/* header */
+	.hdr {height:73px; padding-top:41px; margin-bottom:23px; }
+
+        .hdr__logo {float:left; margin:0 30px 0 0;}
+		.hdr__contacts {font-size:13px; font-weight:bold; float:left; padding-top:11px; color:#0d7f00;}
+        .hdr__contacts .b-link {font-weight:normal; margin-left:12px;}
+
+		.hdr__block {float:left; font-size:13px; color:#97978e; margin:-4px 0 0 65px;}
+        .hdr__val {font-size:17px; font-weight:bold; padding-top:5px; color:#f66818;}
+
+		
+	/* content */
+	.cnt {padding-bottom:125px;}
+	
+
+
+	.ftr-i {position:relative; z-index:3; height:120px; padding-bottom:15px; margin-top:-100px;}
+	.ftr {}
+		
+		.ftr__ttl {font-size:18px; margin-bottom:11px; color:#535353;}
+        .ftr p {line-height:20px; margin-bottom:11px; color:#807e79;}
+        .ftr p.ftr__copy {color:#848484;}
+
+/* ###########################################################################
+    [4. Blocks]
+########################################################################### */
+
+/*---------------------------------------------------------------------------
+    [4.1 Icons]
+---------------------------------------------------------------------------*/	
+	
+
+
+/*---------------------------------------------------------------------------
+    [4.2 Buttons]
+---------------------------------------------------------------------------*/
+   
+.btn {}
+.btn__case {}
+
+.btn_type_buy {
+    font-size:18px;
+    font-weight:bold;
+    display:inline-block;
+    vertical-align:top;
+    padding:9px 20px 8px;
+    color:#fff;
+    text-decoration:none;
+    text-shadow:1px 1px 1px #255e1e;
+    background: #18b600;
+    background: -moz-linear-gradient(top,  #18b600 0%, #14a300 49%, #108e00 51%, #108e00 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#18b600), color-stop(49%,#14a300), color-stop(51%,#108e00), color-stop(100%,#108e00));
+    background: -webkit-linear-gradient(top,  #18b600 0%,#14a300 49%,#108e00 51%,#108e00 100%);
+    background: -o-linear-gradient(top,  #18b600 0%,#14a300 49%,#108e00 51%,#108e00 100%);
+    background: -ms-linear-gradient(top,  #18b600 0%,#14a300 49%,#108e00 51%,#108e00 100%);
+    background: linear-gradient(to bottom,  #18b600 0%,#14a300 49%,#108e00 51%,#108e00 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#18b600', endColorstr='#108e00',GradientType=0 );
+    -moz-border-radius:4px;
+    -webkit-border-radius:4px;
+    border-radius:4px;
+}
+
+a.btn_type_buy:hover {color:#fff;}
+
+.btn_type_buy:active {
+    padding:10px 19px 7px 21px;
+}
+
+
+
+/*---------------------------------------------------------------------------
+    [4.4 Elements]
+---------------------------------------------------------------------------*/
+
+	/* ===== [ 4.4.1 Menu ] ===== */
+
+	.menu {
+        position:relative; z-index:3;
+        margin-bottom:-1px;
+    }
+
+        .menu__item,
+        .menu__case {
+            float:left;
+            background:url("../img/tabs-bg.png") no-repeat;
+        }
+
+        .menu__item {height:40px; font-size:16px; font-weight:bold; padding-left:10px; margin-right:5px;}
+        .menu__case {height:28px; padding:12px 15px 0 5px; background-position:100% -41px;}
+
+        .menu__item_state_active {
+            color:#139e00;
+            background-position:0 -82px;
+        }
+
+        .menu__item_state_active .menu__case {background-position:100% -123px;}
+
+    /* ===== [ 4.4.2 boxes ] ===== */
+    .box {
+        display:block;
+        padding:10px 20px;
+        background:#fff;
+        border:1px solid #e8e8e1;
+        /*-moz-border-radius:6px;*/
+        /*-webkit-border-radius:6px;*/
+        /*border-radius:6px;*/
+    }
+
+    .box_type_content {
+        padding-top:25px;
+        -webkit-border-top-left-radius:0;
+        -moz-border-radius-topleft:0;
+        border-top-left-radius:0;
+    }
+
+
+    /* ===== [ 4.4.3 Product list ] ===== */
+    .tov {}
+
+        .tov__item {display:inline-block; vertical-align:top; width:220px; margin:0 23px 23px 0;}
+        .tov__item_fourth,
+        .tov__item:nth-child(4n) {margin-right:0;}
+
+        .tov__img {margin-bottom:11px;}
+            .tov__img img {display:block;}
+        .tov__name {font-size:14px; line-height:19px;}
+        .tov__price {font-weight:bold; display:block; padding-top:4px; color:#139e00;}
+        .tov__num {font-size:16px; }
+
+    /* ===== [ 4.4.4 Pagination ] ===== */
+    .pager {
+        padding:20px 20px 0;
+        margin:0 -20px 12px;
+        border-top:1px solid #e8e8e1;
+    }
+
+        .pager__item {
+            font-size:14px;
+            float:left;
+            min-width: 14px;
+            padding:5px 6px;
+            margin-right:6px;
+            text-align:center;
+            background:url('../img/pager-bg.png') repeat-x;
+            border:1px solid #e8e8e1;
+            -moz-border-radius:3px;
+            -webkit-border-radius:3px;
+            border-radius:3px;
+        }
+
+        .pager__item_state_active {
+            color:#455343;
+            border-color:#b1d0ad;
+            background:#c3f2bd;
+        }
+
+    /* ===== [ 4.4.5 One product ] ===== */
+    .tovar {padding-top:4px;}
+    
+        .tovar__gallery {float:left; width:410px; margin-right:31px;}
+        .tovar__head {padding:3px;  margin-bottom:16px;}
+
+        .tovar__item {float:left; width:102px; padding:3px; margin-right:12px;}
+
+        .tovar__data {overflow:hidden; margin-bottom:27px;}
+
+        .tovar__ttl {
+            font-size:22px; line-height:26px; margin-bottom:21px; color:#3d483b;
+        }
+
+        .tovar__desc {
+            display:inline-block;
+            margin-bottom:28px;
+            background:#59af37;
+            -moz-border-radius:3px;
+            -webkit-border-radius:3px;
+            border-radius:3px;
+            overflow:hidden;
+        }
+
+        .tovar__price {
+            font-size:26px;
+            float:left;
+            padding:7px 18px 9px;
+            color:#fff;
+            background:#40a319;
+            text-shadow:-1px -1px 1px #388a17;
+        }
+        .tovar__num {font-size:30px; font-weight:bold;}
+
+        .tovar__order {
+            float:left;
+            padding:10px 24px;
+            line-height:16px;
+            text-shadow:-1px -1px 1px #388a17;
+            color:#fff;}
+
+        .tovar__extra {
+            padding:23px 20px 10px;
+            margin:0 -20px;
+            border-top:1px solid #e8e8e1;
+        }
+
+        .tovar__sub-ttl {font-size:18px; margin-bottom:18px; color:#3d483b;}
+
+
+        .box,
+        .pager__item,
+        .tovar__desc,
+        .tovar__buy,
+        .btn,
+        .b-popup,
+        .form__right,
+        .b-input,
+        .b-ta {behavior: url(css/PIE.htc);}
+
+        .tovar__buy {
+            width:319px;
+            padding:11px 17px;
+            margin-bottom:28px;
+            background:#fff;
+            border:1px solid #dbdbdb;
+            -moz-border-radius:6px;
+            -webkit-border-radius:6px;
+            border-radius:6px;
+        }
+
+        .tovar__buy-order {
+            font-size:13px;
+            line-height:19px;
+            float:right;
+            margin-right:10px;
+            color:#118d00;
+        }
+
+/* popup block */
+.b-popup-i { position:fixed; z-index:20; top:0; left:0; bottom:0; width:100%; display:none;}
+
+.b-popup__bg {
+    position:absolute;
+    z-index:19;
+    top:0;
+    left:0;
+    height:100%;
+    width:100%;
+    background:#000;
+    opacity:.4;
+    filter: alpha(opacity='40');
+}
+
+.b-popup {
+    position:fixed;
+    z-index:21;
+    top:14%;
+    left:50%;
+    padding:30px 45px;
+    background:#fff;
+    border:1px solid #dbdbdb;
+    -moz-border-radius:6px;
+    -webkit-border-radius:6px;
+    border-radius:6px;
+    box-shadow:0 0 30px #1c1c1c;
+    -moz-box-shadow:0 0 30px #1c1c1c;
+}
+
+.ico_type_cover-close {
+    position:absolute;
+    z-index:22;
+    top:-10px;
+    right:-8px;
+    height:25px;
+    width:25px;
+    background:url("../img/popup-close.png") no-repeat;
+    cursor:pointer;
+}
+
+/* form block */
+
+.form {}
+
+    .form__ttl {
+        font-size:22px;
+        font-weight:bold;
+        margin-bottom:25px;
+        color:#262626;
+    }
+    .form__sub-ttl {
+        font-size:14px;
+        margin:-18px 0 15px;
+        color:#262626;
+    }
+
+    .form__left {
+        float:left; width:240px;
+    }
+    .form__right {
+        float:right;
+        width:274px;
+        padding:27px 39px 22px;
+        background:#f8f8f8;
+        border:1px solid #dbdbdb;
+        -moz-border-radius:6px;
+        -webkit-border-radius:6px;
+        border-radius:6px;
+    }
+
+    .b-input-i { position:relative; margin-right:28px;}
+    .b-input {
+        font-size:13px;
+        width:100%;
+        padding:9px 12px 8px;
+        color:#000;
+        background:#fff;
+        border:1px solid #dbdbdb;
+        -moz-border-radius:6px;
+        -webkit-border-radius:6px;
+        border-radius:6px;
+        box-shadow:inset 0 2px 6px #ececec;
+        -moz-box-shadow:inset 0 2px 6px #ececec;
+        outline:none;
+    }
+    .b-ta {
+        font-size:13px;
+        height:75px;
+        width:100%;
+        padding:9px 12px 8px;
+        color:#000;
+        background:#fff;
+        border:1px solid #dbdbdb;
+        -moz-border-radius:6px;
+        -webkit-border-radius:6px;
+        border-radius:6px;
+        box-shadow:inset 0 2px 6px #ececec;
+        -moz-box-shadow:inset 0 2px 6px #ececec;
+        outline:none;
+    }
+
+    .b-label {
+        font-size:13px;
+        color:#616161;
+    }
+
+    .b-input-i .b-label {
+        position:absolute;
+        top:1px; left:1px; line-height:34px;
+        right:0; height:100%; padding:0 12px;
+    }
+
+
+    .form__field { margin-bottom:14px;}
+    .form__example {
+        font-size:11px;
+        padding:4px 0 0 13px;
+        color:#909090;
+    }
+
+    .b-check {
+        vertical-align:top; margin:2px 5px 0 0;
+    }
+
+    .form__list {font-size:13px; padding-top:7px; margin-bottom:7px;}
+    .form__list-item { margin-bottom:8px; color:#3b3b3b;}
+
+    .form__add {
+        font-size:14px;
+        font-weight:bold;
+        line-height:19px;
+        margin-bottom:18px;
+        color:#3b3b3b;
+    }
+
+    .form .b-submit { padding-top:13px; margin-bottom:7px;}
+
+   .b-submit {}
+   .b-submit__cansel {
+       display:inline-block;
+       vertical-align:top;
+       text-decoration:underline;
+       margin:11px 0 0 30px;
+       color:#8b8b8b;
+   }
+
+/*
+####################################################################################################
+[5. Jquery/javascript plugins]
+####################################################################################################
+
+/*---------------------------------------------------------------------------
+    [5.1 Cloud images]
+---------------------------------------------------------------------------*/
+
+/* This is the moving lens square underneath the mouse pointer. */
+.cloud-zoom-lens {
+    border: 4px solid #888;
+    margin:-4px;	/* Set this to minus the border thickness. */
+    background-color:#fff;
+    cursor:move;
+}
+
+/* This is for the title text. */
+.cloud-zoom-title {
+    font-family:Arial, Helvetica, sans-serif;
+    position:absolute !important;
+    background-color:#000;
+    color:#fff;
+    padding:3px;
+    width:100%;
+    text-align:center;
+    font-weight:bold;
+    font-size:10px;
+    top:0px;
+}
+
+/* This is the zoom window. */
+.cloud-zoom-big {
+    border:5px solid #ebebeb;
+    overflow:hidden;
+    margin:-5px 0 0 10px;
+}
+
+/* This is the loading message. */
+.cloud-zoom-loading {
+    color:white;
+    background:#222;
+    padding:3px;
+    border:1px solid #000;
+}
+
+.cloud-zoom img {margin:0 auto;}

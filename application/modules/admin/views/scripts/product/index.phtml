@@ -1,0 +1,166 @@
+<?=$this->partial('blocks/menus/top.phtml');?>
+<script type="text/javascript" src="/static/admin/js/jquery.tablednd_0_5.js"></script>
+<script>
+//    $(document).ready(function() {
+//        
+//        
+//        $("#projectsTable").tableDnD({
+//            
+//            onDragClass: "DuringDragStyle", // при перетаскивании строка получит "красивости" класса DuringDragStyle
+//            onDrop: function(table, row) {
+////                alert($('#projectsTable').tableDnDSerialize());
+//                var rows = table.tBodies[0].rows;
+//                var debugStr = "{";
+//                for (var i=0; i<rows.length; i++) {
+//                    debugStr += '\"'+$('#'+rows[i].id).attr('rel')+'\":\"'+rows[i].id+"\",";
+//                }
+//                debugStr += '\"0\":\"0\"}'
+//                
+//                $.ajax({
+//                    type: "POST",
+//                    url: '/admin/page/position',
+//                    data: {"ar":debugStr,"sweet":<?if($this->idCategory == 9):?>"true"<?else:?>"false"<?endif;?>},
+//                    success: function(result) {
+//                        if( result == 1 ){
+//                           // alert('Проект удачно перемещен');
+//                        } else {
+//                            alert('Не удалось переместить проект');
+//                        }
+////                        alert(result);
+//                    }
+//                });
+//                
+//                
+//	    }
+//        });
+//        
+//    });
+    
+function chengeStatusProject(id, status){
+    $.ajax({
+        type: "POST",
+        url: '/admin/product/status',
+        data: {
+            "idProduct":id,
+            "status":status
+        },
+        success: function(result) {
+//            alert(result);
+        }
+    });
+    
+}
+
+function chengeStatusProjectMain(id, status){
+    $.ajax({
+        type: "POST",
+        url: '/admin/product/main',
+        data: {
+            "idProduct":id,
+            "statusMain":status
+        },
+        success: function(result) {
+//            alert(result);
+        }
+    });
+    
+}
+
+function changePositionPage(id){
+    $.ajax({
+        type: "POST",
+        url: '/admin/pagetrue/position',
+        data: {"id":id,"val":$('#id_page_'+id).val()},
+        success: function(result) {
+            if( result == 1 ){
+               // alert('Проект удачно перемещен');
+            } else {
+               // alert('Не удалось переместить проект');
+            }
+//                        alert(result);
+        }
+    });
+    return false;
+}
+
+function changePositionProject(id){
+    $.ajax({
+        type: "POST",
+        url: '/admin/product/position',
+        data: {"id":id,"val":$('#id_page_'+id).val()},
+        success: function(result) {
+            if( result == 1 ){
+               // alert('Проект удачно перемещен');
+            } else {
+               // alert('Не удалось переместить проект');
+            }
+//                        alert(result);
+        }
+    });
+    return false;
+}
+
+    function amazonProduct(url)
+    {
+        var idAmazon = $('#idAmazon').val().trim();
+
+        window.location = url+'/'+idAmazon;
+
+        return false;
+    }
+
+</script>
+<style>
+    .activeLink{
+        border: 1px darkcyan dashed;
+        padding: 3px;
+        font-weight: bold;
+    }
+</style>
+<table class="zebra" > 
+    <thead> 
+        <tr> 
+            <td style="width: 5%;"></td> 
+            <td>
+                <input type="text" id="idAmazon"/> <a href="" onclick="return amazonProduct('<?=$this->url(array(), 'admin-product-add');?>');">Добавить с амазона</a>
+            </td>
+            <td></td> 
+            <td></td> 
+            <td></td> 
+        </tr>
+    </thead>
+<?php 
+if (count($this->projectList->data)): ?>
+	<?php $class = ''; ?>
+	<tbody>
+	<? $i = 0; ?>
+	<? foreach ($this->projectList->data as $item): 
+		$i++; ?>
+		  <? ($class === 'grey') ? $class = '' : $class='grey'; ?>
+		  <tr class="<?=$class; ?> id_<?=$item->getIdProduct()?>" rel="<?=$item->getIdPage()?>">
+                <td style="text-align: right;"> 
+                    <a href="<?=$this->url(array('idProduct'=>$item->getIdProduct()), 'admin-product-edit');?>" class="edit" style="float: left; display:block; margin-right: 10px;" title="Редактировать"><img src="/static/admin/images/edit.png" alt="Edit" width="16" height="16" /></a>
+				</td>
+				<td style="padding-left:10px;">
+                    <?=Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($item->getContent()->getId(), 'contentName')->getFieldText()?>
+                </td>
+                <?php $StatusTitle = (!$item->getStatus()) ? 'Показать' : 'Скрыть'; ?>
+                <td style="text-align: left; padding-left: 10px;">
+                    <img src="<?php echo $item->getPhoto1()->getPath(50, true)?>" style="max-height: 50px; max-width: 50px;" alt="" />
+                </td>
+                <td style="text-align: right;">
+                    <a href="<?=$item->getRoute()->getUrl()?>" target="_black" title="Просмотр"><img src="/static/admin/images/eye.png" alt="" width="16" height="16"></a>&nbsp;&nbsp;
+                    <a href="javascript:changeStatus(<?=$item->getIdPage()?>,1);" class="<?=$item->getStatus();?>" title="<?=$StatusTitle;?>">
+                        <img class="page_status_<?=$item->getIdPage()?>" src="/static/admin/images/show_<?=$item->getStatus();?>.png" alt="" width="15" height="15">
+                    </a>
+                </td>
+                <td style="text-align: left; padding-left: 10px;">
+                    <a href="javascript:changeStatus(<?=$item->getIdPage();?>,2);" class="delete" title="Удалить"><img src="/static/admin/images/icon_delete.gif" alt="" width="9" height="8" /></a>
+                </td>
+		  </tr>
+	<?php endforeach; ?>
+	</tbody>
+<?php endif; ?>
+  </table> 
+<?=$this->paginationControl($this->projectList->paginator, 'Sliding', 'blocks/paginator.phtml')?>
+<input id="statusUrl" type="hidden" value="<?=$this->url(array(),'admin-page-status')?>"/>

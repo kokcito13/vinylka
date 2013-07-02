@@ -1,0 +1,18 @@
+.stylish-select ul.newList {left:-9999px; z-index: 99;}
+ul.newList * {margin:0; padding:0;}
+ul.newList a {text-decoration:none; display:block; outline:none}
+ul.newList {margin:0px 0 0 0; padding:0px 1px 5px 1px; list-style:none; width:161px; position:absolute; top:24px; left:0; overflow:auto; z-index:1; font-size:11px; background-image:url(/static/admin/images/select_bg.gif); background-repeat:no-repeat; background-position:0 100%}
+.newListSelected {color:#807373; height:18px; padding:0; display:inline-block; //display:inline; //zoom:1; background-image:url(/static/admin/images/select_bg.gif); width:163px; font-size:11px; height:22px; vertical-align:top; position:relative; color:#0c456f; font-family:Tahoma, Geneva, sans-serif; font-size:12px}
+.newListSelFocus {background-position:0 -22px}
+ul.newList li a {padding:4px 6px; display: block; color:#0c456f; font-family:Tahoma, Geneva, sans-serif; font-size:12px}
+ul.newList li a:hover {background-color:#e5edf1}
+ul.newList li a:focus {}
+.selectedTxt {overflow:hidden; display:block; padding:4px 7px 0 7px}
+.hiLite {cursor:default}
+.hiLite a {}
+.newListHover {cursor:default}
+.newListHover:hover {}
+.newListOptionTitle {font-weight:bold;}
+.newListOptionTitle ul {margin:3px 0 0;}
+.newListOptionTitle li {font-weight:normal; border-left:1px solid #ccc}
+.selectGrey .newListSelected {background: url(/static/admin/images/select_bg_grey.gif);}

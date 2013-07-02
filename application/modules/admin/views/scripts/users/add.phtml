@@ -1,0 +1,31 @@
+<div class="top_head"> 
+	<div class="text"><a href="<?= $this->url(array(),'admin-users-index') ?>">Пользователи</a> &raquo; Добавление пользователя</div> 
+</div> 
+    <div class="top_links"> 
+    <a href="<?= $this->url(array(),'admin-users-index') ?>" class="add"><img src="/static/admin/images/icon_back.gif" alt="" width="16" height="14" /><span>Вернуться</span></a>             
+    <a href="javascript:void(0)" onclick="$('#form-user-add').submit()" class="add"><img src="/static/admin/images/save.gif" alt="" width="16" height="14" /><span>Сохранить</span></a>             
+    <span class="sep"></span>                
+    <div class="clear"></div> 
+</div> 
+<form action="<?= $this->url(array(),'admin-users-add') ?>" method="post" id="form-user-add">
+<table class="zebra edit"> 
+	<tr class="grey"> 
+    	<td width="193" class="first">Логин</td> 
+        <td><input name="login" type="text" class="field" value="<?= @$_POST['login'] ?>" /></td> 
+	</tr>		
+	<tr class=""> 
+    	<td width="193" class="first">Пароль</td> 
+        <td><input name="password" type="text" class="field" value="<?= @$_POST['password'] ?>" /></td> 
+	</tr>		
+	<tr class="grey"> 
+    	<td width="193" class="first">E-mail</td> 
+        <td><input name="email" type="text" class="field" value="<?= @$_POST['email'] ?>" /></td> 
+	</tr><!-- Main -->
+	<tr class="grey"> 
+    	<td width="193" class="first">Полное имя</td> 
+        <td><input name="fullname" type="text" class="field" value="<?= @$_POST['fullname'] ?>" /></td> 
+	</tr>
+</table>
+
+</form>
+

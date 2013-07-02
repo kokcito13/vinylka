@@ -1,6 +1,11 @@
 INSTALL.txt
 LICENSE.txt
 README.txt
+application.ini
 demos/
+static/default/upload/
+imagecache/
+tmp/
+.idea/
 extras/documentation
 

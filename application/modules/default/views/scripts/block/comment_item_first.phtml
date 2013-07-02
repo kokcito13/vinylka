@@ -1,0 +1,9 @@
+<article class="comment">
+    <h4><?php echo $this->comment->getCommentNick();?></h4>
+    <p><?php echo $this->comment->getCommentText();?></p>
+    <footer>
+        <time datetime="<?php echo date('Y-m-d', $this->comment->getCommentDate());?>"><?php echo Application_Model_Kernel_Date_Manager::formatDate($this->comment->getCommentDate(), Application_Model_Kernel_Date_Manager::TYPE_USER_VIEW)?></time>
+        <a href="#" onclick="return getAnswerForm(<?php echo $this->id.', '.$this->type.', '.$this->comment->getIdComment()?>)">Ответить</a>
+    </footer>
+</article>
+<div id="sub_comment_<?php echo $this->comment->getIdComment();?>"></div>

@@ -1,0 +1,17 @@
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<div class="col-680">
+    <section>
+        <header>
+            <h4 class="orange-flower"><?php echo $this->contentPage['contentName']->getFieldText()?></h4>
+        </header>
+        <article class="post">
+            <?php echo $this->contentPage['content']->getFieldText()?>
+        </article>
+    </section>
+
+</div>
+<div class="col-240 last">
+    <?php echo $this->ShowAphorisms();?>
+    <?php echo $this->ShowRecomend();?>
+</div>

@@ -1,0 +1,10 @@
+<section>
+    <header>
+        <h4 class="white-flower">Любимые афоризмы</h4>
+    </header>
+    <ul class="aphorisms">
+        <?php foreach( $this->aphorisms as $item ): ?>
+            <li><?=Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($item->getContent()->getId(), 'content')->getFieldText()?></li>
+        <?php endforeach; ?>
+    </ul>
+</section>

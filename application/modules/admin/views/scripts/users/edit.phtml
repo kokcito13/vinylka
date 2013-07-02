@@ -1,0 +1,43 @@
+<div class="top_head"> 
+	<div class="text"><a href="<?= $this->url(array(),'admin-users-index') ?>">Пользователи</a> &raquo; Добавление пользователя</div> 
+</div> 
+    <div class="top_links"> 
+    <a href="<?= $this->url(array(),'admin-users-index') ?>" class="add"><img src="/static/admin/images/icon_back.gif" alt="" width="16" height="14" /><span>Вернуться</span></a>             
+    <a href="javascript:void(0)" onclick="$('#form-user-add').submit()" class="add"><img src="/static/admin/images/save.gif" alt="" width="16" height="14" /><span>Сохранить</span></a>             
+    <span class="sep"></span>                
+    <div class="clear"></div> 
+</div> 
+<form action="<?= $this->url(array(),'admin-users-edit') ?>" method="post" id="form-user-add">
+<table class="zebra edit"> 
+	<tr class="grey"> 
+    	<td width="193" class="first">Логин</td> 
+        <td><input name="login" type="text" class="field" value="<?= $this->user->login ?>" /></td> 
+	</tr>		
+	<tr class=""> 
+    	<td width="193" class="first">Новый пароль (опционально)</td> 
+        <td><input name="password" type="text" class="field" value="" /></td> 
+	</tr>		
+	<tr class="grey"> 
+    	<td width="193" class="first">E-mail</td> 
+        <td><input name="email" type="text" class="field" value="<?= $this->user->email ?>" /></td> 
+	</tr><!-- Main -->
+	
+	<tr class="grey"> 
+    	<td width="193" class="first">Полное имя</td> 
+        <td><input name="fullname" type="text" class="field" value="<?= $this->user->fullName ?>" /></td> 
+	</tr>
+	<tr> 
+    	<td width="193" class="first">Статус</td> 
+        <td>
+        <select name="status">
+			<option value="<?= Application_Model_Kernel_User::STATUS_ACTIVE ?>"<?= ($this->user->status == Application_Model_Kernel_User::STATUS_ACTIVE) ? ' selected="selected"' : '' ?>>Активен</option>
+			<option value="<?= Application_Model_Kernel_User::STATUS_NOT_ACTIVE ?>"<?= ($this->user->status == Application_Model_Kernel_User::STATUS_NOT_ACTIVE) ? ' selected="selected"' : '' ?>>Не активирован</option>
+			<option value="<?= Application_Model_Kernel_User::STATUS_BLOCKED ?>"<?= ($this->user->status == Application_Model_Kernel_User::STATUS_BLOCKED) ? ' selected="selected"' : '' ?>>Забанен</option>
+			<option value="<?= Application_Model_Kernel_User::STATUS_REMOVED ?>"<?= ($this->user->status == Application_Model_Kernel_User::STATUS_REMOVED) ? ' selected="selected"' : '' ?>>Удален</option>
+        </select>
+        </td> 
+	</tr>
+</table>
+
+</form>
+

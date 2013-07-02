@@ -1,0 +1,17 @@
+<?php if ( $this->pageCount > 1): ?>
+    <div class="pager line">
+        <?php if (isset($this->previous)): ?>
+            <a href="#" onclick="return common.goToPage(<?=$this->previous?>);" class="pager__item">&laquo;</a>
+        <?php endif; ?>
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                <a href="#" onclick="return common.goToPage(<?= $page; ?>);" class="pager__item"><?= $page; ?></a>
+            <?php else: ?>
+                <a href="#" onclick="return common.goToPage(<?= $page; ?>);" class="pager__item pager__item_state_active"><?= $page; ?></a>
+            <?php endif; ?>
+        <?php endforeach; ?>
+        <?php if (isset($this->next)): ?>
+            <a href="#" onclick="return common.goToPage(<?=$this->next?>);" class="pager__item">&raquo;</a>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>

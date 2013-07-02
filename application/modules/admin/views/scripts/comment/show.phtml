@@ -1,0 +1,23 @@
+<?= $this->partial('blocks/menus/top.phtml'); ?>
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<table class="zebra edit">
+    <tr class="grey">
+        <td width="193" class="first">НикНейм:</td>
+        <td><p><?php echo $this->comment->getCommentNick();?></p></td>
+    </tr>
+    <tr class="">
+        <td width="193" class="first">Е-маил:</td>
+        <td><p><?php echo $this->comment->getCommentEmail();?></p></td>
+    </tr>
+    <tr class="grey">
+        <td width="193" class="first">Текст:</td>
+        <td>
+            <p><?php echo $this->comment->getCommentText();?></p>
+        </td>
+    </tr>
+    <tr class="">
+        <td width="193" class="first">Дата:</td>
+        <td><p><?php echo Application_Model_Kernel_Date_Manager::formatDate($this->comment->getCommentDate(), Application_Model_Kernel_Date_Manager::TYPE_USER_VIEW)?></p></td>
+    </tr>
+</table>

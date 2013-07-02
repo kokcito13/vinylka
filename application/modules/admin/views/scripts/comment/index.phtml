@@ -1,0 +1,42 @@
+<?=$this->partial('blocks/menus/top.phtml');?>
+<table class="zebra">
+    <thead> 
+        <tr> 
+            <td style="padding-left:10px;">
+                <?php if($this->type == Application_Model_Kernel_Comment::TYPE_PUBLIC): ?>
+                    <a style="font-weight:bold; color: blue; text-decoration: underline;" href="<?=$this->url(array(), 'admin-product-index');?>">Статьи</a>
+                <?php else: ?>
+                    <a style="font-weight:bold; color: blue; text-decoration: underline;" href="<?=$this->url(array(), 'admin-page-index');?>">Страницы</a>
+                <?php endif; ?>
+            </td> 
+            <td></td> 
+            <td></td>
+            <td></td> 
+            <td></td> 
+        </tr>
+    </thead>
+<?php if (count($this->comments)): ?>
+	<?php $class = ''; ?>
+	<tbody>
+	<? $i = 0; ?>
+	<? foreach ($this->comments as $item): 
+		$i++; ?>
+		  <? ($class === 'grey') ? $class = '' : $class='grey'; ?>
+        <tr id="<?=$item->getIdComment()?>" <?php if($item->getCommentStatus() == Application_Model_Kernel_Comment::STATUS_CREATE):?>style="background-color: yellow;" class="<?php else: ?> class=" <?=$class; ?> <?php endif; ?> id_<?=$item->getIdComment()?>">
+              <td style="padding-left:10px;">
+                  <a href="<?=$this->url(array('idComment' => $item->getIdComment(),'type'=>$this->type), 'admin-comment-show');?>" class="show" title="Просмотреть">
+					<?php echo $item->getCommentNick();?>
+				  </a>
+              </td>
+				<td></td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a href="javascript:changeStatus(<?=$item->getIdComment();?>,2);" class="delete" title="Удалить"><img src="/static/admin/images/icon_delete.gif" alt="" width="9" height="8" /></a>
+                </td>
+		  </tr>
+	<?php endforeach; ?>
+	</tbody>
+<?php endif; ?>
+  </table> 
+<input id="statusUrl" type="hidden" value="<?=$this->url(array(),'admin-comment-status')?>"/>

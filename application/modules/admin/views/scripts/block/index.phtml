@@ -1,0 +1,35 @@
+<?= $this->partial('blocks/menus/top.phtml'); ?>
+<table class="zebra"> 
+    <thead> 
+        <tr> 
+            <td width="10%">&nbsp;</td> 
+            <td width="80%">
+            </td>
+            <td width="5%">
+            </td> 
+            <td width="5%">&nbsp;</td> 
+        </tr>
+    </thead>
+    <?php if (count($this->blockList->data)): ?>
+        <?php $class = ''; ?>
+        <tbody>
+            <? $i = 0; ?>
+            <? foreach ($this->blockList->data as $item): ?>
+                <? $i++; ?>
+                <? ($class === 'grey') ? $class = '' : $class = 'grey'; ?>
+                <tr >
+                    <td>
+                        <a href="<?= $this->url(array('idBlock' => $item->getId()), 'admin-block-edit'); ?>" class="edit" title="Редактировать">
+                            <img src="/static/admin/images/edit.png" alt="Edit" width="16" height="16" />
+                        </a>
+                        &nbsp;
+                    </td> 
+                    <td><?= strip_tags( Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($item->getContent()->getId(), 'name')->getFieldText() )?></td> 
+                    <td></td>
+                    <td></td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    <?php endif; ?>
+</table> 
+<? //=$this->paginationControl($this->blockList->paginator, 'Sliding', 'blocks/paginator.phtml')?>

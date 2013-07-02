@@ -1,0 +1,105 @@
+<?= $this->partial('blocks/menus/top.phtml'); ?>
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<script src="/static/admin/js/fileuploader.js" type="text/javascript"></script>
+<link type="text/css" title="stylesheet" href="/static/admin/css/fileuploader.css" rel="stylesheet"/>
+<script>
+    function initUploaderWall(options,idPhoto){
+        
+        initComplete = function(id, fileName, responseJSON) {
+            var data = responseJSON;
+            
+            if (data.status == false) {
+               ShowPopUp('Can not upload image now');
+            } else {
+                $('#previewImage'+idPhoto).removeClass('hide').attr('href', decodeURIComponent((data.path + '').replace(/&amp;/g, '&')) + '&t=' + new Date().getTime());
+                $('#idPhoto'+idPhoto).val(data.idPhoto);
+            }
+        }
+
+        new qq.FileUploader({
+            element: document.getElementById(options.upload_button_id),
+            action: options.action, 
+            debug: true,
+            button_label: options.button_label,
+            onComplete: initComplete,
+            messages: options.messages,
+            showMessage: function(message) {
+                alert(message);
+            },
+            onProgress: function(id, fileName, loaded, total){
+                
+            }
+        }); 
+
+        return false;
+    }
+     $(document).ready(function(){
+        initUploaderWall({
+            'upload_button_id':'file_uploader1',
+            'action': '/admin/photo/upload/<?=$this->idPhoto1?>',
+            'button_label': 'Загрузить'
+        },1);
+    });
+</script>
+<?
+if( isset($this->photo1) )
+    $photoPath1 = trim($this->photo1->getPhotoPath());
+else 
+    $photoPath1 = '';
+?>
+<form action="<?= $this->url() ?>" method="post" id="PageForm">
+    <table  class="zebra edit">
+        <tr class="grey">
+            <td width="193" class="first">Картинка рекомендации:
+                <a href="<?if ($this->idPhoto1 === 0 || empty($photoPath1) ): ?>/static/admin/images/nobg.png<? else: echo Application_Model_Kernel_Photo::getById($this->idPhoto1)->getPath('210:130'); endif ?>" target="_blank" id="previewImage1" class="preview <? if ($this->idPhoto1 === 0 || empty($photoPath1) ): ?>hide<? endif ?>" title="">
+                    <img src="/static/admin/images/picture.png" alt="">
+                </a>
+            </td>
+            <td>
+                <div id="file_uploader1"></div>
+            </td>
+        </tr>
+    </table>
+    <div id="tabs">
+		<?php if (sizeof($this->langs) > 1): ?>
+			<ul>
+				<?php foreach ($this->langs as $lang): ?>
+					<li><a href="#<?=$lang->getIsoName()?>"><?=$lang->getFullName()?></a></li>
+				<?php endforeach ?>
+			</ul>
+		<?php endif ?>
+		<?php foreach ($this->langs as $lang): ?>
+			<div id="<?=$lang->getIsoName()?>"> 
+				<table class="zebra edit">
+					<tr class="">
+						<td width="193" class="first">Название:</td>
+						<td><input name="content[<?=$lang->getId()?>][contentName]" type="text" class="field" value="<?=(isset($_POST['content'][$lang->getId()]['contentName'])) ? htmlspecialchars( $_POST['content'][$lang->getId()]['contentName']) : ''?>" /></td>
+					</tr>
+                    <tr class="grey">
+						<td width="193" class="first">Url:</td>
+						<td><input name="content[<?=$lang->getId()?>][url]" type="text" class="field" value="<?=(isset($_POST['content'][$lang->getId()]['url'])) ? htmlspecialchars( $_POST['content'][$lang->getId()]['url']) : ''?>" /></td>
+					</tr>
+					<tr class="">
+						<td width="193" class="first">Текст:</td>
+						<td>
+							<textarea  id="textareas_<?=$lang->getIsoName()?>" rows='10' class='content' cols='40' name="content[<?=$lang->getId()?>][content]" tabindex='2' ><?=(isset($_POST['content'][$lang->getId()]['content'])) ? $_POST['content'][$lang->getId()]['content'] : ''?></textarea>
+						</td>
+					</tr>
+				</table>
+			</div> 
+		<?php endforeach ?>
+	</div>
+    <table class="zebra edit">
+        <tr class="">
+            <td colspan="2">
+                <div class="m10 centerButton">
+                    <input id="idPhoto1" type="hidden" name="idPhoto1" value="<?=$this->idPhoto1?>" />
+                    <a href="javascript:SubmitPageFrom();" class="button_blue">Сохранить</a> 
+                    <a href="<?=$this->url(array(),'admin-product-index') ?>" class="button_grey">Отменить</a> 
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>
+<input id="uploadUrl" type="hidden" value="<?=$this->url(array(),'admin-photo-upload')?>"/>

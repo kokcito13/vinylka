@@ -1,0 +1,30 @@
+<?php  $this->headScript()->captureStart(); ?>
+var ClearCache = function(type) {
+	$('.PopUpBg').removeClass('hide');
+	$.ajax({
+		url: "<?=$this->url(array(),'admin-clear')?>",
+		type: "POST",
+		data: 'type='+type,
+		success: function(result) {
+			$('.PopUpBg').remove();
+			ShowPopUp(result);
+		}
+	});
+}
+
+var ShowPhpinfo = function() {
+	window.location.href="<?=$this->url(array(),'admin-phpinfo')?>";
+}
+<?php $this->headScript()->captureEnd(); ?>
+<div class="top_head">
+	<div class="text"><?=$this->title;?></div>
+</div>
+<?=$this->ShowMessage('Подождите пожалуйста. Идет обработка.',false);?>
+<ul id="settingsList">
+	<li><a href="javascript:ClearCache('route');">Очистить кэш</a></li>
+	<li><a href="javascript:ClearCache('image');">Очистить кэш картинок</a></li>
+	<? /*
+		?><li><a href="javascript:ClearCache('photo');">Удалить не используемые фотографии</a></li><? 
+		*/
+	?><li><a href="javascript:ShowPhpinfo();">Показать phpinfo</a></li>
+</ul>

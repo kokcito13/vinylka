@@ -1,0 +1,34 @@
+<?php  $this->headScript()->captureStart(); ?>
+function checkKey(ev){
+	if(ev.keyCode == 13){
+		$('#LoginForm').submit();
+	}
+}
+
+$(document).ready(function(){
+	$('#Login').click(function(){//login from submit
+		$('#LoginForm').submit();
+	});
+});
+<?php $this->headScript()->captureEnd(); ?>
+<div id="login">
+		<form action="<?= $this->url(array(),'admin-login'); ?>" method="post" id="LoginForm">
+		
+		<table class="zebra edit"> 
+			<tr class=""> 
+		    	<td width="80" class="first" style="text-align: right;">Логин</td> 
+		        <td width="180"><input type="text" class="field" id="admin_login" onkeypress="checkKey(event);" name="login"/></td> 
+			</tr>		
+			<tr class=""> 
+		    	<td width="80" class="first">Пароль</td> 
+		        <td width="180"><input type="password" class="field" onkeypress="checkKey(event);"  id="admin_passwd" name="password"/></td> 
+			</tr>
+			<tr class=""> 
+				<td colspan="2">
+						<a href="javascript: void(0)" id="Login" type="submit" class="button_blue">Войти</a> 
+				</td>
+			</tr>
+		</table>
+		
+		</form>
+</div>

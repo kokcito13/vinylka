@@ -1,0 +1,48 @@
+<?=$this->partial('blocks/menus/top.phtml');?>
+<form action="<?=$this->url()?>" method="post" id="PageForm"> 
+	<table class="zebra edit">
+		<tr class="">
+			<td width="193" class="first">Название блока:</td>
+			<td>
+				<input name="blockName" type="text" class="field" value="<?=(isset($_POST['blockName'])) ? $_POST['blockName'] : ''?>" />
+			</td>
+		</tr>
+	</table>
+	<div id="tabs">
+		<?php if (sizeof($this->langs) > 1): ?>
+			<ul>
+				<?php foreach ($this->langs as $lang): ?>
+					<li><a href="#<?=$lang->getIsoName()?>"><?=$lang->getFullName()?></a></li>
+				<?php endforeach ?>
+			</ul>
+		<?php endif ?>
+		<?php foreach ($this->langs as $lang): ?>
+			<div id="<?=$lang->getIsoName()?>"> 
+				<table class="zebra edit">
+                    <tr class="grey">
+						<td width="193" class="first">Название:</td>
+						<td>
+                            <input name="content[<?=$lang->getId()?>][name]" type="text" class="field" value="<?=(isset($_POST['content'][$lang->getId()]['name'])) ? htmlspecialchars( $_POST['content'][$lang->getId()]['name']) : ''?>" />
+                        </td>
+					</tr>
+					<tr class="">
+						<td width="193" class="first">Текст:</td>
+						<td>
+                            <textarea id="textareas_<?=$lang->getIsoName()?>" rows='10' class='content' cols='10' name="content[<?=$lang->getId()?>][contentName]" tabindex='2' ><?=(isset($_POST['content'][$lang->getId()]['contentName'])) ? $_POST['content'][$lang->getId()]['contentName'] : ''?></textarea>
+                        </td>
+					</tr>
+				</table>
+			</div> 
+		<?php endforeach ?>
+	</div>
+	<table>
+		<tr class="grey">
+			<td colspan="2">
+				<div class="m10 centerButton">
+	               	<a href="javascript:SubmitPageFrom();" class="button_blue">Сохранить</a> 
+	                <a href="<?=$this->url(array(),'admin-block-index')?>" class="button_grey">Отменить</a> 
+	            </div>
+			</td>
+		</tr>
+	</table>
+</form>

@@ -1,0 +1,15 @@
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<section>
+    <header>
+        <h4 class="orange-flower"><?=$this->contentPage['contentName']->getFieldText()?></h4>
+    </header>
+    <article class="post">
+        <?=$this->contentPage['content']->getFieldText()?>
+        <div id="map_canvas"></div>
+        <?php $points = explode(',', strip_tags($this->blocks['contact_point']['contentName']->getFieldText()));?>
+        <input type="hidden" value="<?php echo $points[0]?>" id="lat_point"/>
+        <input type="hidden" value="<?php echo $points[1]?>" id="lng_point"/>
+        <input type="hidden" value="<?php echo htmlspecialchars($this->blocks['text_point']['contentName']->getFieldText())?>" id="text_point"/>
+    </article>
+</section>

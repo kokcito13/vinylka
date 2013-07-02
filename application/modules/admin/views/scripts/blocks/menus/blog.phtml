@@ -1,0 +1,42 @@
+<?php $view = $this->Layout()->getView();?>
+<div class="top_head">
+	<?php if ($view->back) :?>
+		<div class="back">
+			<a href="javascript:history.back(1);"><img src="/static/admin/images/icon_back.gif" alt="Назад" title="Назад" width="16" height="14"> Назад</a>
+		</div>
+	<?php endif; ?>
+	
+	<div class="text">
+		<?php
+			$last = sizeof($view->breadcrumbs);
+			$i = 0;
+			foreach ($view->breadcrumbs as $name => $url):
+				$i++;
+				if ($i === $last):
+					echo $name;
+				else:
+					?><a href="<?=$url?>"><?=$name?></a> =&gt; <?
+				endif;
+				
+			endforeach; 
+		?>
+	</div>
+</div>
+<div class="top_links"> 
+	<?php if ($view->add) : ?>
+		<a href="<?=$this->url(array('page' => $view->page),'admin-blog-add')?>" class="add">
+			<img src="/static/admin/images/icon_add.gif" alt="Добавить новую запиcь в блог" width="16" height="14">
+			<span>Добавить запись</span>
+		</a>
+		<span class="sep"></span>
+	<?php endif; ?>
+	<?php if ($view->tag): ?>
+	<a class="add" href="<?=$this->url(array(
+		'type' => Application_Model_Kernel_Tag::TYPE_BLOG
+	), 'admin-tag')?>">
+		<img width="16" height="16" alt="Теги для блога" src="/static/admin/images/tag.gif">
+		<span>Теги для блога</span>
+	</a>
+	<?php endif; ?>
+	<div class="clear"></div> 
+</div>

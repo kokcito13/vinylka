@@ -1,0 +1,39 @@
+<div class="top_head"> 
+    <div class="text">Пользователи</div> 
+</div> 
+<div class="top_links"> 
+    <a href="<?= $this->url(array(), 'admin-users-add') ?>" class="add"><img src="/static/admin/images/icon_add.gif" alt="" width="16" height="14" /><span>Добавить</span></a> 
+    <span class="sep"></span>       
+    <div class="clear"></div> 
+</div> 
+<table class="zebra"> 
+    <thead> 
+        <tr> 
+            <td width="54">&nbsp;</td> 
+            <td width="112"><a >Логин</a></td> 
+            <td><a>Полное имя </a></td> 
+            <td><a>E-mail </a></td> 
+            <td><a></a></td> 
+            <td><a>Статус </a></td> 
+            <td></td>
+            <td colspan="2" width="29">&nbsp;</td> 
+        </tr> 
+    </thead>
+    <tbody>
+        <?php foreach ($this->paginator as $item): ?>
+            <tr>
+                <td></td>
+                <td><?=$item->login ?></td>
+                <td><?=$item->fullName ?></td>
+                <td><?=$item->email ?></td>
+                <td></td>
+                <td><?=$item->status; ?></td>
+                <td><a href="<?= $this->url(array('id' => $item->id), 'admin-users-edit') ?>">редактировать</a></td>
+                <td><a href="<?= $this->url(array('id' => $item->id), 'admin-users-delet')?>" onclick="if(!confirm('Вы уверены что хотите удалить пользователя?')) return false;">удалить</a></td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
+<?php if ($this->paginator->getPages()->pageCount > 1): ?>
+    <?= $this->paginationControl($this->paginator, 'Elastic', 'blocks/paginator.phtml'); ?>
+<?php endif; ?>

@@ -1,0 +1,24 @@
+<section class="related-block">
+    <h2 class="top-title"><span>Популярные темы</span></h2>
+    <div class="mask">
+        <ul class="video-gallery">
+            <li>
+                <?php foreach( $this->sortList as $key=>$value ):?>
+                    <?php foreach( $this->category as $category ): ?>
+                        <?php if( $key == $category->getId() ):?>
+
+                                <figure class="box">
+                                    <figcaption>
+                                        <a href="<?php echo $this->url(array('sort'=>0,'pageNum'=>1,'idCategory'=>$category->getid()),'public-page-16')?>"><?=Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($category->getContent()->getId(), 'contentName')->getFieldText()?></a>
+                                        <span class="dotted"></span>
+                                        <span class="count"><?php echo $value;?></span>
+                                    </figcaption>
+                                </figure>
+
+                        <?php endif;?>
+                    <?php endforeach; ?>
+                <?php endforeach;?>
+            </li>
+        </ul>
+    </div>
+</section>

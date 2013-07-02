@@ -1,0 +1,53 @@
+<?=$this->doctype()?>	
+<html>
+	<head>
+		<?=$this->headMeta(); ?>	
+		<?=$this->headTitle(); ?>
+		<link href="/static/admin/css/base.css.php" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="/static/admin/js/jquery-1.5.2.min.js"></script>
+		<script type="text/javascript" src="/static/admin/js/imgpreview.min.0.22.jquery.js"></script>
+		<script type="text/javascript" src="/static/admin/js/jquery-ui-1.8.10.custom.min.js"></script> 
+		<script type="text/javascript" src="/static/admin/js/jquery.upload-1.0.2.js"></script>
+		<script type="text/javascript" src="/static/admin/js/jquery.stylish-select.js"></script> 
+		<script type="text/javascript" src="/static/admin/js/jquery.alphanumeric.pack.js"></script> 
+		<script type="text/javascript" src="/static/admin/js/jquery.cook.js"></script> 
+		<script type="text/javascript" src="/static/admin/js/jquery.filestyle.mini.js"></script>
+		<script type="text/javascript" src="/static/admin/js/tooltip.js"></script>
+		<script type="text/javascript" src="/static/admin/js/common.js"></script>
+		<script type="text/javascript" src="/static/admin/js/ui.multiselect.js"></script> 
+		<?=$this->headLink()?>
+		<?=$this->headStyle()?>	
+		<?=$this->headScript()?>	
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$('select').not('.multiselect').sSelect({ddMaxHeight: '400px'});
+			});
+		</script>
+	</head>
+	<body>
+	<div id="wrapper">
+		<h1>Админка работает</h1>
+		<? if (isset($this->blocks->menu) && $this->blocks->menu): ?>
+			<div class="closeMenu"><a href="javascript:statusMenu();"><?
+			if ($_COOKIE['menu']) :
+				?>Показать меню &gt;&gt;<?
+			else:
+				?>&lt;&lt; Скрыть меню<?
+			endif;
+				?></a></div>
+	    <? endif; ?>
+	    <div id="content">
+			<? if (isset($this->blocks->menu) && $this->blocks->menu): ?>
+				<?= $this->partial('blocks/menu.phtml')?>
+			<? endif ?>
+	        <div id="text">
+				<?=$this->layout()->content?>
+	        </div>
+	        <div class="clear"></div>
+	    </div>
+	</div><?php 
+	if (isset($this->tinymce)) :
+		echo $this->partial('blocks/tinymce.phtml');
+	endif; 
+	?></body>
+</html>

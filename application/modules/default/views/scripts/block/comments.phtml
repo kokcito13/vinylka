@@ -1,0 +1,47 @@
+<section style="display: <?php if( count($this->comments) > 0 ):?>block<?php else: ?>none<?php endif; ?>" id="block_comment_more">
+    <h3 class="top-title">
+        <span><?php if($this->type==Application_Model_Kernel_Comment::TYPE_PUBLIC):?>Комментарии<?php else:?>ЗАПИСИ ПОСЕТИТЕЛЕЙ<?php endif;?></span>
+    </h3>
+    <?php $i = 0; ?>
+    <?php foreach( $this->comments as $comment ):?>
+        <? if( $comment->getParentIdComment() == 0 ): ?>
+            <article class="comment<?php if($i == 0):?> first<?php endif; ?>">
+                <h4><?php echo $comment->getCommentNick();?></h4>
+                <p><?php echo $comment->getCommentText();?></p>
+                <footer>
+                    <time datetime="<?php echo date('Y-m-d', $comment->getCommentDate());?>"><?php echo Application_Model_Kernel_Date_Manager::formatDate($comment->getCommentDate(), Application_Model_Kernel_Date_Manager::TYPE_USER_VIEW)?></time>
+                    <a href="#" onclick="return getAnswerForm(<?php echo $this->id.', '.$this->type.', '.$comment->getIdComment()?>)">Ответить</a>
+                </footer>
+            </article>
+            <?php $i++; ?>
+            <div id="sub_comment_form_<?php echo $comment->getIdComment();?>"></div>
+            <?php echo $this->ShowCommentItem($comment->getIdComment(), $this->comments);?>
+            <div id="sub_comment_<?php echo $comment->getIdComment();?>"></div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    <div id="top_comment"></div>
+</section>
+
+<section id="comment_post_form">
+    <h3 class="top-title">
+        <span><?php if($this->type==Application_Model_Kernel_Comment::TYPE_PUBLIC):?>Добавить новый комментарий<?php else:?>НАПИСАТЬ В ГОСТЕВУЮ КНИГУ<?php endif;?></span>
+    </h3>
+    <form id="add-comment-form_<?php echo $this->id?>" action="" method="post">
+        <p>
+            <label id="name-label" for="name">Ваше имя и фамилия</label>
+            <input id="name" type="text" name="name" value="" />
+        </p>
+        <p>
+            <label id="email-label" for="email">Электронная почта</label>
+            <input id="email" type="text" name="email" value="" />
+        </p>
+        <p>
+            <label id="message-label" for="message">Сообщение</label>
+            <textarea id="message" name="message"></textarea>
+        </p>
+        <input type="hidden" value="0" id="parent_id" name="parentId"/>
+        <p>
+            <button type="button" id="answer" onclick="addComment(<?php echo $this->id.', '.$this->type?>)">Добавить</button>
+        </p>
+    </form>
+</section>

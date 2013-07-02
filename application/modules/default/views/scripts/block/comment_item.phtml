@@ -1,0 +1,9 @@
+<?php foreach ( $this->parentComments as $comment ):?>
+    <article class="comment answer ml-25">
+        <h4><?php echo $comment->getCommentNick();?></h4>
+        <p><?php echo $comment->getCommentText();?></p>
+        <footer>
+            <time datetime="<?php echo date('Y-m-d', $comment->getCommentDate());?>"><?php echo Application_Model_Kernel_Date_Manager::formatDate($comment->getCommentDate(), Application_Model_Kernel_Date_Manager::TYPE_USER_VIEW)?></time>
+        </footer>
+    </article>
+<?php endforeach; ?>

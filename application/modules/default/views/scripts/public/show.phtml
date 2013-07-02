@@ -1,0 +1,187 @@
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<div class="tovar line">
+    <div class="tovar__gallery line">
+        <div class="tovar__head box">
+            <a class="cloud-zoom" href="/static/default/upload/images/<?=$this->product->getPhoto1()->getPhotoPath()?>" id='zoom1' rel="position: 'right', adjustX: 10, adjustY: 0">
+                <img src="<?=$this->product->getPhoto1()->getPath('400', true)?>" style="max-width: 400px; max-height: 400px;" alt="Фото <?php echo $this->contentPage['contentName']->getFieldText();?>" />
+            </a>
+        </div>
+        <!--        <ul class="tovar__body">-->
+        <!--            <li class="tovar__item tovar__item_type_active box">-->
+        <!--                <a class="cloud-zoom-gallery" href="img/tovar-verybig.jpg" title='' rel="useZoom: 'zoom1', smallImage: 'img/tovar-big.jpg'">-->
+        <!--                    <img src="img/tovar-small.jpg" height="92" width="92" alt="" />-->
+        <!--                </a>-->
+        <!--            </li>-->
+        <!--            <li class="tovar__item tovar__item_type_active box">-->
+        <!--                <a class="cloud-zoom-gallery" href="img/tovar-verybig.jpg" title='' rel="useZoom: 'zoom1', smallImage: 'img/tovar-big.jpg'">-->
+        <!--                    <img src="img/tovar-small.jpg" height="92" width="92" alt="" />-->
+        <!--                </a>-->
+        <!--            </li>-->
+        <!--            <li class="tovar__item tovar__item_type_active box">-->
+        <!--                <a class="cloud-zoom-gallery" href="img/tovar-verybig.jpg" title='' rel="useZoom: 'zoom1', smallImage: 'img/tovar-big.jpg'">-->
+        <!--                    <img src="img/tovar-small.jpg" height="92" width="92" alt="" />-->
+        <!--                </a>-->
+        <!--            </li>-->
+        <!--        </ul>-->
+    </div>
+
+    <div class="tovar__data">
+        <div class="tovar__ttl"><?php echo $this->contentPage['contentName']->getFieldText();?></div>
+
+        <div class="tovar__desc">
+            <span class="tovar__price"><span class="tovar__num"><?=$this->product->getUserPrice()?></span> грн</span>
+            <span class="tovar__order">Заказ по телефону <br /><strong>(093) 460-59-33</strong></span>
+        </div>
+
+        <div class="tovar__buy">
+            <a href="#" class="btn btn_type_buy" onclick="return common.showPopup(<?=$this->product->getIdProduct()?>);"><span class="btn__case">Заказать</span></a>
+            <span class="tovar__buy-order">
+                <strong>
+                    <? foreach ($this->product->getStatuses() as $k=>$v): ?>
+                        <? if ($k==$this->product->getProductStatus()): ?><?=$v?><? endif; ?>
+                    <? endforeach; ?>
+                </strong>
+            </span>
+        </div>
+        <div class="b-txt g-clear">
+            <div class="b-txt__sub-ttl">Подходит к:</div>
+            <ol style="list-style-type: disc; padding-bottom: 15px;">
+                <?php foreach( $this->categories as $category ):?>
+                    <?php foreach( $this->product->getListTypesByIdProduct() as $v ): ?>
+                        <?php if( $v->idCategorie == $category->getId() ): ?>
+                            <? $categoryContent = $category->getContent()->getFields();?>
+                            <li><?=$categoryContent['contentName']->getFieldText();?></li>
+                        <?php break; endif; ?>
+                    <?php endforeach; ?>
+                <?php endforeach; ?>
+            </ol>
+            <div class="b-txt__sub-ttl">Описание товара</div>
+            <?=$this->contentPage['content']->getFieldText();?>
+        </div>
+    </div>
+    <? if(count($this->publicList->data) > 0): ?>
+        <div class="tovar__extra g-clear"  style="border-bottom: 1px solid #e8e8e1; margin-bottom: 15px">
+            <div class="tovar__sub-ttl">Посмотрите другие наклейки нашего магазина</div>
+            <div class="tov line">
+                <?php foreach($this->publicList->data as $public): ?>
+                    <?php $publicContent = $public->getContent()->getFields();
+                    $publicContentText = strip_tags($publicContent['content']->getFieldText()); ?>
+                    <div class="tov__item">
+                        <a href="<?php echo $public->getRoute()->getUrl();?>" class="tov__img box">
+                            <img src="<?php echo $public->getPhoto1()->getPath(178, true)?>" style="max-height: 200px; max-width: 180px;" alt="<?php echo $publicContent['contentName']->getFieldText();?>" />
+                        </a>
+                        <a href="<?php echo $public->getRoute()->getUrl();?>" class="tov__name"><?php echo $publicContent['contentName']->getFieldText();?></a>
+                        <span class="tov__price"><span class="tov__num"><?=$public->getUserPrice()?></span> грн</span>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        </div>
+    <? endif; ?>
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'vinylkacomua'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+<!--    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>-->
+<!--    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>-->
+
+</div>
+<script src="/static/default/js/cloud-zoom.1.0.2.min.js"></script>
+<div class="b-popup-i" style="display:none; z-index: 999999">
+    <div class="b-popup" style="width:652px; margin-left:-374px; top:14%;">
+        <!-- в стилях прописан top, это значение по умолчанию, при необходимости можно менять -->
+        <i class="ico ico_type_cover-close"></i>
+        <div class="form line">
+            <form id="order_form" action="<?=$this->url(array('idProduct'=>$this->product->getIdProduct()), 'default-ajax-set_order')?>">
+                <div class="form__ttl">Оформление нового заказа</div>
+                <div class="form__left">
+                    <div class="form__field line">
+                        <div class="b-input-i">
+                            <input type="text" class="b-input" value="" />
+                            <label class="b-label">Ваше имя и фамилия</label>
+                        </div>
+                    </div>
+                    <div class="form__field line">
+                        <div class="b-input-i">
+                            <input type="text" class="b-input" value="" />
+                            <label class="b-label">Номер мобильного телефона</label>
+                        </div>
+                        <div class="form__example">Например: +380501234567</div>
+                    </div>
+                    <div class="form__field line">
+                        <ul class="form__list">
+                            <? foreach ($this->product->getDeliveryTypes() as $k=>$v): ?>
+                                <li class="form__list-item">
+                                    <input type="radio" class="b-check" name="delivery" value="<?=$k?>" <? if (!$k): ?>checked="checked"<? endif; ?>/>
+                                    <label><?=$v?></label>
+                                </li>
+                            <? endforeach; ?>
+                        </ul>
+                    </div>
+                    <div class="form__field line">
+                        <div class="b-input-i">
+                            <textarea type="text" class="b-ta" value=""></textarea>
+                            <label class="b-label">Примечание к заказу</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form__right">
+                    <div class="form__add">Информация по товару</div>
+                    <div class="form__field line">
+                        <div class="b-input-i">
+                            <p><b>Навание:</b> <?=$this->contentPage['contentName']->getFieldText();?></p>
+                        </div>
+                    </div>
+                    <div class="form__field line">
+                        <div class="b-input-i">
+                            <p><b>Подходить к:</b></p>
+                            <ol style="list-style-type: disc; margin-left: 20px;">
+                                <?php foreach( $this->categories as $category ):?>
+                                    <?php foreach( $this->product->getListTypesByIdProduct() as $v ): ?>
+                                        <?php if( $v->idCategorie == $category->getId() ): ?>
+                                            <? $categoryContent = $category->getContent()->getFields();?>
+                                            <li><?=$categoryContent['contentName']->getFieldText();?></li>
+                                            <?php break; endif; ?>
+                                    <?php endforeach; ?>
+                                <?php endforeach; ?>
+                            </ol>
+                        </div>
+                    </div>
+                    <div class="form__field line">
+                        <div class="b-input-i">
+                            <p><b>Цена:</b> <?=$this->product->getUserPrice();?> грн.</p>
+                        </div>
+                    </div>
+                    <div class="form__field line">
+                        <div class="b-input-i">
+                            <p><b>Тип заказа: </b>
+                                <? foreach ($this->product->getStatuses() as $k=>$v): ?>
+                                    <? if ($k==$this->product->getProductStatus()): ?><?=$v?><? endif; ?>
+                                <? endforeach; ?>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="b-submit g-clear">
+                    <a href="#" class="btn btn_type_buy" onclick="return common.submitOrderForm()"><span class="btn__case">Отправить заказ</span></a>
+                    <a href="#" class="b-submit__cansel">Отменить</a>
+                </div>
+            </form>
+        </div>
+        <div id="senks_message" style="display:none;">
+            <!-- Когда сообщение отправлено (br можно убрать) --> <br /><br />
+            <div class="form__ttl">Спасибо, Ваш заказ принят</div>
+            <div class="form__sub-ttl">В ближайшее время с Вами свяжется менеджер</div>
+        </div>
+    </div>
+    <div class="b-popup__bg"></div>
+</div>

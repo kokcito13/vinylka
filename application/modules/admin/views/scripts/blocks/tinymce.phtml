@@ -1,0 +1,16 @@
+<script type="text/javascript" src="/static/admin/js/ckeditor/ckeditor.js"></script>
+<script type="text/javascript">
+$(function(){
+<?php foreach (Kernel_Language::getAll() as $lang): ?>
+        CKEDITOR.replace( 'textareas_<?=$lang->getIsoName()?>', {
+            height:"500",
+        filebrowserBrowseUrl : '/static/admin/js/ckfinder/ckfinder.html',
+        filebrowserImageBrowseUrl : '/static/admin/js/ckfinder/ckfinder.html?Type=Images',
+        filebrowserFlashBrowseUrl : '/static/admin/js/ckfinder/ckfinder.html?Type=Flash',
+        filebrowserUploadUrl : '/static/admin/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
+        filebrowserImageUploadUrl : '/static/admin/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
+        filebrowserFlashUploadUrl : '/static/admin/js/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
+                                });
+    <?php endforeach; ?>                            
+    });
+</script> 

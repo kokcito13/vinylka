@@ -1,0 +1,94 @@
+<?=$this->partial('blocks/menus/top.phtml');?>
+<script type="text/javascript" src="/static/admin/js/jquery.tablednd_0_5.js"></script>
+<script>
+//    $(document).ready(function() {
+//        
+//        
+//        $("#projectsTable").tableDnD({
+//            
+//            onDragClass: "DuringDragStyle", // при перетаскивании строка получит "красивости" класса DuringDragStyle
+//            onDrop: function(table, row) {
+////                alert($('#projectsTable').tableDnDSerialize());
+//                var rows = table.tBodies[0].rows;
+//                var debugStr = "{";
+//                for (var i=0; i<rows.length; i++) {
+//                    debugStr += '\"'+$('#'+rows[i].id).attr('rel')+'\":\"'+rows[i].id+"\",";
+//                }
+//                debugStr += '\"0\":\"0\"}'
+//                
+//                $.ajax({
+//                    type: "POST",
+//                    url: '/admin/page/position',
+//                    data: {"ar":debugStr},
+//                    success: function(result) {
+////                        alert(result);
+//                    }
+//                });
+//                
+//                
+//	    }
+//        });
+//        
+//    });
+
+function chengeTopPic(id){
+    $.ajax({
+        type: "POST",
+        url: '/galleryowner/topPic',
+        data: {"id":id},
+        success: function(result) {
+//            alert(result);
+        }
+    });
+    
+}
+
+</script>
+<table class="zebra"> 
+	<thead> 
+    	<tr> 
+        	<td width="10%">&nbsp;</td> 
+			<td width="60%"></td>
+            <td width="5%" style="padding-right:10px;">Просмотров</td> 
+            <td width="5%" style="padding-right:10px;">Добавлена</td> 
+			<td width="5%">Картина недели</td> 
+            <td width="5%"></td> 
+			<td width="5%">&nbsp;</td>  
+		</tr>
+	</thead>
+<?php if (count($this->galleryPhotos)): ?>
+	<?php $class = ''; ?>
+	<tbody>
+	<? $i = 0; ?>
+	<? foreach ($this->galleryPhotos as $item): ?>
+		<? $i++; ?>
+			  <? ($class === 'grey') ? $class = '' : $class='grey'; ?>
+			  <tr rel="<?=$item->getId()?>" class="<?=$class; ?> id_<?=$item->getId()?>">
+			  		<td>
+			  			<a href="<?=$this->url(array('idGalleryowner'=>$item->getId()), 'admin-galleryowner-photo-edit');?>" class="edit" title="Редактировать">
+			  				<img src="/static/admin/images/edit.png" alt="Edit" width="16" height="16" />
+			  			</a>
+			  			&nbsp;
+					</td> 
+			        <td><?=Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($item->getContent()->getId(), 'contentName')->getFieldText()?></td> 
+			        <?php $StatusTitle = (!$item->getStatus()) ? 'Показать' : 'Скрыть'; ?>
+                    <td style="padding-right:10px;"><?php echo $item->getGalleryOwnerView();?></td>
+                    <td style="padding-right:10px;"><?php echo date('d.m.Y',$item->getGalleryOwnerDate());?></td>
+                    <td>
+                        <input type="checkbox" value="<?=$item->getGalleryOwnerWeek()?>" <?php if($item->getGalleryOwnerWeek() == Application_Model_Kernel_Galleryowner::STATUS_SHOW):?>checked="checked"<?php endif;?> onclick="chengeTopPic(<?php echo $item->getId()?>)"/>
+                    </td>
+			        <td>
+                        <a href="javascript:changeStatus(<?=$item->getId()?>,1);" class="<?=$item->getStatus();?>" title="<?=$StatusTitle;?>">
+                            <img class="page_status_<?=$item->getId()?>" src="/static/admin/images/show_<?=$item->getStatus();?>.png" alt="" width="15" height="15">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="javascript:changeStatus(<?=$item->getId();?>,2);" class="delete" title="Удалить"><img src="/static/admin/images/icon_delete.gif" alt="" width="9" height="8" /></a>
+                    </td>
+			  </tr>
+	<?php endforeach; ?>
+	</tbody>
+<?php endif; ?>
+  </table> 
+<?//=$this->paginationControl($this->newsList->paginator, 'Sliding', 'blocks/paginator.phtml')?>
+<input id="statusUrl" type="hidden" value="<?=$this->url(array(),'admin-galleryowner-status')?>"/>

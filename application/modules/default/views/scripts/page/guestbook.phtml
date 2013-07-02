@@ -1,0 +1,18 @@
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<section>
+    <div class="col-680">
+        <section>
+            <header>
+                <h4 class="orange-flower"><?php echo $this->contentPage['contentName']->getFieldText()?></h4>
+            </header>
+            <?php echo $this->contentPage['content']->getFieldText()?>
+	<br/><a href="http://plus.google.com/118393108679325493018/about" title="Google+" class="gp" rel="me">Мой профиль в Google+</a>
+        </section>
+        <?php echo $this->ShowComments( $this->idPage, Application_Model_Kernel_Comment::TYPE_PAGE );?>
+    </div>
+    <div class="col-240 last">
+        <?php echo $this->ShowCategorys();?>
+        <?php echo $this->ShowRecomend();?>
+    </div>
+</section>

@@ -1,0 +1,153 @@
+<?=$this->partial('blocks/menus/top.phtml');?>
+<script type="text/javascript" src="/static/admin/js/jquery.tablednd_0_5.js"></script>
+<script>
+    $(document).ready(function() {
+        
+        
+        $("#projectsTable").tableDnD({
+            
+            onDragClass: "DuringDragStyle", // при перетаскивании строка получит "красивости" класса DuringDragStyle
+            onDrop: function(table, row) {
+//                alert($('#projectsTable').tableDnDSerialize());
+                var rows = table.tBodies[0].rows;
+                var debugStr = "{";
+                for (var i=0; i<rows.length; i++) {
+                    debugStr += '\"'+rows[i].id+'\":\"'+$('#'+rows[i].id).attr('rel')+"\",";
+                }
+                debugStr += '\"0\":\"0\"}'
+                
+                $.ajax({
+                    type: "POST",
+                    url: '/admin/aphorism/position',
+                    data: {"ar":debugStr},
+                    success: function(result) {
+                        if( result == 1 ){
+                           // alert('Проект удачно перемещен');
+                        } else {
+                            alert('Не удалось переместить проект');
+                        }
+//                        alert(result);
+                    }
+                });
+                
+                
+	    }
+        });
+        
+    });
+    
+function chengeStatusProject(id, status){
+    $.ajax({
+        type: "POST",
+        url: '/admin/product/status',
+        data: {
+            "idProduct":id,
+            "status":status
+        },
+        success: function(result) {
+//            alert(result);
+        }
+    });
+    
+}
+
+function chengeStatusProjectMain(id, status){
+    $.ajax({
+        type: "POST",
+        url: '/admin/product/main',
+        data: {
+            "idProduct":id,
+            "statusMain":status
+        },
+        success: function(result) {
+//            alert(result);
+        }
+    });
+    
+}
+
+function changePositionPage(id){
+    $.ajax({
+        type: "POST",
+        url: '/admin/pagetrue/position',
+        data: {"id":id,"val":$('#id_page_'+id).val()},
+        success: function(result) {
+            if( result == 1 ){
+               // alert('Проект удачно перемещен');
+            } else {
+               // alert('Не удалось переместить проект');
+            }
+//                        alert(result);
+        }
+    });
+    return false;
+}
+
+function changePositionProject(id){
+    $.ajax({
+        type: "POST",
+        url: '/admin/product/position',
+        data: {"id":id,"val":$('#id_page_'+id).val()},
+        success: function(result) {
+            if( result == 1 ){
+               // alert('Проект удачно перемещен');
+            } else {
+               // alert('Не удалось переместить проект');
+            }
+//                        alert(result);
+        }
+    });
+    return false;
+}
+
+</script>
+<style>
+    .activeLink{
+        border: 1px darkcyan dashed;
+        padding: 3px;
+        font-weight: bold;
+    }
+</style>
+<table class="zebra" id="projectsTable"> 
+    <thead> 
+        <tr> 
+            <td style="width: 5%;"></td> 
+            <td></td> 
+            <td></td>
+            <td></td> 
+            <td></td> 
+        </tr>
+    </thead>
+<?php 
+if (count($this->recommends)): ?>
+	<?php $class = ''; ?>
+	<tbody>
+	<? $i = 0; ?>
+	<? foreach ($this->recommends as $item): 
+		$i++; ?>
+		  <? ($class === 'grey') ? $class = '' : $class='grey'; ?>
+		  <tr  id="<?=$item->getId()?>" class="<?=$class; ?> id_<?=$item->getId()?>" rel="<?=$item->getPosition()?>">
+              <td>
+                  <a href="<?=$this->url(array('idRecommend' => $item->getId()), 'admin-recommend-edit');?>" class="edit" title="Редактировать">
+					<img src="/static/admin/images/edit.png" alt="Edit" width="16" height="16" />
+				</a>
+              </td>
+				<td style="padding-left:10px;">
+                    <?=Application_Model_Kernel_Content_Fields::getFieldByIdContentAndNameField($item->getContent()->getId(), 'contentName')->getFieldText()?>
+                </td>
+                <?php $StatusTitle = (!$item->getStatus()) ? 'Показать' : 'Скрыть'; ?>
+                <td style="text-align: right;">
+                    <a href="javascript:changeStatus(<?=$item->getId()?>,1);" class="<?=$item->getStatus();?>" title="<?=$StatusTitle;?>">
+                        <img class="page_status_<?=$item->getId()?>" src="/static/admin/images/show_<?=$item->getStatus();?>.png" alt="" width="15" height="15">
+                    </a>
+                </td>
+                <td style="text-align: right;"></td>
+                <td style="text-align: left;">
+                    <a href="javascript:changeStatus(<?=$item->getId();?>,2);" class="delete" title="Удалить"><img src="/static/admin/images/icon_delete.gif" alt="" width="9" height="8" /></a>
+                </td>
+		  </tr>
+	<?php endforeach; ?>
+	</tbody>
+<?php endif; ?>
+  </table> 
+<input id="statusUrl" type="hidden" value="<?=$this->url(array(),'admin-recommend-status')?>"/>

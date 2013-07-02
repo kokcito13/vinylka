@@ -1,0 +1,61 @@
+<?=$this->partial('blocks/menus/blog.phtml');?>
+<form action="<?=$this->url(array())?>" method="post" id="PageForm">
+    <table class="zebra edit">
+        <tr class="">
+            <td width="193" class="first">URL:</td>
+            <td><input name="url" type="text" class="field" value="<?=(isset($_POST['url'])) ? htmlspecialchars( $_POST['url']) : ''?>" /></td>
+        </tr>
+    </table>
+    <div id="tabs">
+        <?php if (sizeof($this->langs) > 1): ?>
+            <ul>
+                <?php foreach ($this->langs as $lang): ?>
+                    <li><a href="#<?=$lang->getId()?>"><?=$lang->getFullName()?></a></li>
+                <?php endforeach ?>
+            </ul>
+        <?php endif ?>
+        <?php foreach ($this->langs as $lang): ?>
+            <div id="<?=$lang->getId()?>">
+                <table class="zebra edit">
+                    <tr class="grey">
+                        <td width="193" class="first">Название:</td>
+                        <td><input name="content[<?=$lang->getId()?>][contentName]" type="text" class="field" value="<?=(isset($_POST['content'][$lang->getId()]['contentName'])) ? htmlspecialchars( $_POST['content'][$lang->getId()]['contentName']) : ''?>" /></td>
+                    </tr>
+                    <tr class="">
+                        <td width="193" class="first">Title:</td>
+                        <td><input name="content[<?=$lang->getId()?>][title]" type="text" class="field" value="<?=(isset($_POST['content'][$lang->getId()]['title'])) ? htmlspecialchars( $_POST['content'][$lang->getId()]['title']) : ''?>" /></td>
+                    </tr>
+                    <tr class="grey">
+                        <td width="193" class="first">Description:</td>
+                        <td><input name="content[<?=$lang->getId()?>][description]" type="text" class="field" value="<?=(isset($_POST['content'][$lang->getId()]['description'])) ? htmlspecialchars( $_POST['content'][$lang->getId()]['description']) : ''?>" /></td>
+                    </tr>
+                    <tr class="grey">
+                        <td width="193" class="first">Keywords:</td>
+                        <td><input name="content[<?=$lang->getId()?>][keywords]" type="text" class="field" value="<?=(isset($_POST['content'][$lang->getId()]['keywords'])) ? htmlspecialchars( $_POST['content'][$lang->getId()]['keywords']) : ''?>" /></td>
+                    </tr>
+                    <tr class="">
+                        <td width="193" class="first">Основной текст:</td>
+                        <td>
+                            <textarea  id="textareas_<?=$lang->getIsoName()?>" rows='10' class='content' cols='40' name="content[<?=$lang->getId()?>][content]" tabindex='2' ><?=(isset($_POST['content'][$lang->getId()]['content'])) ? $_POST['content'][$lang->getId()]['content'] : ''?></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        <?php endforeach ?>
+    </div>
+    <table class="zebra edit">
+        <tbody>
+        <tr class="grey">
+            <td>&nbsp;</td>
+            <td>
+                <div class="m10 center">
+                    <input type="hidden" name="parentId" value="null"/>
+                    <a href="javascript:SubmitPageFrom();" class="button_blue">Сохранить</a>
+                    <a href="<?=$this->url(array(),'admin-category-index')?>" class="button_grey">Отменить</a>
+                </div>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+        </tbody>
+    </table>
+</form>

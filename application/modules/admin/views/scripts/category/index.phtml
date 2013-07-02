@@ -1,0 +1,4 @@
+<?=$this->partial('blocks/menus/category.phtml');?>
+<?=$this->BuildTree($this->category, 'light', 0, 'admin-category-type-edit')?>
+<input id="statusUrl" type="hidden" value="<?=$this->url(array(),'admin-category-type-status')?>"/>
+<input id="moveUrl" type="hidden" value="<?=$this->url(array(),'admin-category-type-status')?>"/>

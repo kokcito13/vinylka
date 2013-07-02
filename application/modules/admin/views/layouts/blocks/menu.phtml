@@ -1,0 +1,34 @@
+<div id="main_menu">
+    <ul>
+<!--        <li>-->
+<!--            <a href="--><?//= $this->url(array(),'admin-recommend-index')?><!--">-->
+<!--                <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Я рекомендую</span>-->
+<!--            </a>-->
+<!--        </li>-->
+         
+        <li>
+            <a href="<?= $this->url(array('page'=>1),'admin-product-index')?>">
+                <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Товар</span>
+            </a>
+        </li>
+        <li>
+            <a href="<?= $this->url(array(),'admin-category-index')?>">
+                <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Категории</span>
+            </a>
+        </li>
+        <li>
+            <a href="<?= $this->url(array(),'admin-category-type-index')?>">
+                <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Типы</span>
+            </a>
+        </li>
+        
+        <li><a href="<?= $this->url(array(), 'admin-page-index'); ?>"><img src="/static/admin/images/menu_icons/document-text.png" alt="" width="16" height="16" /><span>Страницы сайта</span></a></li>
+        <li><a href="<?= $this->url(array(), 'admin-block-index'); ?>"><img src="/static/admin/images/menu_icons/wrench-screwdriver.png" alt="" width="16" height="16" /><span>Текстовые блоки</span></a></li>
+        
+        <li><a href="<?= $this->url(array(), 'admin-main-page'); ?>"><img src="/static/admin/images/menu_icons/wrench-screwdriver.png" alt="" width="16" height="16" /><span>Настройка сайта</span></a></li>
+        
+        <li><a href="<?= $this->url(array(), 'admin-users-index'); ?>"><img src="/static/admin/images/menu_icons/users.png" alt="" width="16" height="16" /><span>Пользователи</span></a></li>
+        <li><a href="<?= $this->url(array(), 'admin-settings-index'); ?>"><img src="/static/admin/images/menu_icons/wrench-screwdriver.png" alt="" width="16" height="16" /><span>Настройки</span></a></li>
+        <li><a href="<?= $this->url(array(), 'admin-logout') ?>"><img src="/static/admin/images/menu_icons/door-open.png" alt="" width="16" height="16" /><span>Выход</span></a></li>
+    </ul>
+</div>

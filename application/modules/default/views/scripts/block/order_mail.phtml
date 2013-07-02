@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ru" lang="ru">
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <style>
+        table tr td {
+            font-size: 14px;
+        }
+        table tr > td {
+            vertical-align: top;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body bgcolor="#ffffff" style="padding:0;margin:0;">
+    <table>
+        <tr>
+            <td><b>Название:</b></td>
+            <td><?=$this->productContent['contentName']->getFieldText();?></td>
+        </tr>
+        <tr>
+            <td><b>Цена:</b></td>
+            <td><?=$this->product->getUserPrice();?></td>
+        </tr>
+        <tr>
+            <td><b>УРЛ:</b></td>
+            <td><?=$_SERVER['SERVER_NAME'].$this->product->getRoute()->getUrl();?></td>
+        </tr>
+        <tr>
+            <td><b>Заказ:</b></td>
+            <td>
+                <?=$this->data->name;?>
+                <br/>
+                <?=$this->data->phone;?>
+                <br/>
+                <?=$this->data->text;?>
+                <br/>
+                <? foreach ($this->product->getDeliveryTypes() as $k=>$v): ?>
+                    <? if ($k == $this->data->delivery) { echo $v; } ?>
+                <? endforeach; ?>
+            </td>
+        </tr>
+        <tr>
+            <td><b>Дата:</b></td>
+            <td><?=date('d.m.Y H:i');?></td>
+        </tr>
+    </table>
+</body>
+</html>

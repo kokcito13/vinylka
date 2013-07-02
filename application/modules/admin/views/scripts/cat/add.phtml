@@ -1,0 +1,74 @@
+<?= $this->partial('blocks/menus/top.phtml'); ?>
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<form action="<?= $this->url() ?>" method="post" id="PageForm">
+    <table class="zebra edit">
+        <tr class="grey">
+            <td width="193" class="first">URL:</td>
+            <td>
+                <input name="realName" type="text" class="field" style="background-color: #F2F2F2; width:10px;"
+                       disabled="disabled" value="/"/>
+                <input name="url" style="width:255px" type="text" class="field"
+                       value="<?= (isset($_POST['url'])) ? $_POST['url'] : '' ?>"/>
+            </td>
+        </tr>
+    </table>
+    <div id="tabs">
+        <?php if (sizeof($this->langs) > 1): ?>
+            <ul>
+                <?php foreach ($this->langs as $lang): ?>
+                    <li><a href="#<?= $lang->getIsoName() ?>"><?=$lang->getFullName()?></a></li>
+                <?php endforeach ?>
+            </ul>
+        <?php endif ?>
+        <?php foreach ($this->langs as $lang): ?>
+            <div id="<?= $lang->getIsoName() ?>">
+                <table class="zebra edit">
+                    <tr class="grey">
+                        <td width="193" class="first">Название:</td>
+                        <td><input name="content[<?= $lang->getId() ?>][contentName]" type="text" class="field"
+                                   value="<?= (isset($_POST['content'][$lang->getId()]['contentName'])) ? htmlspecialchars($_POST['content'][$lang->getId()]['contentName']) : '' ?>"/>
+                        </td>
+                    </tr>
+                    <tr class="">
+                        <td width="193" class="first">Титл:</td>
+                        <td><input name="content[<?= $lang->getId() ?>][title]" type="text" class="field"
+                                   value="<?= (isset($_POST['content'][$lang->getId()]['title'])) ? htmlspecialchars($_POST['content'][$lang->getId()]['title']) : '' ?>"/>
+                        </td>
+                    </tr>
+                    <tr class="grey">
+                        <td width="193" class="first">Дескрипшин:</td>
+                        <td><input name="content[<?= $lang->getId() ?>][description]" type="text" class="field"
+                                   value="<?= (isset($_POST['content'][$lang->getId()]['description'])) ? htmlspecialchars($_POST['content'][$lang->getId()]['description']) : '' ?>"/>
+                        </td>
+                    </tr>
+                    <tr class="">
+                        <td width="193" class="first">Кейвордс:</td>
+                        <td><input name="content[<?= $lang->getId() ?>][keywords]" type="text" class="field"
+                                   value="<?= (isset($_POST['content'][$lang->getId()]['keywords'])) ? htmlspecialchars($_POST['content'][$lang->getId()]['keywords']) : '' ?>"/>
+                        </td>
+                    </tr>
+                    <tr class="grey">
+                        <td width="193" class="first">Основной текст:</td>
+                        <td>
+                            <textarea id="textareas_<?= $lang->getIsoName() ?>" rows='10' class='content' cols='40'
+                                      name="content[<?= $lang->getId() ?>][content]"
+                                      tabindex='2'><?=(isset($_POST['content'][$lang->getId()]['content'])) ? $_POST['content'][$lang->getId()]['content'] : ''?></textarea>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        <?php endforeach ?>
+    </div>
+    <table>
+        <tr class="grey">
+            <td colspan="2">
+                <div class="m10 centerButton">
+                    <input id="idPage" type="hidden" name="idPage" value="<?= $this->idPage ?>"/>
+                    <a href="javascript:SubmitPageFrom();" class="button_blue">Сохранить</a>
+                    <a href="<?= $this->url(array(), 'admin-category-index') ?>" class="button_grey">Отменить</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

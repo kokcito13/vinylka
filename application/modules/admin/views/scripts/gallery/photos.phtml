@@ -1,0 +1,107 @@
+<?=$this->partial('blocks/menus/top.phtml');?>
+<? $this->headScript()->captureStart()?>	
+	var NO_BASE_UPLOAD = true;
+	$(document).ready(function(){
+		toBackground();
+		
+		if ($("#gallery_photo")[0] != undefined) {
+			$("#gallery_photo").sortable({ 
+				cursor: 'move',
+				stop: function() {
+					var galleryPhotos = [];
+					$('#gallery_photo>li').each(function(){
+						galleryPhotos.push($(this)[0].className);
+					});
+					$.ajax({
+						type: "POST",
+						url: '<?=$this->url(array(
+							'idGallery' => $this->idGallery
+						),'admin-gallery-status')?>',
+						data: {
+							type: TYPE_SORT,
+							galleryId: <?=$this->idGallery?>, 
+							sortData: galleryPhotos
+						}
+					});
+				}
+			});
+			$("#gallery_photo").disableSelection();
+		}
+		
+
+		$('input[type=file]').change(function(e) {
+			$(this).upload('<?=$this->url(array(
+				'idGallery' => $this->idGallery,
+				'idPhoto' => 0
+			),'admin-gallery-photo-upload')?>',function(result) {
+				try {
+					photoData = $.parseJSON(result);
+					$('#gallery_photo').append(['<li class="'+photoData.idPhoto+'" style="background-image:url('+photoData.path+');">',
+						'<a href="javascript:deleteImage('+photoData.idPhoto+');"><img src="/static/admin/images/icon_delete.gif" alt="" width="9" height="8"></a>',
+					'</li>'].join(''));
+				} catch (e) {
+					ShowPopUp(result);
+				}
+			});
+		});
+                
+                $('#uploadPhoto').css('margin-left','0px');
+                
+	});
+	
+	var toBackground = function() {
+		$('#gallery_photo>li').each(function(){
+			$(this).css('background', 'url(' + $(this).children('img').attr('src') + ')');
+			$(this).children('img').remove();
+		});
+	}
+	
+	var deleteImage = function(idPhoto) {
+		if (confirm("Вы действительно хотите удалить фотографию?")) {
+			$.ajax({
+				type: "POST",
+				url: '<?=$this->url(array(
+					'idGallery' => $this->idGallery
+				),'admin-gallery-status')?>',
+				data: {
+					type: TYPE_DELETE,
+					photoId: idPhoto
+				}
+			});
+			$('#gallery_photo>li.' + idPhoto).remove();
+		}
+	}
+	
+<? $this->headScript()->captureEnd()?>
+<table class="zebra"> 
+	<tbody>
+		<tr class="grey">
+			<td colspan="5">		
+				<div style="cursor:pointer;" class="hide_input_overflow">
+					<div style="cursor:pointer;" class="hide_input_position">
+						<input style=" margin-left: 0px; cursor:pointer;" id="uploadPhoto" type="file" name="photo" />&nbsp;&nbsp;&nbsp;<a style="cursor:pointer;" href="javascript: void(0)" class="button_blue"> Загрузить фотографию </a>
+		           	</div>
+		        </div>
+			</td>
+		</tr>
+	</tbody>
+</table>
+<ul id="gallery_photo" unselectable="on"><?php
+	if ($this->galleryPhotos):
+		foreach ($this->galleryPhotos as $photo): ?>
+			<li class="<?=$photo->getId();?>" <?php 
+				if ($this->header):
+					?>style="width:590px;height:120px;"<?php
+				endif?>>
+				<?php if ($this->header):
+					?><img src="<?=$photo->getPath('590:120');?>" alt="" /><?php 
+				else:
+					?><img src="<?=$photo->getPath(Application_Model_Kernel_Photo::PREV_GALLERY);?>" alt="" /><?php
+				endif;
+				?><a href="javascript:deleteImage(<?=$photo->getId()?>);">
+					<img src="/static/admin/images/icon_delete.gif" alt="" width="9" height="8" />
+				</a>
+			</li><?php
+		endforeach;
+	endif;
+?></ul>
