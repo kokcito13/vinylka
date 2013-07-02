@@ -148,22 +148,27 @@ class Application_Model_Kernel_Photo {
         $path = '/image.php?';
         
         if( $priview !== false ){
-            
-            list($imageWidthCheck, $imageHeightCheck) = getimagesize(PUBLIC_PATH .self::SAVE_PATH .$this->_photoPath);
-            if( $imageHeightCheck >= $imageWidthCheck ){
-                $ratio = $imageHeightCheck / $imageWidthCheck;
-                $height = $type;
-                $width = round($height/$ratio);
-            } else {
-                $ratio = $imageHeightCheck / $imageWidthCheck;
-                $width = $type;
-                $height = round($width/$ratio);
+            try{
+                @list($imageWidthCheck, $imageHeightCheck) = getimagesize(PUBLIC_PATH .self::SAVE_PATH .$this->_photoPath);
+                if( $imageHeightCheck >= $imageWidthCheck ){
+                    @$ratio = $imageHeightCheck / $imageWidthCheck;
+                    $height = $type;
+                    @$width = round($height/$ratio);
+                } else {
+                    @$ratio = $imageHeightCheck / $imageWidthCheck;
+                    $width = $type;
+                    @$height = round($width/$ratio);
+                }
+
+                @$proportions = intval( $width / $height* 100) / 100;
+
+
+                $path .= "width=$width&amp;";
+                $path .= "height=$height&amp;";
+            } catch (Exception $e){
+
             }
 
-            $proportions = intval( $width / $height* 100) / 100;
-            
-            $path .= "width=$width&amp;";
-            $path .= "height=$height&amp;";
             //$path .= "cropratio=$proportions:1&amp;";
         } else {
             switch ($type) {

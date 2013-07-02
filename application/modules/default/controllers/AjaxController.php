@@ -57,81 +57,46 @@ class AjaxController extends Zend_Controller_Action
         exit;
     }
 
-    public function indexAction()
-    {
-        $idPage = (int)$this->_getParam('idPage');
-        session_start();
-        if ($this->getRequest()->isPost() || true) {
-            $data = (object)array_merge($this->getRequest()->getPost(), $_GET);
-            switch ($data->type) {
-                case 'CHECK_CAPTCHA':
-                    if ($_SESSION['captcha'] == $data->result) {
-                        echo true;
-                    }
-                    else {
-                        echo false;
-                    }
-                    break;
-                case 'VALIDATE_EMAIL':
-                    mail('oklosovich@gmail.com', 'pizza send comment', 'want send the New comment on pizzza<br/>' . $data->email);
-                    list($user, $url) = explode("@", $data->email);
-                    //if($this->check_domain_availible($url)) {
-                    echo true;
-                    //} else {
-                    //	echo false;
-                    //}
-                    break;
-                case 'ADD_COMMENT':
-                    $addComment = new Application_Model_Kernel_Comment(null, $idPage, 0, mysql_escape_string($data->name), mysql_escape_string($data->mail), mysql_escape_string($data->text), time(), ip2long($_SERVER['REMOTE_ADDR']));
-                    $addComment->save();
-                    $data->date = date('d.m.Y H:i', $addComment->getCommentDate());
-                    $a = rand(0, 9);
-                    $b = rand(0, 9);
-                    $_SESSION['captcha'] = $a + $b;
-                    $data->recaptcha = $a . "+" . $b . "=";
-                    $data->rand = rand(0, 1000);
-                    $text = $data->name . '<br/>' . $data->mail . '<br/>' . $data->text . '<br/>' . date('d.m.Y', time());
-                    if ($data->url)
-                        $text .= '<br/>' . $data->url;
-                    $mail = new Zend_Mail('UTF-8');
-                    $mail->setBodyHtml($text);
-                    $mail->setFrom('oklosovich@i.ua', 'Коммент с пиццерий');
-                    $mail->addTo('oklosovich@gmail.com', 'Коммент с пиццерий');
-                    $mail->setSubject('Коммент с пиццерий Pizzza.com.Ua');
-                    $mail->send();
-                    echo json_encode($data);
-                    break;
-            }
-        }
-    }
-
     public function addOrderAction()
     {
-        $idPage = (int)$this->_getParam('idPage');
+        $response = array();
+        $idProduct = (int)$this->_getParam('idProduct');
+        if ($this->getRequest()->isPost() || true) {
+            $data = (object)array_merge($this->getRequest()->getPost(), $_GET);
 
-        if ($this->getRequest()->isPost() || true) { echo 111;
-//            $data = (object)array_merge($this->getRequest()->getPost(), $_GET);
-//
-//            $addComment = new Application_Model_Kernel_Comment(null, $data->id, $data->parent, $data->name, $data->email, $data->message, time(), ip2long($_SERVER['REMOTE_ADDR']), $data->type);
-//            $addComment->save();
-//            $return = array();
-//            $view = new Zend_View(array('basePath' => APPLICATION_PATH . '/modules/default/views'));
-//            if ($data->parent == 0) {
-//                $view->comment = $addComment;
-//                $view->type = $data->type;
-//                $view->id = $data->id;
-//                $return['html'] = $view->render('block/comment_item_first.phtml');
-//            }
-//            else {
-//                $view->parentComments = array();
-//                $view->parentComments[] = $addComment;
-//                $return['html'] = $view->render('block/comment_item.phtml');
-//            }
-//            $return['data'] = $data;
-//            echo json_encode($return);
+            if (empty($data->name)) {
+                $response['error']['Ваше имя'] = 'Пустое поле!';
+            }
+
+            if (empty($data->mob)) {
+                $response['error']['Контактный телефон'] = 'Пустое поле!';
+            }
+
+            if (!empty($data->last_name)) {
+                $response['error']['Вы'] = ' - робот!';
+            }
+
+            if (!isset($response['error']) || empty($response['error'])) {
+                $view = new Zend_View(array('basePath'=>APPLICATION_PATH.'/modules/default/views'));
+                $view->data = $data;
+                $view->product = Application_Model_Kernel_Product::getById($idProduct);
+                $view->productContent = $view->product->getContent()->getFields();
+
+                $html = $view->render('block/order_mail.phtml');
+
+                $mail = new Zend_Mail('UTF-8');
+                $mail->setBodyHtml($html);
+                $mail->setFrom('manager@vinylka.com.ua', 'Заказ товара на Vinylka.com.ua');
+                $mail->addTo('manager@vinylka.com.ua', 'Заказ товара на Vinylka.com.ua');
+                $mail->setSubject('Заказ товара на Vinylka.com.ua');
+                $mail->send();
+
+                $response['success'] = true;
+            }
+
+            echo json_encode($response);
+
+            return false;
         }
     }
-
-
-
 }

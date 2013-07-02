@@ -1,5 +1,10 @@
 <? $this->headScript()->captureStart() ?>
 <? $this->headScript()->captureEnd() ?>
+<style>
+    #error_block {
+        color: red;
+    }
+</style>
 <div class="tovar line">
     <div class="tovar__gallery line">
         <div class="tovar__head box">
@@ -105,13 +110,14 @@
                 <div class="form__left">
                     <div class="form__field line">
                         <div class="b-input-i">
-                            <input type="text" class="b-input" value="" />
+                            <input type="text" class="b-input" value="" name="name"/>
+                            <input type="text" class="b-input" value="" name="last_name" id="last_name"/>
                             <label class="b-label">Ваше имя и фамилия</label>
                         </div>
                     </div>
                     <div class="form__field line">
                         <div class="b-input-i">
-                            <input type="text" class="b-input" value="" />
+                            <input type="text" class="b-input" value="" name="mob"/>
                             <label class="b-label">Номер мобильного телефона</label>
                         </div>
                         <div class="form__example">Например: +380501234567</div>
@@ -128,12 +134,15 @@
                     </div>
                     <div class="form__field line">
                         <div class="b-input-i">
-                            <textarea type="text" class="b-ta" value=""></textarea>
+                            <textarea type="text" class="b-ta" value="" name="text"></textarea>
                             <label class="b-label">Примечание к заказу</label>
                         </div>
                     </div>
                 </div>
                 <div class="form__right">
+                    <div id="error_block" class="form__field line">
+                        <div class="b-input-i"></div>
+                    </div>
                     <div class="form__add">Информация по товару</div>
                     <div class="form__field line">
                         <div class="b-input-i">
@@ -178,9 +187,31 @@
             </form>
         </div>
         <div id="senks_message" style="display:none;">
-            <!-- Когда сообщение отправлено (br можно убрать) --> <br /><br />
+
             <div class="form__ttl">Спасибо, Ваш заказ принят</div>
             <div class="form__sub-ttl">В ближайшее время с Вами свяжется менеджер</div>
+            <p style="font-weight: bold; float:left;">Если вы довольны нашим проектом ставьте лайк:</p>
+            <div class="hdr__block" style="margin-left: 20px;">
+
+                <div id="vk_like2" style="float: left;"></div>
+                <script type="text/javascript">
+                    VK.Widgets.Like("vk_like2", {type: "mini"}, 'index');
+                </script>
+
+                <div style="float: left; margin-top: 0px; margin-right: 10px; margin-left: -19px;" class="fb-like" data-href="http://vinylka.com.ua" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-font="arial"></div>
+
+                <div style="float: left;" class="g-plusone" data-size="medium" data-href="http://vinylka.com.ua"></div>
+                <!-- Place this tag after the last +1 button tag. -->
+                <script type="text/javascript">
+                    window.___gcfg = {lang: 'uk'};
+
+                    (function() {
+                        var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                        po.src = 'https://apis.google.com/js/plusone.js';
+                        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                    })();
+                </script>
+            </div>
         </div>
     </div>
     <div class="b-popup__bg"></div>

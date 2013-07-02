@@ -53,10 +53,6 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
 		$this->_position = $position;
 	}
 	
-	public function getArticles($status) {
-		return Application_Model_Kernel_Article::getList($this->getIdPage(), 'articleDate', 'DESC', true, true, false, $status, false, false, false)->data;
-	}
-	
 	/**
 	 * @param Application_Model_Kernel_Content_Manager $contentManager
 	 * @throws Exception ERROR_CONTENT_MANAGER_GIVEN

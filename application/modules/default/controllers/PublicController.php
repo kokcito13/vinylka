@@ -23,11 +23,6 @@ class PublicController extends Zend_Controller_Action
             $this->view->menu = $this->view->category->getRoute()->getUrl();
         }
 
-//        $ids = explode(',', $this->view->product->getSameProducts());
-//        foreach ($ids as $k => $v) {
-//            $ids[$k] = "'" . $v . "'";
-//        }
-
         $where = 'products.idProduct < '.$this->view->product->getIdProduct(); //IN (' . join(',', $ids) . ')';
         $this->view->publicList = Application_Model_Kernel_Product::getList('products.idProduct', 'DESC', true, true, false, Application_Model_Kernel_Page::STATUS_SHOW, false, false, 4, true, $where);
 

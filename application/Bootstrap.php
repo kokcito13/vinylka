@@ -48,7 +48,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap {
             $view->blocks[$key] = $value->getContent()->getFields();
         }
         $view->siteSetings = Application_Model_Kernel_SiteSetings::getBy();
-        
+
         $viewRenderer = Zend_Controller_Action_HelperBroker::getStaticHelper('ViewRenderer');
         $viewRenderer->setView($view);
     }

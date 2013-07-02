@@ -80,6 +80,7 @@ commonController = function ()
     this.showPopup = function(id)
     {
         $('.b-popup-i').fadeIn();
+        $('#last_name').hide();
 
         return false;
     }
@@ -102,11 +103,11 @@ commonController = function ()
                     setTimeout(function(){
                         $('.b-popup-i').fadeOut();
                         $form.parent().fadeIn();
-                        $form.reset();
+
                         $('#senks_message').fadeOut();
-                    }, 1000)
+                    }, 10000)
                 } else if (data.error) {
-                    html_error = '';
+                    var html_error = '';
 
                     $.each(data.error, function(k,v){
                         console.log(k,v);
