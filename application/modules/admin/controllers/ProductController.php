@@ -80,7 +80,7 @@ class Admin_ProductController extends Zend_Controller_Action
                 $this->view->product->saveCategoryByIdProduct($data->category);
                 $this->view->product->saveTypesByIdProduct($data->types);
 
-                $this->_redirect($this->view->url(array('page'=>1), 'admin-product-index'));
+                $this->_redirect($this->view->url(array('page' => 1), 'admin-product-index'));
             } catch (Application_Model_Kernel_Exception $e) {
                 $this->view->ShowMessage($e->getMessages());
             } catch (Exception $e) {
@@ -108,17 +108,17 @@ class Admin_ProductController extends Zend_Controller_Action
                     $_POST['url'] = str_replace('"', '_', strtolower($_POST['url']));
                     $_POST['url'] = str_replace(',', '_', strtolower($_POST['url']));
 
-                    $_POST['price'] = ceil(($itemPrice->Amount/100)*8);
+                    $_POST['price'] = ceil(($itemPrice->Amount / 100) * 8);
                     $_POST['idAmazon'] = $this->view->idAmazon;
-                    $_POST['sameProducts'] = join(', ',$ids);
+                    $_POST['sameProducts'] = join(', ', $ids);
                     $_POST['productUrl'] = $item->DetailPageURL;
 
-                    $_POST['content'][1]['content'] = join('<br/>', $itemAttributes->Feature).'<br/><br/>'.$itemEditorialReviews->EditorialReview->Content;
+                    $_POST['content'][1]['content'] = join('<br/>', $itemAttributes->Feature) . '<br/><br/>' . $itemEditorialReviews->EditorialReview->Content;
                     $_POST['content'][1]['contentName'] = $itemAttributes->Title;
 
                     $this->view->photo1 = new Application_Model_Kernel_Photo(null, null, '', '', 0);
 
-                    $photo = $this->view->photo1->movePhotoToTmpDir(array('http_url'=>$itemImage, 'name'=>$_POST['url']));
+                    $photo = $this->view->photo1->movePhotoToTmpDir(array('http_url' => $itemImage, 'name' => $_POST['url']));
 
                     $this->view->photo1->validate($itemImage);
                     $this->view->photo1->upload($photo['tmp'], $photo['name']);
@@ -153,36 +153,30 @@ class Admin_ProductController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $data = (object)$this->getRequest()->getPost();
             try {
-                $url = new Application_Model_Kernel_Routing_Url();
                 $this->view->product->getRoute()->setUrl("/" . $data->url);
-                $dataContent = $data;
-                $i = 0;
+
                 foreach ($this->view->langs as $lang) {
+
+                    $value = $getContent[$lang->getId()];
+                    $oldFields = $value->getFields();
+                    $idContent = $value->getId();
+
                     foreach ($data->content[$lang->getId()] as $keyLang => $valueLang) {
-                        foreach ($getContent as $key => $value) {
-                            if ($value->getIdLang() == $lang->getId()) {
-                                $idContent = $value->getId();
-                                foreach ($value->getFields() as $keyField => $valueFields) {
-                                    if ($keyLang === $valueFields->getFieldName()) {
-                                        if ($valueLang !== $valueFields->getFieldText()) {
-                                            $fields[] = new Application_Model_Kernel_Content_Fields($valueFields->getIdField(), $valueFields->getIdContent(), $valueFields->getFieldName(), $valueLang);
-                                        }
-                                        else {
-                                            break;
-                                        }
-                                    }
-                                    else if (!isset($getContent[$keyLang])) {
-                                        $field = new Application_Model_Kernel_Content_Fields(null, $idContent, $keyLang, $valueLang);
-                                        $field->save();
-                                    }
-                                }
-                            }
+                        $valueFields = $oldFields[$keyLang];
+                        if (!isset($valueFields)) {
+
+                            $field = new Application_Model_Kernel_Content_Fields(null, $idContent, $keyLang, $valueLang);
+                            $field->save();
+                            continue;
+                        }
+
+                        if ($valueLang !== $valueFields->getFieldText()) {
+                            $fields[] = new Application_Model_Kernel_Content_Fields($valueFields->getIdField(), $valueFields->getIdContent(), $valueFields->getFieldName(), $valueLang);
                         }
                     }
-                    if (isset($getContent[$lang->getId()])) {
-                        $this->view->product->getContentManager()->setLangContent($lang->getId(), $fields);
-                        $fields = array();
-                    }
+
+                    $this->view->product->getContentManager()->setLangContent($lang->getId(), $fields);
+                    $fields = array();
                 }
 
                 if (count($data->content) > count($getContent)) {
@@ -192,12 +186,13 @@ class Admin_ProductController extends Zend_Controller_Action
                     }
                     foreach ($data->content as $key => $value) {
                         $content = new Application_Model_Kernel_Content_Language(null, $key, $idContentPack);
-                        foreach ($value as $k => $v)
+                        foreach ($value as $k => $v) {
                             $content->setFields($k, $v);
+                        }
                         $content->save();
                     }
-
                 }
+
                 $this->view->idPhoto1 = (int)$data->idPhoto1;
                 $this->view->photo1 = Application_Model_Kernel_Photo::getById($this->view->idPhoto1);
                 $this->view->product->setIdPhoto1($this->view->idPhoto1);
@@ -217,7 +212,7 @@ class Admin_ProductController extends Zend_Controller_Action
                 $this->view->product->saveCategoryByIdProduct($data->category);
                 $this->view->product->saveTypesByIdProduct($data->types);
 
-                $this->_redirect($this->view->url(array('page'=>1), 'admin-product-index'));
+                $this->_redirect($this->view->url(array('page' => 1), 'admin-product-index'));
             } catch (Application_Model_Kernel_Exception $e) {
                 $this->view->ShowMessage($e->getMessages());
             } catch (Exception $e) {
@@ -241,7 +236,6 @@ class Admin_ProductController extends Zend_Controller_Action
         $this->view->breadcrumbs->add('Редактировать', '');
         $this->view->headTitle()->append('Редактировать');
     }
-
 
     public function statuschangeAction()
     {
@@ -313,7 +307,7 @@ class Admin_ProductController extends Zend_Controller_Action
         ksort($fields);
 
         $query = array();
-        foreach ($fields as $key=>$value) {
+        foreach ($fields as $key => $value) {
             $query[] = "$key=" . urlencode($value);
         }
 
@@ -326,11 +320,11 @@ class Admin_ProductController extends Zend_Controller_Action
 
         $url = 'http://webservices.amazon.com/onca/xml?
         Service=AWSECommerceService&
-        AWSAccessKeyId='.$access_key.'&
+        AWSAccessKeyId=' . $access_key . '&
         Operation=ItemLookup&
         ItemId=B00008OE6I
-        &Timestamp='.gmdate('Y-m-d\TH:i:s\Z').'
-        &Signature='.$signed;
+        &Timestamp=' . gmdate('Y-m-d\TH:i:s\Z') . '
+        &Signature=' . $signed;
 
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
