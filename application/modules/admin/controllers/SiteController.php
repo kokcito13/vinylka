@@ -36,6 +36,8 @@ class Admin_SiteController extends Zend_Controller_Action
                 $this->view->info->setIdPhoto1($this->view->idPhoto1);
                 $this->view->info->setRate($data->rate);
                 $this->view->info->setMinPrice($data->minPrice);
+                $this->view->info->setPhone($data->phone);
+                $this->view->info->setEmail($data->email);
 
                 $this->view->info->save();
 

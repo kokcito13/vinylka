@@ -4,16 +4,24 @@ class Application_Model_Kernel_SiteSetings
 
     protected $id;
     protected $idPhoto1;
+
     protected $rate;
     protected $minPrice;
+
+    protected $phone;
+    protected $email;
+
+
     protected $photo1 = null;
 
-    public function __construct($id, $idPhoto1, $rate, $minPrice)
+    public function __construct($id, $idPhoto1, $rate, $minPrice, $phone, $email)
     {
         $this->id = $id;
         $this->idPhoto1 = $idPhoto1;
         $this->rate = $rate;
         $this->minPrice = $minPrice;
+        $this->phone = $phone;
+        $this->email = $email;
     }
 
 
@@ -67,6 +75,32 @@ class Application_Model_Kernel_SiteSetings
         $this->rate = (int)$value;
     }
 
+    public function getPhone()
+    {
+
+        return $this->phone;
+    }
+
+    public function setPhone($value)
+    {
+        $this->phone = $value;
+
+        return $this;
+    }
+
+    public function getEmail()
+    {
+
+        return $this->email;
+    }
+
+    public function setEmail($value)
+    {
+        $this->email = $value;
+
+        return $this;
+    }
+
     public function validate()
     {
 //        if ($this->getName() === '') {
@@ -87,7 +121,9 @@ class Application_Model_Kernel_SiteSetings
         $data = array(
             'idPhoto1'     => $this->idPhoto1,
             'rate'         => $this->rate,
-            'minPrice' => $this->minPrice
+            'minPrice' => $this->minPrice,
+            'phone' => $this->phone,
+            'email' => $this->email
         );
         $db = Zend_Registry::get('db');
         $db->update('site_setings', $data, 'id = ' . $this->getId());
@@ -100,7 +136,7 @@ class Application_Model_Kernel_SiteSetings
         $select->where('site_setings.id = 1');
         $select->limit(1);
         if (($block = $db->fetchRow($select)) !== false) {
-            return new self($block->id, $block->idPhoto1, $block->rate, $block->minPrice);
+            return new self($block->id, $block->idPhoto1, $block->rate, $block->minPrice, $block->phone, $block->email);
         }
         else {
             throw new Exception('Table NOT FOUND');

@@ -77,6 +77,9 @@ class AjaxController extends Zend_Controller_Action
             }
 
             if (!isset($response['error']) || empty($response['error'])) {
+
+                $info = Application_Model_Kernel_SiteSetings::getBy();
+
                 $view = new Zend_View(array('basePath'=>APPLICATION_PATH.'/modules/default/views'));
                 $view->data = $data;
                 $view->product = Application_Model_Kernel_Product::getById($idProduct);
@@ -86,9 +89,9 @@ class AjaxController extends Zend_Controller_Action
 
                 $mail = new Zend_Mail('UTF-8');
                 $mail->setBodyHtml($html);
-                $mail->setFrom('manager@vinylka.com.ua', 'Заказ товара на Vinylka.com.ua');
-                $mail->addTo('manager@vinylka.com.ua', 'Заказ товара на Vinylka.com.ua');
-                $mail->setSubject('Заказ товара на Vinylka.com.ua');
+                $mail->setFrom('manager@vinylka.com.ua', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
+                $mail->addTo('manager@vinylka.com.ua', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
+                $mail->setSubject('Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->send();
 
                 $response['success'] = true;

@@ -70,6 +70,14 @@ else
             <td><input name="minPrice" type="integer" class="field" value="<?php echo $this->info->getMinPrice();?>" /></td>
         </tr>
         <tr class="grey">
+            <td width="193" class="first">Телефон:</td>
+            <td><input name="phone" type="text" class="field" value="<?php echo $this->info->getPhone();?>"/></td>
+        </tr>
+        <tr class="">
+            <td width="193" class="first">Е-маил:</td>
+            <td><input name="email" type="email" class="field" value="<?php echo $this->info->getEmail();?>"/></td>
+        </tr>
+        <tr class="grey">
             <td colspan="2">
                 <div class="m10 centerButton">
                     <input id="idPhoto1" type="hidden" name="idPhoto1" value="<?=$this->idPhoto1?>" />

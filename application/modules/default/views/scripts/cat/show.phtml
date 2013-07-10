@@ -12,7 +12,8 @@
 
         <div class="tov__item">
             <a href="<?php echo $public->getRoute()->getUrl();?>" class="tov__img box">
-                <img src="<?php echo $public->getPhoto1()->getPath(183, true)?>" style="max-height: 200px; max-width: 180px;" alt=""/></a>
+                <img src="<?php echo $public->getPhoto1()->getPath(183, true)?>" style="max-height: 200px; max-width: 180px;" alt="<? echo isset($publicContent['img_alt'])?$publicContent['img_alt']->getFieldText():'';?>"/>
+            </a>
             <a href="<?php echo $public->getRoute()->getUrl();?>" class="tov__name"><?php echo $publicContent['contentName']->getFieldText();?></a>
             <span class="tov__price"><span class="tov__num"><?=$public->getUserPrice()?></span> грн</span>
         </div>
