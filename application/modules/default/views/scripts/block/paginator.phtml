@@ -1,17 +1,17 @@
 <?php if ( $this->pageCount > 1): ?>
-    <div class="pager line">
+    <ul class="pagination">
         <?php if (isset($this->previous)): ?>
-            <a href="#" onclick="return common.goToPage(<?=$this->previous?>);" class="pager__item">&laquo;</a>
+            <li><a href="#" onclick="return common.goToPage(<?=$this->previous?>);">&laquo;</a></li>
         <?php endif; ?>
         <?php foreach ($this->pagesInRange as $page): ?>
             <?php if ($page != $this->current): ?>
-                <a href="#" onclick="return common.goToPage(<?= $page; ?>);" class="pager__item"><?= $page; ?></a>
+                <li><a href="#" onclick="return common.goToPage(<?= $page; ?>);"><?= $page; ?></a></li>
             <?php else: ?>
-                <a href="#" onclick="return common.goToPage(<?= $page; ?>);" class="pager__item pager__item_state_active"><?= $page; ?></a>
+                <li class="active"><a href="#" onclick="return common.goToPage(<?= $page; ?>);"><?= $page; ?></a></li>
             <?php endif; ?>
         <?php endforeach; ?>
         <?php if (isset($this->next)): ?>
-            <a href="#" onclick="return common.goToPage(<?=$this->next?>);" class="pager__item">&raquo;</a>
+             <li><a href="#" onclick="return common.goToPage(<?=$this->next?>);">&raquo;</a></li>
         <?php endif; ?>
-    </div>
+    </ul>
 <?php endif; ?>

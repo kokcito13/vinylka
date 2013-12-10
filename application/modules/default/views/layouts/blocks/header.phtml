@@ -1,0 +1,51 @@
+<div class="masthead">
+    <h3 class="text-muted" style="font-weight: bold; color: #5cb85c;">Vinylka.com.ua</h3>
+    <div class="hdr__block_contact">
+        <div class="hdr__block">
+            <span>Телефон для заказов</span>
+            <div class="hdr__val"><? echo $this->siteSetings->getPhone()?></div>
+        </div>
+        <div class="hdr__block">
+            <span>Электронный ящик</span>
+            <div class="hdr__val">&#109;&#097;&#110;&#097;&#103;&#101;&#114;&#064;&#118;&#105;&#110;&#121;&#108;&#107;&#097;&#046;&#099;&#111;&#109;&#046;&#117;&#097;</div>
+        </div>
+        <div class="hdr__block last_block_new">
+            <div id="vk_like"></div>
+            <script type="text/javascript">
+                VK.Widgets.Like("vk_like", {type: "mini"}, 'index');
+            </script>
+
+            <div class="fb-like" data-href="http://vinylka.com.ua" data-send="false" data-layout="button_count" data-width="100" data-show-faces="false" data-font="arial"></div>
+
+            <div class="g-plusone" data-size="medium" data-href="http://vinylka.com.ua"></div>
+            <!-- Place this tag after the last +1 button tag. -->
+            <script type="text/javascript">
+                window.___gcfg = {lang: 'uk'};
+
+                (function() {
+                    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                    po.src = 'https://apis.google.com/js/plusone.js';
+                    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                })();
+            </script>
+        </div>
+    </div>
+    <ul class="nav nav-justified">
+        <li<? if(isset($this->menu) && $this->menu == "main"): ?> class="active"<? endif; ?>>
+            <a href="/">
+                Главная
+            </a>
+        </li>
+        <li><a href="#">Популярное</a></li>
+        <li<? if(isset($this->menu) && $this->menu == "/delivery_and_payment"): ?> class="active"<? endif; ?>>
+            <a href="<?=$this->url(array(), 'public-page-44')?>">Доставка и оплата</a>
+        </li>
+        <li><a href="#">Скидки</a></li>
+        <li><a href="#">Контакты</a></li>
+<!--        <li>-->
+<!--            <div class="" style="margin-left: 10px; margin-right: 10px;">-->
+<!--                <input type="text" class="form-control" placeholder="Search">-->
+<!--            </div>-->
+<!--        </li>-->
+    </ul>
+</div>

@@ -1,0 +1,20 @@
+<? $i = 1; ?>
+<? foreach($this->items as $key=>$public): ?>
+    <? $publicContent = $public->getContent()->getFields(); ?>
+    <? $publicContentText = strip_tags($publicContent['content']->getFieldText()); ?>
+
+    <div class="col-6 col-sm-6 col-lg-3">
+        <a href="<? echo $public->getRoute()->getUrl();?>">
+            <img class="img-thumbnail" alt="<? echo $publicContent['contentName']->getFieldText();?>" style="width: 180px; height: 130px;" src="<? echo $public->getPhoto1()->getPath('180', true)?>">
+        </a>
+        <a style="margin-top: 10px;" class="btn-block" href="<? echo $public->getRoute()->getUrl();?>"><? echo $publicContent['contentName']->getFieldText();?></a>
+        <p></p>
+        <p><a class="btn btn-success" href="<? echo $public->getRoute()->getUrl();?>" role="button">Купить</a></p>
+    </div>
+    <? if ($i == 4 && count($this->items) > ($key+1)): ?>
+        </div>
+        <div class="row">
+        <? $i = 0; ?>
+    <? endif; ?>
+    <? $i ++; ?>
+<? endforeach; ?>

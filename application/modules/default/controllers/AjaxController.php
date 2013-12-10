@@ -43,9 +43,9 @@ class AjaxController extends Zend_Controller_Action
             $this->view->publicList = Application_Model_Kernel_Product::getList(false, false, true, true, false, Application_Model_Kernel_Page::STATUS_SHOW, $data->page, Application_Model_Kernel_Product::ITEM_ON_PAGE, Application_Model_Kernel_Product::ITEM_ON_PAGE, true, $where);
 
             $view = new Zend_View(array('basePath' => APPLICATION_PATH . '/modules/default/views'));
-            $view->publicList = $this->view->publicList;
+            $view->items = $this->view->publicList->data;
 
-            $result['html'] = $view->render('block/page_items.phtml');
+            $result['html'] = $view->render('block/list_items.phtml');
 //            $result['data'] = array_merge($this->getRequest()->getPost(), $_GET)+array('cat'=>$idCat);
             $result['success'] = true;
         }

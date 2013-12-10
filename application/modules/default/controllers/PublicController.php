@@ -21,6 +21,9 @@ class PublicController extends Zend_Controller_Action
         if (!empty($catIds)) {
             $this->view->category = Application_Model_Kernel_Cat::getById($catIds[0]->idCategorie);
             $this->view->menu = $this->view->category->getRoute()->getUrl();
+
+            $this->view->mainCategory = $this->view->category;
+            $this->view->mainCategoryContent = $this->view->category->getContent()->getFields();
         }
 
         $where = 'products.idProduct < '.$this->view->product->getIdProduct(); //IN (' . join(',', $ids) . ')';

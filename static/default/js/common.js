@@ -32,6 +32,7 @@ commonController = function ()
             $('.b-popup-i').fadeOut();
             return false;
         });
+        $('div#error_block').hide();
     }
 
     this.goToPage = function (page)
@@ -52,10 +53,10 @@ commonController = function ()
         });
 
         $.get(
-            $('#stic_list').val()+'?page='+page+'&types='+types,
+            '/more_stickers?page='+page+'&types='+types,
             function (data) {
                 if (data.html) {
-                    data.html = '<div style="display:none;" id="box_vs_items">'+data.html+'</div>';
+                    data.html = '<div style="display:none;" id="box_vs_items"><div class="row">'+data.html+'</div></div>';
                     box.html(data.html);
                     box.css('height', 'auto');
                     $('#box_vs_items').fadeIn();

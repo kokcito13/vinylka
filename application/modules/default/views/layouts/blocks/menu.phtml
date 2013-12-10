@@ -1,18 +1,13 @@
 <? $category = $this->ShowCategorys(); ?>
-<div class="menu line">
-    <a href="/" class="menu__item <?php if(isset($this->menu)&&$this->menu=='main'):?>menu__item_state_active<?php endif;?>"><span class="menu__case">Популярные</span></a>
-    <? foreach ($category as $cat):?>
-        <? $catContent = $cat->getContent()->getFields();?>
-
-        <a href="<?=$cat->getRoute()->getUrl();?>" class="menu__item <?php if(isset($this->menu)&&$this->menu==$cat->getRoute()->getUrl()):?>menu__item_state_active<?php endif;?>">
-            <? if($cat->getIdCat() == 9): ?>
-                <span class="menu__case" style="">
-                    <img src="/static/default/img/ironman-32.png" width="32" height="32" alt="Iron Man icon" style="float: left;margin-top: -7px;">
-                    <span style="display: block; width: 100px; margin-top: 3px;"><?=$catContent['contentName']->getFieldText();?></span>
-                </span>
+<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
+    <div class="list-group">
+        <? foreach ($category as $cat):?>
+            <? $catContent = $cat->getContent()->getFields();?>
+            <?php if(isset($this->menu)&&$this->menu==$cat->getRoute()->getUrl()):?>
+                <span class="list-group-item active"><?=$catContent['contentName']->getFieldText();?></span>
             <? else: ?>
-                <span class="menu__case"><?=$catContent['contentName']->getFieldText();?></span>
-            <? endif; ?>
-        </a>
-    <? endforeach; ?>
+                <a href="<?=$cat->getRoute()->getUrl();?>" class="list-group-item"><?=$catContent['contentName']->getFieldText();?></a>
+            <?php endif;?>
+        <? endforeach; ?>
+    </div>
 </div>
