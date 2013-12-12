@@ -1,14 +1,4 @@
-<?php //echo $this->contentPage['content']->getFieldText();?>
-
 <? $this->headScript()->captureStart() ?>
-function addView(id){
-$.ajax({
-type: "POST",
-url: '/galleryowner/addview',
-data: {"id":id},
-success: function(result) {}
-});
-}
 <? $this->headScript()->captureEnd() ?>
 
 <? echo $this->ListItems($this->publicList->data); ?>

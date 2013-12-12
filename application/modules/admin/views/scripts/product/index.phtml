@@ -1,54 +1,18 @@
 <?=$this->partial('blocks/menus/top.phtml');?>
 <script type="text/javascript" src="/static/admin/js/jquery.tablednd_0_5.js"></script>
 <script>
-//    $(document).ready(function() {
-//        
-//        
-//        $("#projectsTable").tableDnD({
-//            
-//            onDragClass: "DuringDragStyle", // при перетаскивании строка получит "красивости" класса DuringDragStyle
-//            onDrop: function(table, row) {
-////                alert($('#projectsTable').tableDnDSerialize());
-//                var rows = table.tBodies[0].rows;
-//                var debugStr = "{";
-//                for (var i=0; i<rows.length; i++) {
-//                    debugStr += '\"'+$('#'+rows[i].id).attr('rel')+'\":\"'+rows[i].id+"\",";
-//                }
-//                debugStr += '\"0\":\"0\"}'
-//                
-//                $.ajax({
-//                    type: "POST",
-//                    url: '/admin/page/position',
-//                    data: {"ar":debugStr,"sweet":<?if($this->idCategory == 9):?>"true"<?else:?>"false"<?endif;?>},
-//                    success: function(result) {
-//                        if( result == 1 ){
-//                           // alert('Проект удачно перемещен');
-//                        } else {
-//                            alert('Не удалось переместить проект');
-//                        }
-////                        alert(result);
-//                    }
-//                });
-//                
-//                
-//	    }
-//        });
-//        
-//    });
-    
-function chengeStatusProject(id, status){
+function chengeStatusProject(id){
     $.ajax({
         type: "POST",
         url: '/admin/product/status',
         data: {
-            "idProduct":id,
-            "status":status
+            "idProduct":id
         },
         success: function(result) {
 //            alert(result);
         }
     });
-    
+
 }
 
 function chengeStatusProjectMain(id, status){
@@ -63,7 +27,7 @@ function chengeStatusProjectMain(id, status){
 //            alert(result);
         }
     });
-    
+
 }
 
 function changePositionPage(id){
@@ -117,7 +81,7 @@ function changePositionProject(id){
         font-weight: bold;
     }
 </style>
-<table class="zebra" > 
+<table class="zebra" >
     <thead> 
         <tr> 
             <td style="width: 5%;"></td> 
@@ -125,8 +89,11 @@ function changePositionProject(id){
                 <input type="text" id="idAmazon"/> <a href="" onclick="return amazonProduct('<?=$this->url(array(), 'admin-product-add');?>');">Добавить с амазона</a>
             </td>
             <td></td> 
-            <td></td> 
-            <td></td> 
+            <td>
+                Популярные
+            </td>
+            <td></td>
+            <td></td>
         </tr>
     </thead>
 <?php 
@@ -147,6 +114,9 @@ if (count($this->projectList->data)): ?>
                 <?php $StatusTitle = (!$item->getStatus()) ? 'Показать' : 'Скрыть'; ?>
                 <td style="text-align: left; padding-left: 10px;">
                     <img src="<?php echo $item->getPhoto1()->getPath(50, true)?>" style="max-height: 50px; max-width: 50px;" alt="" />
+                </td>
+                <td style="text-align: left; padding-left: 10px;">
+                  <input type="checkbox" onclick="chengeStatusProject(<?=$item->getIdProduct()?>)" <? if ($item->getProductStatus() ==2): ?>checked="checked" <? endif; ?>/>
                 </td>
                 <td style="text-align: right;">
                     <a href="<?=$item->getRoute()->getUrl()?>" target="_black" title="Просмотр"><img src="/static/admin/images/eye.png" alt="" width="16" height="16"></a>&nbsp;&nbsp;

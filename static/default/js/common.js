@@ -56,7 +56,7 @@ commonController = function ()
             '/more_stickers?page='+page+'&types='+types,
             function (data) {
                 if (data.html) {
-                    data.html = '<div style="display:none;" id="box_vs_items"><div class="row">'+data.html+'</div></div>';
+                    data.html = '<div style="display:none;" id="box_vs_items" class="col-md-12"><div class="row">'+data.html+'</div></div>';
                     box.html(data.html);
                     box.css('height', 'auto');
                     $('#box_vs_items').fadeIn();
@@ -98,14 +98,11 @@ commonController = function ()
             args,
             function (data) {
                 if (data.success) {
-                    $form.parent().fadeOut();
+                    $('#myModal').modal('hide');
 
-                    $('#senks_message').fadeIn();
+                    $('#myModalSenks').modal('show');
                     setTimeout(function(){
-                        $('.b-popup-i').fadeOut();
-                        $form.parent().fadeIn();
-
-                        $('#senks_message').fadeOut();
+                        $('#myModalSenks').modal('hide');
                     }, 10000)
                 } else if (data.error) {
                     var html_error = '';

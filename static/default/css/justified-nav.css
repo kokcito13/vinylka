@@ -27,8 +27,8 @@ body {
   border: 1px solid #ccc;
 }
 .nav-justified > li > a {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   color: #777;
   font-weight: bold;
   text-align: center;
@@ -85,4 +85,10 @@ body {
     padding-left: 0;
     padding-right: 0;
   }
+}
+a.btn-block {
+    text-decoration: underline;
+}
+a.btn-block:hover {
+    text-decoration: none;
 }

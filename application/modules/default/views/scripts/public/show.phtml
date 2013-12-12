@@ -5,177 +5,207 @@
 <? $this->headScript()->captureEnd() ?>
 
 <? $this->itemContent = $this->contentPage;?>
-<div class="row">
-    <div class="col-md-6">
-        <img class="img-rounded" src="<?=$this->product->getPhoto1()->getPath('400', true)?>" style="max-width: 400px; max-height: 400px;" alt="<? echo isset($this->contentPage['img_alt'])?$this->contentPage['img_alt']->getFieldText():'';?>" />
-        <div>
-            <span style='font-size: 20px; font-weight: bold;'>Описание товара</span>
-            <?=$this->contentPage['content']->getFieldText();?>
+<div class="col-md-12">
+    <div class="row">
+        <div class="col-md-6">
+            <img class="img-rounded" src="<?=$this->product->getPhoto1()->getPath('400', true)?>" style="max-width: 400px; max-height: 400px;" alt="<? echo isset($this->contentPage['img_alt'])?$this->contentPage['img_alt']->getFieldText():'';?>" />
+        </div>
+        <div class="col-md-6">
+            <table class="table">
+                <tr class="alert alert-success">
+                    <td>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <span style='font-size: 20px;'><strong><?=$this->product->getUserPrice()?> грн</strong></span>
+                            </div>
+                            <div class="col-md-6">
+                                <span style='font-size: 12px;'>Заказ по телефону</span><br /><strong><? echo $this->siteSetings->getPhone()?></strong>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#myModal" class="btn btn-success" data-toggle="modal" data-target="#myModal"><span class="btn__case">Заказать</span></a>
+                        <strong>
+                            <? foreach ($this->product->getStatuses() as $k=>$v): ?>
+                                <? if ($k==$this->product->getProductStatus()): ?> - <?=$v?><? endif; ?>
+                            <? endforeach; ?>
+                        </strong>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p><b>Подходит к:</b></p>
+                        <ul class="list-unstyled">
+                            <?php foreach( $this->categories as $category ):?>
+                                <?php foreach( $this->product->getListTypesByIdProduct() as $v ): ?>
+                                    <?php if( $v->idCategorie == $category->getId() ): ?>
+                                        <? $categoryContent = $category->getContent()->getFields();?>
+                                        <li><?=$categoryContent['contentName']->getFieldText();?></li>
+                                        <?php break; endif; ?>
+                                <?php endforeach; ?>
+                            <?php endforeach; ?>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <span style='font-size: 16px; font-weight: bold;'>Описание товара</span>
+                        <?=$this->contentPage['content']->getFieldText();?>
+                    </td>
+                </tr>
+            </table>
         </div>
     </div>
-    <div class="col-md-6">
-        <table class="table table-bordered">
-            <tr>
-                <td>
-                    <h1><?php echo $this->contentPage['contentName']->getFieldText();?></h1>
-                </td>
-            </tr>
-            <tr class="alert alert-success">
-                <td>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <span style='font-size: 20px;'><strong><?=$this->product->getUserPrice()?> грн</strong></span>
+    <div class="row" style="margin-top: 15px">
+        <div class="col-md-12">
+            <table class="table">
+                <tr class="alert alert-success">
+                    <td><p class="text-left" style="font-size: 16px; font-weight: bold;">Другие наклейки</p></td>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="row">
+                            <? if(count($this->publicList->data) > 0): ?>
+                                <? echo $this->ListItems($this->publicList->data); ?>
+                            <? endif; ?>
                         </div>
-                        <div class="col-md-6">
-                            <span style='font-size: 12px;'>Заказ по телефону</span><br /><strong><? echo $this->siteSetings->getPhone()?></strong>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">
+<!--            <div class="panel panel-default">-->
+<!--                <div class="panel-body">-->
+                    <div id="disqus_thread"></div>
+                    <script type="text/javascript">
+                        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+                        var disqus_shortname = 'vinylkacomua'; // required: replace example with your forum shortname
+
+                        /* * * DON'T EDIT BELOW THIS LINE * * */
+                        (function() {
+                            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                        })();
+                    </script>
+                    <!--    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>-->
+                    <!--    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>-->
+<!--                </div>-->
+<!--            </div>-->
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form id="order_form" action="<?=$this->url(array('idProduct'=>$this->product->getIdProduct()), 'default-ajax-set_order')?>">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Оформление нового заказа</h4>
+                    </div>
+                    <div class="modal-body" style="padding-bottom: 0px;">
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr class="active">
+                                    <th>Информация по товару</th>
+                                    <th>Контактные данные</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p><b>Навание:</b> <?=$this->contentPage['contentName']->getFieldText();?></p>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label for="exampleInputName">Ваше имя и фамилия</label>
+                                            <input type="text" class="form-control" value="" name="name" id="exampleInputName" placeholder="Александр Александрович">
+                                            <input type="text" class="b-input" value="" name="last_name" id="last_name"/>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p><b>Подходит к:</b></p>
+                                        <ul class="list-unstyled">
+                                            <?php foreach( $this->categories as $category ):?>
+                                                <?php foreach( $this->product->getListTypesByIdProduct() as $v ): ?>
+                                                    <?php if( $v->idCategorie == $category->getId() ): ?>
+                                                        <? $categoryContent = $category->getContent()->getFields();?>
+                                                        <li> - <?=$categoryContent['contentName']->getFieldText();?></li>
+                                                        <?php break; endif; ?>
+                                                <?php endforeach; ?>
+                                            <?php endforeach; ?>
+                                        </ul>
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label for="exampleInputMob">Номер мобильного телефона</label>
+                                            <input type="text" class="form-control" value="" id="exampleInputMob" placeholder="+380509999999" name="mob">
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p><b>Цена:</b> <?=$this->product->getUserPrice();?> грн.</p>
+                                    </td>
+                                    <td>
+                                        <? foreach ($this->product->getDeliveryTypes() as $k=>$v): ?>
+                                            <div class="radio">
+                                                <label>
+                                                    <input type="radio" name="delivery" id="optionsRadios2" value="<?=$k?>" <? if (!$k): ?>checked="checked"<? endif; ?>>
+                                                    <?=$v?>
+                                                </label>
+                                            </div>
+                                        <? endforeach; ?>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p><b>Тип заказа: </b>
+                                            <? foreach ($this->product->getStatuses() as $k=>$v): ?>
+                                                <? if ($k==$this->product->getProductStatus()): ?><?=$v?><? endif; ?>
+                                            <? endforeach; ?>
+                                        </p>
+                                    </td>
+                                    <td>
+                                        <label class="b-label">Примечание к заказу</label>
+                                        <textarea class="form-control" rows="3" value="" name="text"></textarea>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="error_block" class="alert alert-danger">
+                            <div class="b-input-i"></div>
                         </div>
                     </div>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <a href="#myModal" class="btn btn-success" data-toggle="modal" data-target="#myModal"><span class="btn__case">Заказать</span></a>
-                    <strong>
-                        <? foreach ($this->product->getStatuses() as $k=>$v): ?>
-                            <? if ($k==$this->product->getProductStatus()): ?> - <?=$v?><? endif; ?>
-                        <? endforeach; ?>
-                    </strong>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <p><b>Подходит к:</b></p>
-                    <ul class="list-group">
-                        <?php foreach( $this->categories as $category ):?>
-                            <?php foreach( $this->product->getListTypesByIdProduct() as $v ): ?>
-                                <?php if( $v->idCategorie == $category->getId() ): ?>
-                                    <? $categoryContent = $category->getContent()->getFields();?>
-                                    <li style="list-style: none;"><?=$categoryContent['contentName']->getFieldText();?></li>
-                                    <?php break; endif; ?>
-                            <?php endforeach; ?>
-                        <?php endforeach; ?>
-                    </ul>
-                </td>
-            </tr>
-        </table>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" onclick="return common.submitOrderForm()">Заказать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-4">
-        <p>Другие наклейки</p>
-    </div>
-</div>
-<div class="row">
-    <? if(count($this->publicList->data) > 0): ?>
-        <? echo $this->ListItems($this->publicList->data); ?>
-    <? endif; ?>
-</div>
-<div class="row">
-    <div id="disqus_thread"></div>
-    <script type="text/javascript">
-        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
-        var disqus_shortname = 'vinylkacomua'; // required: replace example with your forum shortname
 
-        /* * * DON'T EDIT BELOW THIS LINE * * */
-        (function() {
-            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        })();
-    </script>
-<!--    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>-->
-<!--    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>-->
-</div>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form id="order_form" action="<?=$this->url(array('idProduct'=>$this->product->getIdProduct()), 'default-ajax-set_order')?>">
+    <div class="modal fade" id="myModalSenks">
+        <div class="modal-dialog">
+            <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Оформление нового заказа</h4>
+                    <h4 class="modal-title">Заказ сделан</h4>
                 </div>
-                <div class="modal-body" style="padding-bottom: 0px;">
-                    <table class="table table-bordered">
-                        <thead>
-                            <tr class="active">
-                                <th>Информация по товару</th>
-                                <th>Контактные данные</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <p><b>Навание:</b> <?=$this->contentPage['contentName']->getFieldText();?></p>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <label for="exampleInputName">Ваше имя и фамилия</label>
-                                        <input type="text" class="form-control" value="" name="name" id="exampleInputName" placeholder="Александр Александрович">
-                                        <input type="text" class="b-input" value="" name="last_name" id="last_name"/>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p><b>Подходит к:</b></p>
-                                    <ul class="list-group">
-                                        <?php foreach( $this->categories as $category ):?>
-                                            <?php foreach( $this->product->getListTypesByIdProduct() as $v ): ?>
-                                                <?php if( $v->idCategorie == $category->getId() ): ?>
-                                                    <? $categoryContent = $category->getContent()->getFields();?>
-                                                    <li style="list-style: none;"> - <?=$categoryContent['contentName']->getFieldText();?></li>
-                                                    <?php break; endif; ?>
-                                            <?php endforeach; ?>
-                                        <?php endforeach; ?>
-                                    </ul>
-                                </td>
-                                <td>
-                                    <div class="form-group">
-                                        <label for="exampleInputMob">Номер мобильного телефона</label>
-                                        <input type="text" class="form-control" value="" id="exampleInputMob" placeholder="+380509999999" name="mob">
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p><b>Цена:</b> <?=$this->product->getUserPrice();?> грн.</p>
-                                </td>
-                                <td>
-                                    <? foreach ($this->product->getDeliveryTypes() as $k=>$v): ?>
-                                        <div class="radio">
-                                            <label>
-                                                <input type="radio" name="delivery" id="optionsRadios2" value="<?=$k?>" <? if (!$k): ?>checked="checked"<? endif; ?>>
-                                                <?=$v?>
-                                            </label>
-                                        </div>
-                                    <? endforeach; ?>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <p><b>Тип заказа: </b>
-                                        <? foreach ($this->product->getStatuses() as $k=>$v): ?>
-                                            <? if ($k==$this->product->getProductStatus()): ?><?=$v?><? endif; ?>
-                                        <? endforeach; ?>
-                                    </p>
-                                </td>
-                                <td>
-                                    <label class="b-label">Примечание к заказу</label>
-                                    <textarea class="form-control" rows="3" value="" name="text"></textarea>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <div id="error_block" class="alert alert-danger">
-                        <div class="b-input-i"></div>
-                    </div>
+                <div class="modal-body">
+                    <p>Ваш заказ добавлен в обработку.</p>
+                    <p>Спасибо за покупку в Vinylka.com.ua</p>
+                    <p><a href="http://vinylka.com.ua">На главную</a></p>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-primary" onclick="return common.submitOrderForm()">Заказать</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
 </div>

@@ -12,6 +12,7 @@ class Application_Model_Kernel_Product extends Application_Model_Kernel_Page
     private $sameProducts;
     private $productUrl;
     private $productStatus;
+    private $productStatusPopular;
 
     private $categoryList = array();
     private $categoryText = '';
@@ -32,7 +33,7 @@ class Application_Model_Kernel_Product extends Application_Model_Kernel_Page
         $idRoute, $idContentPack, $pageEditDate,
         $pageStatus, $position, $price = 0,
         $idAmazon = null, $sameProducts = null, $productUrl = null,
-        $productStatus = 0
+        $productStatus = 0, $productStatusPopular = 0
     )
     {
         parent::__construct($idPage, $idRoute, $idContentPack, $pageEditDate, $pageStatus, self::TYPE_PROJECT, $position);
@@ -44,6 +45,7 @@ class Application_Model_Kernel_Product extends Application_Model_Kernel_Page
         $this->sameProducts = $sameProducts;
         $this->productUrl = $productUrl;
         $this->productStatus = $productStatus;
+        $this->productStatusPopular = $productStatusPopular;
 
         $this->deliveryTypes = array(
             0 => "Курьерская доставка (Киев)",
@@ -150,6 +152,19 @@ class Application_Model_Kernel_Product extends Application_Model_Kernel_Page
         return $this;
     }
 
+    public function getProductStatusPopular()
+    {
+
+        return $this->productStatusPopular;
+    }
+
+    public function setProductStatusPopular($productStatus)
+    {
+        $this->productStatusPopular = $productStatus;
+
+        return $this;
+    }
+
     public function getPhoto1()
     {
         if (is_null($this->photo1))
@@ -186,7 +201,8 @@ class Application_Model_Kernel_Product extends Application_Model_Kernel_Page
                 'idAmazon' =>$this->idAmazon,
                 'sameProducts' =>$this->sameProducts,
                 'productUrl' =>$this->productUrl,
-                'productStatus' => $this->productStatus
+                'productStatus' => $this->productStatus,
+                'productStatusPopular' => $this->productStatusPopular
             );
             if ($insert) {
                 $db->insert('products', $data);
@@ -243,7 +259,7 @@ class Application_Model_Kernel_Product extends Application_Model_Kernel_Page
                         $data->pageEditDate, $data->pageStatus, $data->position,
                         $data->price,
                         $data->idAmazon, $data->sameProducts, $data->productUrl,
-                        $data->productStatus
+                        $data->productStatus, $data->productStatusPopular
                         );
     }
 

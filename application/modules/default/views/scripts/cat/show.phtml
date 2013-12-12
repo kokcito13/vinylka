@@ -9,7 +9,9 @@
 <? $this->mainCategory = $this->page;?>
 <? $this->mainCategoryContent = $this->contentPage;?>
 
+<? echo $this->ListItems($this->publicList->data); ?>
 <div class="row">
-    <? echo $this->ListItems($this->publicList->data); ?>
+    <div class="col-md-12">
+        <?php echo $this->paginationControl($this->publicList->paginator, 'Sliding', 'block/paginator.phtml')?>
+    </div>
 </div>
-<?php echo $this->paginationControl($this->publicList->paginator, 'Sliding', 'block/paginator.phtml')?>

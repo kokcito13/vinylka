@@ -9,6 +9,7 @@
             <span>Электронный ящик</span>
             <div class="hdr__val">&#109;&#097;&#110;&#097;&#103;&#101;&#114;&#064;&#118;&#105;&#110;&#121;&#108;&#107;&#097;&#046;&#099;&#111;&#109;&#046;&#117;&#097;</div>
         </div>
+        <? /*
         <div class="hdr__block last_block_new">
             <div id="vk_like"></div>
             <script type="text/javascript">
@@ -29,6 +30,7 @@
                 })();
             </script>
         </div>
+        */ ?>
     </div>
     <ul class="nav nav-justified">
         <li<? if(isset($this->menu) && $this->menu == "main"): ?> class="active"<? endif; ?>>
@@ -36,12 +38,16 @@
                 Главная
             </a>
         </li>
-        <li><a href="#">Популярное</a></li>
+        <li<? if(isset($this->menu) && $this->menu == "/popular"): ?> class="active"<? endif; ?>>
+            <a href="<?=$this->url(array(), 'public-page-211')?>">Популярные</a>
+        </li>
         <li<? if(isset($this->menu) && $this->menu == "/delivery_and_payment"): ?> class="active"<? endif; ?>>
             <a href="<?=$this->url(array(), 'public-page-44')?>">Доставка и оплата</a>
         </li>
-        <li><a href="#">Скидки</a></li>
-        <li><a href="#">Контакты</a></li>
+        <li<? if(isset($this->menu) && $this->menu == "/discounts"): ?> class="active"<? endif; ?>>
+            <a href="<?=$this->url(array(), 'public-page-210')?>">Скидки</a>
+        </li>
+<!--        <li><a href="#">Контакты</a></li>-->
 <!--        <li>-->
 <!--            <div class="" style="margin-left: 10px; margin-right: 10px;">-->
 <!--                <input type="text" class="form-control" placeholder="Search">-->

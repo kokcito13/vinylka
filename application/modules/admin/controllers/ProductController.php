@@ -244,11 +244,11 @@ class Admin_ProductController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $data = (object)$this->getRequest()->getPost();
 
-            $this->view->project = Application_Model_Kernel_Project::getById((int)$data->idProject);
-            if ($this->view->project->getProjectStatus() == 1)
-                $this->view->project->setProjectStatus(0);
+            $this->view->project = Application_Model_Kernel_Product::getById((int)$data->idProduct);
+            if ($this->view->project->getProductStatusPopular() != 2)
+                $this->view->project->setProductStatusPopular(2);
             else
-                $this->view->project->setProjectStatus(1);
+                $this->view->project->setProductStatusPopular(1);
             $this->view->project->save();
             echo 1;
             exit();
