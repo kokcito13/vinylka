@@ -3,7 +3,7 @@
     <? $publicContent = $public->getContent()->getFields(); ?>
     <? $publicContentText = strip_tags($publicContent['content']->getFieldText()); ?>
 
-    <div class="col-6 col-sm-6 col-lg-3">
+    <div class="item">
         <!--noindex-->
             <a href="<? echo $public->getRoute()->getUrl();?>" rel="nofollow">
                 <img class="img-thumbnail" alt="<? echo $publicContent['contentName']->getFieldText();?>" style="max-width: 180px; height: 130px;" src="<? echo $public->getPhoto1()->getPath('180', true)?>">

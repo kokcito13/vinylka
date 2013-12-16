@@ -85,6 +85,8 @@ body {
     padding-left: 0;
     padding-right: 0;
   }
+
+  .item:nth-child(3) { clear: left;}
 }
 a.btn-block {
     text-decoration: underline;
@@ -92,3 +94,22 @@ a.btn-block {
 a.btn-block:hover {
     text-decoration: none;
 }
+
+/* ==== [ Layout ] ==== */
+.sidebar {
+	float: left;
+	width: 280px;
+	margin-right: -280px;
+}
+
+.main-content {
+	float: left;
+	width: 100%;
+	overflow: hidden;
+}
+.main-content__inner {
+	margin-left: 300px;
+}
+
+/* ==== [ Item list ] ==== */
+.item {}
