@@ -1,6 +1,19 @@
 <? $this->headScript()->captureStart() ?>
 <? $this->headScript()->captureEnd() ?>
-
+</div>
+<div class="row">
+    <div class="jumbotron" style="
+    background: url(https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-prn1/1491365_341209969352938_1933741912_o.jpg);
+    background-size: 853px 512px;
+    background-position-y: -25px;
+    color: #fff;
+    height: 360px;">
+        <h1 style="color: red; margin-top: -30px;">А ты купил Пакмена?</h1>
+<!--        <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>-->
+        <p style="margin-top: 160px;"><a class="btn btn-lg btn-danger" href="http://vinylka.com.ua/obama_pacman">Пакмен - за 60 грн.</a></p>
+    </div>
+</div>
+<div class="row">
 <? echo $this->ListItems($this->publicList->data); ?>
 
 <?php echo $this->paginationControl($this->publicList->paginator, 'Sliding', 'block/paginator.phtml')?>

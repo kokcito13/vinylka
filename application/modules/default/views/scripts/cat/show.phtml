@@ -2,7 +2,7 @@
 
 <? $this->headScript()->captureStart() ?>
     $(function() {
-        $('#stic_list').val("<?=$this->url(array('idCat'=>$this->page->getIdCat()),'default-ajax-more_stikers');?>");
+        common.setIdCat(<? echo $this->page->getIdCat(); ?>);
     });
 <? $this->headScript()->captureEnd() ?>
 
@@ -10,8 +10,4 @@
 <? $this->mainCategoryContent = $this->contentPage;?>
 
 <? echo $this->ListItems($this->publicList->data); ?>
-<div class="row">
-    <div class="col-md-12">
-        <?php echo $this->paginationControl($this->publicList->paginator, 'Sliding', 'block/paginator.phtml')?>
-    </div>
-</div>
+<?php echo $this->paginationControl($this->publicList->paginator, 'Sliding', 'block/paginator.phtml')?>

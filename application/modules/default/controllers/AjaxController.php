@@ -83,11 +83,28 @@ class AjaxController extends Zend_Controller_Action
             if (!isset($response['error']) || empty($response['error'])) {
 
                 $info = Application_Model_Kernel_SiteSetings::getBy();
+                $delivery = '';
+                $ids = array();
+                $product = Application_Model_Kernel_Product::getById($idProduct);
+                $productContent = $product->getContent()->getFields();
+                $categories = $product->getListCategoryByIdProduct();
 
                 $view = new Zend_View(array('basePath'=>APPLICATION_PATH.'/modules/default/views'));
+
+                foreach ($product->getDeliveryTypes() as $k=>$v) {
+                    if ($k == $this->data->delivery) {
+                        $delivery = $v;
+                    }
+                }
+
+                foreach ($categories as $category) {
+                    $ids[] = $category->idCategorie;
+                }
+
                 $view->data = $data;
-                $view->product = Application_Model_Kernel_Product::getById($idProduct);
-                $view->productContent = $view->product->getContent()->getFields();
+                $view->delivery = $delivery;
+                $view->product = $product;
+                $view->productContent = $productContent;
 
                 $html = $view->render('block/order_mail.phtml');
 
@@ -99,6 +116,11 @@ class AjaxController extends Zend_Controller_Action
                 $mail->send();
 
                 $response['success'] = true;
+
+                $order = new Application_Model_Kernel_Order(null, $idProduct, $product->getUserPrice(), $data->name, $data->mob, $data->text,
+                                                   $product->getPrice(), $delivery, $ids,
+                                                   array(), time());
+                $order->save();
             }
 
             echo json_encode($response);

@@ -24,6 +24,7 @@ function InitCommonFeatures() {
 commonController = function ()
 {
     var args, $form;
+    var idCat = 0;
 
     this.init = function ()
     {
@@ -53,7 +54,7 @@ commonController = function ()
         });
 
         $.get(
-            '/more_stickers?page='+page+'&types='+types,
+            '/more_stickers/'+idCat+'?page='+page+'&types='+types,
             function (data) {
                 if (data.html) {
                     data.html = '<div style="display:none;" id="box_vs_items" class="col-md-12"><div class="row">'+data.html+'</div></div>';
@@ -65,26 +66,15 @@ commonController = function ()
             }, "json"
         )
             .done(function () {
-//                console.log("second success");
             })
             .fail(function () {
-//                console.log("error");
             })
             .always(function () {
-//                console.log("finished");
             });
 
         return false;
     }
 
-
-    this.showPopup = function(id)
-    {
-        $('.b-popup-i').fadeIn();
-        $('#last_name').hide();
-
-        return false;
-    }
 
     this.submitOrderForm = function ()
     {
@@ -124,6 +114,11 @@ commonController = function ()
             });
 
         return false;
+    }
+
+    this.setIdCat = function(id)
+    { console.log(123);
+        idCat = id;
     }
 }
 

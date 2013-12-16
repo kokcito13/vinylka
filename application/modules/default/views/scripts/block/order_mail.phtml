@@ -35,9 +35,7 @@
                 <br/>
                 <?=$this->data->text;?>
                 <br/>
-                <? foreach ($this->product->getDeliveryTypes() as $k=>$v): ?>
-                    <? if ($k == $this->data->delivery) { echo $v; } ?>
-                <? endforeach; ?>
+                <?=$this->delivery; ?>
             </td>
         </tr>
         <tr>
