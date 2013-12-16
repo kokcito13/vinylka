@@ -95,6 +95,10 @@ a.btn-block:hover {
     text-decoration: none;
 }
 
+@media (min-width: 1200px){
+	.item:nth-child(3) { clear: none;}
+}
+
 /* ==== [ Layout ] ==== */
 .sidebar {
 	float: left;
