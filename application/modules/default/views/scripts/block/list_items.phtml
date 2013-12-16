@@ -4,11 +4,15 @@
     <? $publicContentText = strip_tags($publicContent['content']->getFieldText()); ?>
 
     <div class="col-6 col-sm-6 col-lg-3">
-        <a href="<? echo $public->getRoute()->getUrl();?>">
-            <img class="img-thumbnail" alt="<? echo $publicContent['contentName']->getFieldText();?>" style="width: 180px; height: 130px;" src="<? echo $public->getPhoto1()->getPath('180', true)?>">
-        </a>
+        <!--noindex-->
+            <a href="<? echo $public->getRoute()->getUrl();?>" rel="nofollow">
+                <img class="img-thumbnail" alt="<? echo $publicContent['contentName']->getFieldText();?>" style="max-width: 180px; height: 130px;" src="<? echo $public->getPhoto1()->getPath('180', true)?>">
+            </a>
+        <!--/noindex-->
         <a style="margin-top: 10px;" class="btn-block" href="<? echo $public->getRoute()->getUrl();?>"><? echo $publicContent['contentName']->getFieldText();?></a>
-        <h6 style="margin-top: 0px;"><small><?=$public->getUserPrice()?> грн</small></h6>
+        <!--noindex-->
+            <h6 style="margin-top: 0px;"><small><?=$public->getUserPrice()?> грн</small></h6>
+        <!--/noindex-->
     </div>
     <? if ($i == 4 && count($this->items) > ($key+1)): ?>
         </div>

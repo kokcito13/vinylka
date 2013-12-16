@@ -1,12 +1,16 @@
 <? $category = $this->ShowCategorys(); ?>
-<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation" style="width: 280px;">
+<div class="col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation" style="width: 280px;">
     <div class="row">
         <div class="col-md-12">
             <div class="list-group">
                 <? foreach ($category as $cat):?>
                     <? $catContent = $cat->getContent()->getFields();?>
-                    <?php if(isset($this->menu)&&$this->menu==$cat->getRoute()->getUrl()):?>
-                        <span class="list-group-item active"><?=$catContent['contentName']->getFieldText();?></span>
+                    <?php if(isset($this->menu)&&$this->menu==$cat->getRoute()->getUrl() ):?>
+                        <? if (!$this->item): ?>
+                            <span class="list-group-item active"><?=$catContent['contentName']->getFieldText();?></span>
+                        <? else: ?>
+                            <a class="list-group-item active" href="<?=$cat->getRoute()->getUrl();?>"><?=$catContent['contentName']->getFieldText();?></a>
+                        <? endif; ?>
                     <? else: ?>
                         <a href="<?=$cat->getRoute()->getUrl();?>" class="list-group-item"><?=$catContent['contentName']->getFieldText();?></a>
                     <?php endif;?>

@@ -209,3 +209,8 @@
         </div>
     </div>
 </div>
+<? if (Application_Model_Admin_Admin::isAuthorized()): ?>
+    <div style="position: absolute; top: 5px; right: 30px;">
+        <a href="<?=$this->url(array('idProduct'=>$this->product->getIdProduct()), 'admin-product-edit');?>" style="font-weight: bold; color: red;" target="_blank">Edit</a>
+    </div>
+<? endif; ?>

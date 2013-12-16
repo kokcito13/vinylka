@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?= $this->description ?>" />
 
+    <link rel="icon"
+          type="image/png"
+          href="/favicon.ico" />
+
     <link rel="stylesheet" href="/static/default/css/bootstrap.css" />
     <link rel="stylesheet" href="/static/default/css/justified-nav.css" />
 
@@ -68,8 +72,8 @@
             <? endif; ?>
         </ol>
         <div class="row row-offcanvas row-offcanvas-left">
-            <? echo $this->partial('blocks/menu.phtml', array('menu' => $this->menu, 'blocks'=>$this->blocks,'siteSetings'=>$this->siteSetings)) ?>
-            <div class="col-xs-12 col-sm-9">
+            <? echo $this->partial('blocks/menu.phtml', array('menu' => $this->menu, 'blocks'=>$this->blocks,'siteSetings'=>$this->siteSetings, 'item' => isset($this->itemContent)?true:false)) ?>
+            <div class="col-sm-9">
 <!--                <div class="jumbotron">-->
 <!--                    <h1>Marketing stuff!</h1>-->
 <!--                    <p class="lead">Cras justo odio, dapibus ac facilisis in, egestas eget quam. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet.</p>-->
