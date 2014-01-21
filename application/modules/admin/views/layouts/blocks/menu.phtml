@@ -1,11 +1,10 @@
 <div id="main_menu">
     <ul>
-<!--        <li>-->
-<!--            <a href="--><?//= $this->url(array(),'admin-recommend-index')?><!--">-->
-<!--                <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Я рекомендую</span>-->
-<!--            </a>-->
-<!--        </li>-->
-         
+        <li>
+            <a href="<?= $this->url(array('page'=>0),'admin-faq-index')?>">
+                <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>FAQ</span>
+            </a>
+        </li>
         <li>
             <a href="<?= $this->url(array('page'=>1),'admin-product-index')?>">
                 <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Товар</span>
@@ -19,6 +18,12 @@
         <li>
             <a href="<?= $this->url(array(),'admin-category-type-index')?>">
                 <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Типы</span>
+            </a>
+        </li>
+
+        <li>
+            <a href="<?= $this->url(array(),'admin-order-index')?>">
+                <img src="/static/admin/images/menu_icons/edit-writing-mode.png" alt="" width="16" height="16" /><span>Сделки</span>
             </a>
         </li>
         

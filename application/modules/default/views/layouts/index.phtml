@@ -121,6 +121,88 @@
                                                               'text'=> $this->text
                                                          )) ?>
     </div>
+
+    <div class="modal fade" id="myModalIndividual" tabindex="-1" role="dialog" aria-labelledby="myModalIndividual" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form data-action="<?=$this->url(array(), 'default-ajax-individual_order')?>"
+                      action="<?=$this->url(array(), 'default-post-individual_order')?>"
+                      enctype="multipart/form-data"
+                      id="form_individual_order"
+                      method="POST"
+                    >
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalIndividualLabel">Оформление вашего заказа</h4>
+                    </div>
+                    <div class="modal-body" style="padding-bottom: 0px;">
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr class="active">
+                                <th>Контактные данные</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="exampleInputName">Ваше имя и фамилия</label>
+                                        <input type="text" required="required" class="form-control" value="" name="name" id="exampleInputName" placeholder="Александр Александрович">
+                                        <input type="text" class="b-input" value="" name="last_name" id="last_name_ind"/>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="exampleInputMob">Номер мобильного телефона</label>
+                                        <input required="required" type="text" class="form-control" value="" id="exampleInputMob" placeholder="+380509999999" name="mob">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="form-group">
+                                        <label for="exampleInputFile">Ссылка на картинку наклейки</label>
+                                        <input type="text" required="required" class="form-control" value="" name="image" id="exampleInputFile" placeholder="http://some/image.jpg">
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <label class="b-label">Примечание к заказу</label>
+                                    <textarea class="form-control" rows="3" value="" name="text"></textarea>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <div class="alert alert-danger error_block">
+                            <div class="b-input-i"></div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        <button type="button" class="btn btn-primary" onclick="return common.submitIndividualOrder('#form_individual_order')">Заказать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="myModalSenks">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Заказ сделан</h4>
+                </div>
+                <div class="modal-body">
+                    <p>Ваш заказ добавлен в обработку.</p>
+                    <p>Спасибо за покупку в Vinylka.com.ua</p>
+                    <p><a href="http://vinylka.com.ua">На главную</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
     <!-- Yandex.Metrika counter -->
     <script type="text/javascript">
         (function (d, w, c) {

@@ -1,0 +1,22 @@
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<? $this->itemContent = $this->contentPage; ?>
+<div class="col-md-12">
+    <? foreach($this->faqs->data as $faq): ?>
+        <? $faqContent = $faq->getContent()->getFields();?>
+        <div class="row">
+            <div class="col-md-4">
+                <img src="<?=$faq->getPhoto1()->getPath('200', true)?>" alt="<?=$faqContent['img_alt']->getFieldText();?>" class="img-thumbnail">
+            </div>
+            <div class="col-md-8">
+                <h4><?=$faqContent['contentName']->getFieldText();?></h4>
+                <p><a href="<?=$faq->getRoute()->getUrl();?>"><small>Читать</small></a></p>
+            </div>
+        </div>
+    <? endforeach; ?>
+    <div class="row">
+        <div class="col-md-12">
+            <?=$this->contentPage['content']->getFieldText()?>
+        </div>
+    </div>
+</div>

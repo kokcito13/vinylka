@@ -589,3 +589,7 @@ a.btn_type_buy:hover {color:#fff;}
 }
 
 .cloud-zoom img {margin:0 auto;}
+
+.error_block {
+    display: none;
+}

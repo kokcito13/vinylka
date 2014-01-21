@@ -1,0 +1,60 @@
+<?= $this->partial('blocks/menus/top.phtml'); ?>
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<form action="<?= $this->url() ?>" method="post" id="PageForm">
+    <table class="zebra edit">
+        <tr class="grey">
+            <td width="193" class="first">ФИО:</td>
+            <td>
+                <?=$this->order->getName(); ?>
+            </td>
+        </tr>
+        <tr class="grey">
+            <td width="193" class="first">Телефон:</td>
+            <td>
+                <?=$this->order->getPhone(); ?>
+            </td>
+        </tr>
+        <tr class="grey">
+            <td width="193" class="first">Текст:</td>
+            <td>
+                <textarea name="text"><?=$this->order->getText(); ?></textarea>
+            </td>
+        </tr>
+        <tr class="grey">
+            <td width="193" class="first">Цена:</td>
+            <td>
+                <?=$this->order->getPriceUser(); ?>
+            </td>
+        </tr>
+        <tr class="grey">
+            <td width="193" class="first">Урл Наклейки:</td>
+            <td>
+                <a href="<?=$this->order->getProduct()->getRoute()->getUrl(); ?>"><?=$this->order->getProduct()->getRoute()->getUrl(); ?></a>
+            </td>
+        </tr>
+        <tr class="grey">
+            <td width="193" class="first">Доставка:</td>
+            <td>
+                <?=$this->order->getDeliveryType(); ?>
+            </td>
+        </tr>
+        <tr class="">
+            <td width="193" class="first">Статус товара:</td>
+            <td>
+                <select name="status">
+                    <option value="0" <? if (0==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Новый</option>
+                    <option value="1" <? if (1==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Успешный</option>
+                </select>
+            </td>
+        </tr>
+        <tr class="grey">
+            <td colspan="2">
+                <div class="m10 centerButton">
+                    <a href="javascript:SubmitPageFrom();" class="button_blue">Сохранить</a>
+                    <a href="<?=$this->url(array('page'=>1),'admin-order-index') ?>" class="button_grey">Отменить</a>
+                </div>
+            </td>
+        </tr>
+    </table>
+</form>

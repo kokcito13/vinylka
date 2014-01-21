@@ -1,0 +1,6 @@
+<? $this->headScript()->captureStart() ?>
+<? $this->headScript()->captureEnd() ?>
+<? $this->itemContent = $this->contentPage; ?>
+<div class="col-md-12">
+    <?=$this->contentPage['content']->getFieldText()?>
+</div>

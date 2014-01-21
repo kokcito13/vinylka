@@ -47,7 +47,12 @@
         <li<? if(isset($this->menu) && $this->menu == "/discounts"): ?> class="active"<? endif; ?>>
             <a href="<?=$this->url(array(), 'public-page-210')?>">Скидки</a>
         </li>
-<!--        <li><a href="#">Контакты</a></li>-->
+        <li>
+            <a href="#myModalIndividual" data-toggle="modal" data-target="#myModalIndividual">Ваша наклейка</a>
+        </li>
+        <li<? if(isset($this->menu) && $this->menu == "faq"): ?> class="active"<? endif; ?>>
+            <a href="<?=$this->url(array(), 'public-page-240')?>">FAQ</a>
+        </li>
 <!--        <li>-->
 <!--            <div class="" style="margin-left: 10px; margin-right: 10px;">-->
 <!--                <input type="text" class="form-control" placeholder="Search">-->

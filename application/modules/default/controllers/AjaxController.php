@@ -82,7 +82,6 @@ class AjaxController extends Zend_Controller_Action
 
             if (!isset($response['error']) || empty($response['error'])) {
 
-                $info = Application_Model_Kernel_SiteSetings::getBy();
                 $delivery = '';
                 $ids = array();
                 $product = Application_Model_Kernel_Product::getById($idProduct);
@@ -92,7 +91,7 @@ class AjaxController extends Zend_Controller_Action
                 $view = new Zend_View(array('basePath'=>APPLICATION_PATH.'/modules/default/views'));
 
                 foreach ($product->getDeliveryTypes() as $k=>$v) {
-                    if ($k == $this->data->delivery) {
+                    if ($k == $data->delivery) {
                         $delivery = $v;
                     }
                 }
@@ -120,6 +119,59 @@ class AjaxController extends Zend_Controller_Action
                 $order = new Application_Model_Kernel_Order(null, $idProduct, $product->getUserPrice(), $data->name, $data->mob, $data->text,
                                                    $product->getPrice(), $delivery, $ids,
                                                    array(), time());
+                $order->save();
+            }
+
+            echo json_encode($response);
+
+            return false;
+        }
+    }
+
+    public function individualOrderAction()
+    {
+        $response = array();
+        if ($this->getRequest()->isPost() || true) {
+            $data = (object)array_merge($this->getRequest()->getPost(), $_GET);
+
+            if (empty($data->name)) {
+                $response['error']['Ваше имя'] = 'Пустое поле!';
+            }
+
+            if (empty($data->mob)) {
+                $response['error']['Контактный телефон'] = 'Пустое поле!';
+            }
+
+            if (empty($data->image)) {
+                $response['error']['Картинка'] = 'Незагружена!';
+            }
+
+            if (!empty($data->last_name)) {
+                $response['error']['Вы'] = ' - робот!';
+            }
+
+            if (!isset($response['error']) || empty($response['error'])) {
+                $response['success'] = true;
+            }
+
+            if (!isset($response['error']) || empty($response['error'])) {
+                $view = new Zend_View(array('basePath'=>APPLICATION_PATH.'/modules/default/views'));
+                $view->data = $data;
+
+                $html = $view->render('block/order_ind_mail.phtml');
+
+                $mail = new Zend_Mail('UTF-8');
+                $mail->setBodyHtml($html);
+                $mail->setFrom('manager@vinylka.com.ua', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
+                $mail->addTo('manager@vinylka.com.ua', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
+                $mail->setSubject('Заказ товара на '.$_SERVER['SERVER_NAME']);
+                $mail->send();
+
+                $response['success'] = true;
+
+                $order = new Application_Model_Kernel_Order(null, 0, 0, $data->name, $data->mob, $data->text,
+                                                            0, 0, array(),
+                                                            array(), time());
                 $order->save();
             }
 

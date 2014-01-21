@@ -29,7 +29,7 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
 	
 	const TYPE_PAGE = 1;
 	const TYPE_PROJECT = 2;
-	const TYPE_NEWS = 4;
+	const TYPE_FAQ = 4;
 	
 	const ERROR_INVALID_ID = 'INVALID ID GIVEN';
 	const ERROR_INVALID_PAGE_ID = 'INVALID PAGE ID GIVEN';

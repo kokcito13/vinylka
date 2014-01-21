@@ -136,6 +136,7 @@ class Admin_ProductController extends Zend_Controller_Action
 
     public function editAction()
     {
+        $fields = array();
         $this->view->langs = Kernel_Language::getAll();
         $this->view->back = true;
         $this->_helper->viewRenderer->setScriptAction('add');

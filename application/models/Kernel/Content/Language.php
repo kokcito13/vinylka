@@ -107,6 +107,7 @@ class Application_Model_Kernel_Content_Language {
 	public function delete() {
 		$db = Zend_Registry::get('db');
 		$db->delete('content', "idContent = " . intval($this->_idContent));
+        $db->delete('fields', "idContent = " . intval($this->_idContent));
 //		$this->clearCache();
 	}
 	

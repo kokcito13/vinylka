@@ -33,7 +33,8 @@ commonController = function ()
             $('.b-popup-i').fadeOut();
             return false;
         });
-        $('div#error_block').hide();
+        $('div.error_block').hide();
+        $('#last_name_ind').hide();
     }
 
     this.goToPage = function (page)
@@ -78,7 +79,7 @@ commonController = function ()
 
     this.submitOrderForm = function ()
     {
-        var errorBlock = $('div#error_block');
+        var errorBlock = $('div.error_block');
         errorBlock.find('div.b-input-i').html('');
         errorBlock.fadeOut();
         args = $form.serialize();
@@ -116,8 +117,48 @@ commonController = function ()
         return false;
     }
 
+    this.submitIndividualOrder = function(formEl)
+    {
+        var errorBlock = $('div.error_block');
+        errorBlock.find('div.b-input-i').html('');
+        errorBlock.fadeOut();
+        args = $(formEl).serialize();
+
+        $.post(
+            $(formEl).data('action'),
+            args,
+            function (data) {
+                if (data.success) {
+                    $('#myModalIndividual').modal('hide');
+
+                    $('#myModalSenks').modal('show');
+                    setTimeout(function(){
+                        $('#myModalSenks').modal('hide');
+                    }, 10000);
+                } else if (data.error) {
+                    var html_error = '';
+
+                    $.each(data.error, function(k,v){
+                        console.log(k,v);
+                        html_error += '<p><b>'+k+':</b> '+v+'</p>';
+                    });
+
+                    errorBlock.find('div.b-input-i').html(html_error);
+                    errorBlock.fadeIn();
+                }
+            },
+            "json"
+        )
+            .fail(function () {
+            })
+            .always(function () {
+            });
+
+        return false;
+    }
+
     this.setIdCat = function(id)
-    { console.log(123);
+    {
         idCat = id;
     }
 }

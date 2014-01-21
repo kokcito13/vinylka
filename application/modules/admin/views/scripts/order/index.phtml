@@ -1,0 +1,39 @@
+<?= $this->partial('blocks/menus/top.phtml'); ?>
+<table class="zebra">
+    <thead>
+    <tr>
+        <td style="width: 5%;"></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    </thead>
+    <?php if (count($this->orders->data)): ?>
+        <?php $class = ''; ?>
+        <tbody>
+        <? $i = 0; ?>
+        <? foreach ($this->orders->data as $item): ?>
+            <? $i++; ?>
+            <? ($class === 'grey') ? $class = '' : $class = 'grey'; ?>
+            <tr class="<?= $class; ?> id_<?= $item->getId() ?>" rel="<?= $item->getId() ?>">
+                <td style="text-align: right;">
+                    <a href="<?= $this->url(array('id' => $item->getId()), 'admin-order-edit'); ?>"
+                       class="edit" style="float: left; display:block; margin-right: 10px;" title="Редактировать"><img
+                            src="/static/admin/images/edit.png" alt="Edit" width="16" height="16"/></a>
+                </td>
+                <td style="padding-left:10px;"><?=$item->getName();?> - <?=$item->getNormalData()?></td>
+                <td>
+                    <?=$item->getTextStatus();?>
+                </td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    <?php endif; ?>
+</table>
+<?= $this->paginationControl($this->orders->paginator, 'Sliding', 'blocks/paginator.phtml') ?>
+<input id="statusUrl" type="hidden" value="<?= $this->url(array(), 'admin-page-status') ?>"/>
