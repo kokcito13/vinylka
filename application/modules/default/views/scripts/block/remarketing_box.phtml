@@ -1,0 +1,14 @@
+<?php if(!is_null($this->product)): ?>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading"style="color: #468847;
+background-color: #dff0d8;
+border-color: #d6e9c6;">Вас интересовала наклейка</div>
+                <div class="panel-body">
+                    <? echo $this->ListItems(array($this->product)); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+<?php endif; ?>

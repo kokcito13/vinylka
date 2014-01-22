@@ -6,12 +6,11 @@ class PublicController extends Zend_Controller_Action
     public function preDispatch()
     {
         $this->view->categories = Application_Model_Kernel_Category::getListParent();
-
+        Zend_Session::start();
     }
 
     public function showAction()
     {
-
         $this->view->idPage = (int)$this->_getParam('idPage');
         $this->view->product = Application_Model_Kernel_Product::getByIdPage($this->view->idPage);
         $this->view->contentPage = $this->view->product->getContent()->getFields();
@@ -44,5 +43,31 @@ class PublicController extends Zend_Controller_Action
         $this->view->title = $title;
         $this->view->keywords = $keywords;
         $this->view->description = $description;
+
+        $remarketing = new Zend_Session_Namespace('remarketing');
+        if ($remarketing->product_id) {
+            if ($remarketing->product_id != $this->view->product->getIdProduct()) {
+                $mRemarketing = Application_Model_Kernel_Remarketing::getByIp($_SERVER['REMOTE_ADDR']);
+                $this->updateCurentProduct($mRemarketing, $remarketing->product_id);
+            }
+        } else {
+            $this->setNewProduct($this->view->product->getIdProduct(), $remarketing->product_id);
+        }
+        $remarketing->product_id = $this->view->product->getIdProduct();
+    }
+
+    public function setNewProduct($product_id)
+    {
+        $remarketingNewProduct = new Application_Model_Kernel_Remarketing(0, $product_id);
+        $remarketingNewProduct
+            ->setIp($_SERVER['REMOTE_ADDR'])
+            ->save();
+    }
+
+    public function updateCurentProduct($remarketing, $product_id)
+    {
+        $remarketing->setProductId($product_id);
+        $remarketing
+            ->update();
     }
 }

@@ -72,7 +72,11 @@
             <? endif; ?>
         </ol>
         <div class="row row-offcanvas row-offcanvas-left">
-            <? echo $this->partial('blocks/menu.phtml', array('menu' => $this->menu, 'blocks'=>$this->blocks,'siteSetings'=>$this->siteSetings, 'item' => isset($this->itemContent)?true:false)) ?>
+            <div class="sidebar" id="sidebar" role="navigation" style="width: 280px;">
+                <? echo $this->partial('blocks/menu.phtml', array('menu' => $this->menu, 'blocks'=>$this->blocks,'siteSetings'=>$this->siteSetings, 'item' => isset($this->itemContent)?true:false)) ?>
+                <? echo $this->RemarketingBox($this->product_id); ?>
+                <? echo $this->partial('blocks/social_media.phtml', array('menu' => $this->menu, 'blocks'=>$this->blocks,'siteSetings'=>$this->siteSetings, 'item' => isset($this->itemContent)?true:false)) ?>
+            </div>
             <div class="main-content">
                 <div class="row main-content__inner">
                     <div class="col-md-12">
@@ -230,5 +234,23 @@
     </script>
     <noscript><div><img src="//mc.yandex.ru/watch/21420952" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
     <!-- /Yandex.Metrika counter -->
+    <!-- Код тега ремаркетинга Google -->
+    <!--------------------------------------------------
+    С помощью тега ремаркетинга запрещается собирать информацию, по которой можно идентифицировать личность пользователя. Также запрещается размещать тег на страницах с контентом деликатного характера. Подробнее об этих требованиях и о настройке тега читайте на странице http://google.com/ads/remarketingsetup.
+    --------------------------------------------------->
+    <script type="text/javascript">
+        /* <![CDATA[ */
+        var google_conversion_id = 1022647833;
+        var google_custom_params = window.google_tag_params;
+        var google_remarketing_only = true;
+        /* ]]> */
+    </script>
+    <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+    </script>
+    <noscript>
+        <div style="display:inline;">
+            <img height="1" width="1" style="border-style:none;" alt="" src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/1022647833/?value=0&amp;guid=ON&amp;script=0"/>
+        </div>
+    </noscript>
 </body>
 </html>
