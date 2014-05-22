@@ -13,7 +13,6 @@ class Zend_View_Helper_RemarketingBox
                 $product = $remarketing->getProduct();
                 $view->product = $product;
             } else {
-                $this->setNewProduct($product_id);
                 $view->product = null;
             }
         } else {

@@ -16,8 +16,27 @@ class ErrorController extends Zend_Controller_Action
         if (($log = $this->getLog()) !== false)
             $log->crit($this->view->message, $errors->exception);
         $this->view->exception = $errors->exception;
+        if (isset($errors->exception)) {
+            $var = "<h3>Exception information:</h3>
+                <p><b>Message:</b> " . $errors->exception->getMessage() . "</p>
+
+                <h3>Stack trace:</h3>
+                <pre>" . $errors->exception->getTraceAsString() . "</pre>
+
+                <h3>Request Parameters:</h3>
+                <pre>" . var_export($errors->request->getParams(), true) . "</pre>
+
+                <pre>URL: - http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."</pre>";
+
+            $mail = new Zend_Mail('UTF-8');
+            $mail->setBodyHtml($var);
+            $mail->setFrom('manager@vinylka.com.ua', 'Ошибка на '.$_SERVER['SERVER_NAME']);
+            $mail->addTo('oklosovich@gmail.com', 'Ошибка на '.$_SERVER['SERVER_NAME']);
+            $mail->setSubject('Ошибка на '.$_SERVER['SERVER_NAME']);
+            $mail->send();
+        }
         $this->view->request = $errors->request;
-        $this->view->title = "404 ошибка - страница не найдена";
+        $this->view->title   = "404 ошибка - страница не найдена";
     }
 
     public function getLog()
