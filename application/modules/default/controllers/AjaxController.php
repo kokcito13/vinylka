@@ -13,7 +13,7 @@ class AjaxController extends Zend_Controller_Action
     {
         $result = array();
         $types = array();
-        $where = false;
+        $where = '';
         if ($this->getRequest()->isGet()) {
             $data = (object)array_merge($this->getRequest()->getPost(), $_GET);
             $idCat = (int)$this->_getParam('idCat');
@@ -27,7 +27,6 @@ class AjaxController extends Zend_Controller_Action
                 $where = 'products.idProduct IN (' . join(',', $productsIds) . ')';
             }
 
-
             if ($idCat) {
                 $this->view->page = Application_Model_Kernel_Cat::getById($idCat);
                 $ids = $this->view->page->getListIdProductByCategory();
@@ -38,6 +37,12 @@ class AjaxController extends Zend_Controller_Action
                     }
                 }
                 $where = 'products.idProduct IN (' . join(',', $ids) . ')';
+            }
+
+            if (isset($data->status)) {
+                if (strlen($where) > 2)
+                    $where .= ' AND ';
+                $where .= ' `products`.`productStatus` = '.$data->status;
             }
             
             $this->view->publicList = Application_Model_Kernel_Product::getList(false, false, true, true, false, Application_Model_Kernel_Page::STATUS_SHOW, $data->page, Application_Model_Kernel_Product::ITEM_ON_PAGE, Application_Model_Kernel_Product::ITEM_ON_PAGE, true, $where);
@@ -50,6 +55,10 @@ class AjaxController extends Zend_Controller_Action
             $result['html'] = $view->render('block/list_items.phtml');
 
             $result['html'] .= $viewPg->render('block/ajax_paginator.phtml');
+
+            if (count($view->items) == 0) {
+                $result['html'] = 'Наклейки не найдены';
+            }
 
             $result['success'] = true;
         }

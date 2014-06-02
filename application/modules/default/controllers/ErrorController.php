@@ -26,7 +26,10 @@ class ErrorController extends Zend_Controller_Action
                 <h3>Request Parameters:</h3>
                 <pre>" . var_export($errors->request->getParams(), true) . "</pre>
 
-                <pre>URL: - http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."</pre>";
+                <pre>URL: - http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."</pre>
+                <pre>IP: ".$_SERVER['REMOTE_ADDR']."</pre>"
+
+            ;
 
             $mail = new Zend_Mail('UTF-8');
             $mail->setBodyHtml($var);

@@ -25,6 +25,7 @@ commonController = function ()
 {
     var args, $form;
     var idCat = 0;
+    var self = this;
 
     this.init = function ()
     {
@@ -37,9 +38,18 @@ commonController = function ()
         $('#last_name_ind').hide();
     }
 
+    this.getByStatus = function(ele)
+    {
+        $('#btns_status a').removeClass('btn-success');
+        $(ele).addClass('btn-success');
+
+        return self.goToPage(1);
+    }
+
     this.goToPage = function (page)
     {
         var loader = $('<img/>',{src:'/static/default/img/ajax-loader.gif', width:'66px', height:'66px', style:'margin-left: 45%; margin-top: 25%'});
+        var status = $('#btns_status').find('a.btn-success').first().data('status');
         var box = $('div.box');
         var types = 0;
 
@@ -55,18 +65,19 @@ commonController = function ()
         });
 
         $.get(
-            '/more_stickers/'+idCat+'?page='+page+'&types='+types,
+            '/more_stickers/'+idCat+'?page='+page+'&types='+types+'&status='+status,
             function (data) {
                 if (data.html) {
                     data.html = '<div style="display:none;" id="box_vs_items" class="col-md-12"><div class="row">'+data.html+'</div></div>';
-                    box.html(data.html);
-                    box.css('height', 'auto');
-                    $('#box_vs_items').fadeIn();
-                    $("html, body").animate({ scrollTop: 0 }, "slow");
+
                 }
+                box.html(data.html);
+                box.css('height', 'auto');
+                $("html, body").animate({ scrollTop: 0 }, "slow");
             }, "json"
         )
             .done(function () {
+                $('#box_vs_items').fadeIn();
             })
             .fail(function () {
             })

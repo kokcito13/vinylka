@@ -62,10 +62,15 @@ class PublicController extends Zend_Controller_Action
         $remarketingNewProduct
             ->setIp($_SERVER['REMOTE_ADDR'])
             ->save();
+
+        return $remarketingNewProduct;
     }
 
     public function updateCurentProduct($remarketing, $product_id)
     {
+        if (is_null($remarketing))
+            $remarketing= $this->setNewProduct($product_id);
+
         $remarketing->setProductId($product_id);
         $remarketing
             ->update();

@@ -89,6 +89,10 @@
                                         <? if (isset($this->filter) && $this->filter):?>
                                             <? $typres = Application_Model_Kernel_Category::getListParent();?>
                                             <div class="menu line">
+                                                <div style="float:left;" id="btns_status">
+                                                    <a class="btn btn-xs btn-default btn-success" data-status="0" onclick="return common.getByStatus(this);" href="">Все</a>
+                                                    <a class="btn btn-xs btn-default" data-status="1" href="" onclick="return common.getByStatus(this);">В наличии</a>
+                                                </div>
                                                 <? foreach ($typres as $type): ?>
                                                     <? if(!$type->isStatusShow()) continue;?>
                                                     <? $typeContent = $type->getContent()->getFields();?>

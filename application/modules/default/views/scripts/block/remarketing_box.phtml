@@ -1,11 +1,18 @@
+<style>
+    #recomend_item .item {
+        width: 100%;
+    }
+</style>
 <?php if(!is_null($this->product)): ?>
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
-                <div class="panel-heading"style="color: #468847;
-background-color: #dff0d8;
-border-color: #d6e9c6;">Вас интересовала наклейка</div>
-                <div class="panel-body">
+                <div class="panel-heading"
+                    style="color: #468847;
+                    background-color: #dff0d8;
+                    border-color: #d6e9c6;"
+                    >Вас интересовала наклейка</div>
+                <div class="panel-body" id="recomend_item">
                     <? echo $this->ListItems(array($this->product)); ?>
                 </div>
             </div>
