@@ -10,7 +10,7 @@
         <div class="col-md-6">
             <img class="img-rounded" src="<?=$this->product->getPhoto1()->getPath('400', true)?>" style="max-width: 400px; max-height: 400px;" alt="<? echo isset($this->contentPage['img_alt'])?$this->contentPage['img_alt']->getFieldText():'';?>" />
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6" style="padding-left: 40px;">
             <table class="table">
                 <tr class="alert alert-success">
                     <td>
@@ -26,7 +26,21 @@
                 </tr>
                 <tr>
                     <td>
-                        <a href="#myModal" class="btn btn-success" data-toggle="modal" data-target="#myModal"><span class="btn__case">Заказать</span></a>
+                        <a href="#myModal"
+                           class="btn btn-success"
+                           data-toggle="modal"
+                           data-target="#myModal"
+                            <? if ($this->product->getProductStatus() == 0): ?>
+                                style="
+                                    font-weight: bold;;
+                                    /*color: #000;*/
+                                    /*background-color: darkgoldenrod;*/
+                                    /*border-color: #ffff00;*/
+                                    "
+                            <? endif; ?>
+                            >
+                            <span class="btn__case">Заказать</span>
+                        </a>
                         <strong>
                             <? foreach ($this->product->getStatuses() as $k=>$v): ?>
                                 <? if ($k==$this->product->getProductStatus()): ?> - <?=$v?><? endif; ?>

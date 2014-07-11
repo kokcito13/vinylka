@@ -74,7 +74,7 @@
             <? endif; ?>
         </ol>
         <div class="row row-offcanvas row-offcanvas-left">
-            <div class="sidebar" id="sidebar" role="navigation" style="width: 280px;">
+            <div class="sidebar" id="sidebar" role="navigation" style="width: 180px;">
                 <? echo $this->partial('blocks/menu.phtml', array('menu' => $this->menu, 'blocks'=>$this->blocks,'siteSetings'=>$this->siteSetings, 'item' => isset($this->itemContent)?true:false)) ?>
                 <? echo $this->RemarketingBox($this->product_id); ?>
                 <? echo $this->partial('blocks/social_media.phtml', array('menu' => $this->menu, 'blocks'=>$this->blocks,'siteSetings'=>$this->siteSetings, 'item' => isset($this->itemContent)?true:false)) ?>
@@ -107,7 +107,7 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <? if (isset($this->itemContent)): ?>
-                                                        <h1 style="margin: 0px; font-size: 26px;"><?php echo $this->itemContent['contentName']->getFieldText();?></h1>
+                                                        <h1 style="margin: 0px; font-size: 20px;"><?php echo $this->itemContent['contentName']->getFieldText();?></h1>
                                                     <? endif; ?>
                                                 </div>
                                             </div>

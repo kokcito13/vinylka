@@ -112,8 +112,10 @@ a.btn-block:hover {
 	overflow: hidden;
 }
 .main-content__inner {
-	margin-left: 300px;
+	margin-left: 180px;
 }
 
 /* ==== [ Item list ] ==== */
-.item {}
+.item {
+    /*float: left;*/
+}

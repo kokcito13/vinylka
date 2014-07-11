@@ -13,7 +13,29 @@
                     border-color: #d6e9c6;"
                     >Вас интересовала наклейка</div>
                 <div class="panel-body" id="recomend_item">
-                    <? echo $this->ListItems(array($this->product)); ?>
+                    <? $i = 1; ?>
+                    <? foreach(array($this->product) as $key=>$public): ?>
+                        <? $publicContent = $public->getContent()->getFields(); ?>
+                        <? $publicContentText = strip_tags($publicContent['content']->getFieldText()); ?>
+
+                        <div class="col-6 col-lg-3 item">
+                            <!--noindex-->
+                            <a href="<? echo $public->getRoute()->getUrl();?>" rel="nofollow">
+                                <img class="img-thumbnail" alt="<? echo $publicContent['contentName']->getFieldText();?>" style="max-width: 120px; height: 90px;" src="<? echo $public->getPhoto1()->getPath('120', true)?>">
+                            </a>
+                            <!--/noindex-->
+                            <a style="margin-top: 10px; text-align: justify;" class="btn-block" href="<? echo $public->getRoute()->getUrl();?>"><? echo $publicContent['contentName']->getFieldText();?></a>
+                            <!--noindex-->
+                            <h6 style="margin-top: 0px;"><small><?=$public->getUserPrice()?> грн</small></h6>
+                            <!--/noindex-->
+                        </div>
+                        <? if ($i == 4 && count($this->items) > ($key+1)): ?>
+                    </div>
+                    <div class="row">
+                        <? $i = 0; ?>
+                        <? endif; ?>
+                        <? $i ++; ?>
+                    <? endforeach; ?>
                 </div>
             </div>
         </div>

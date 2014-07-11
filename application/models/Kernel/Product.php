@@ -91,7 +91,6 @@ class Application_Model_Kernel_Product extends Application_Model_Kernel_Page
 
     public function getStatuses()
     {
-
         return $this->statuses;
     }
 
