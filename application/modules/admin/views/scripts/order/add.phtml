@@ -30,7 +30,9 @@
         <tr class="grey">
             <td width="193" class="first">Урл Наклейки:</td>
             <td>
+                <? if ($this->order->getIdProduct()): ?>
                 <a href="<?=$this->order->getProduct()->getRoute()->getUrl(); ?>"><?=$this->order->getProduct()->getRoute()->getUrl(); ?></a>
+                <? endif; ?>
             </td>
         </tr>
         <tr class="grey">

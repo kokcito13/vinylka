@@ -17,7 +17,11 @@
         <? foreach ($this->orders->data as $item): ?>
             <? $i++; ?>
             <? ($class === 'grey') ? $class = '' : $class = 'grey'; ?>
-            <tr class="<?= $class; ?> id_<?= $item->getId() ?>" rel="<?= $item->getId() ?>">
+            <tr class="<?= $class; ?> id_<?= $item->getId() ?>" rel="<?= $item->getId() ?>"
+                <? if ($item->checkDate() < 10): ?>
+                    style="color:red;"
+                <? endif; ?>
+                >
                 <td style="text-align: right;">
                     <a href="<?= $this->url(array('id' => $item->getId()), 'admin-order-edit'); ?>"
                        class="edit" style="float: left; display:block; margin-right: 10px;" title="Редактировать"><img
@@ -29,7 +33,13 @@
                 </td>
                 <td></td>
                 <td></td>
-                <td></td>
+                <td>
+                    <? if ($item->getIdProduct()): ?>
+                        <a href="<?=$item->getProduct()->getRoute()->getUrl(); ?>"><?=$item->getProduct()->getRoute()->getUrl(); ?></a>
+                    <? else: ?>
+                        <a href="#">Личный заказ</a>
+                    <? endif; ?>
+                </td>
             </tr>
         <?php endforeach; ?>
         </tbody>

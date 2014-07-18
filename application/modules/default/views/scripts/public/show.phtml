@@ -39,7 +39,7 @@
                                     "
                             <? endif; ?>
                             >
-                            <span class="btn__case">Заказать</span>
+                            <span class="btn__case"><?=$this->product->getProductStatus()?'Купить':'Заказать'?></span>
                         </a>
                         <strong>
                             <? foreach ($this->product->getStatuses() as $k=>$v): ?>

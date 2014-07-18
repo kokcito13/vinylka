@@ -101,6 +101,15 @@ class Application_Model_Kernel_Order
         return date('d.m.Y H:i', $this->created_at);
     }
 
+    public function checkDate()
+    {
+        $curentD = new \DateTime(date('d.m.Y',$this->created_at));
+        $nowD = new \DateTime('now');
+
+        $interval = $nowD->diff($curentD);
+        return $interval->days;
+    }
+
     public function getTextStatus()
     {
         $text = 'new order';
@@ -160,6 +169,8 @@ class Application_Model_Kernel_Order
         $return = new stdClass();
         $db = Zend_Registry::get('db');
         $select = $db->select()->from('order');
+        $select->order('id_product');
+        $select->order('id DESC');
 
         if ($page !== false) {
             $paginator = Zend_Paginator::factory($select);
