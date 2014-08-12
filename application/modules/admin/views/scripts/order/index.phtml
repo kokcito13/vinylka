@@ -3,7 +3,11 @@
     <thead>
     <tr>
         <td style="width: 5%;"></td>
-        <td></td>
+        <td>
+            <a href="<?=$this->url(array('stat'=>0), 'admin-order-index');?>" style="text-decoration: underline;">Новые</a>
+             |
+            <a href="<?=$this->url(array('stat'=>1), 'admin-order-index');?>" style="text-decoration: underline;">Статистика</a>
+        </td>
         <td></td>
         <td></td>
         <td></td>
@@ -17,7 +21,7 @@
         <? foreach ($this->orders->data as $item): ?>
             <? $i++; ?>
             <? ($class === 'grey') ? $class = '' : $class = 'grey'; ?>
-            <tr class="<?= $class; ?> id_<?= $item->getId() ?>" rel="<?= $item->getId() ?>"
+            <tr class="<?= $class; ?> id_<?= $item->getId() ?> status<?=$item->getStatus()?>" rel="<?= $item->getId() ?>"
                 <? if ($item->checkDate() < 10): ?>
                     style="color:red;"
                 <? endif; ?>
@@ -47,3 +51,14 @@
 </table>
 <?= $this->paginationControl($this->orders->paginator, 'Sliding', 'blocks/paginator.phtml') ?>
 <input id="statusUrl" type="hidden" value="<?= $this->url(array(), 'admin-page-status') ?>"/>
+<style>
+    .status0 td {
+        background-color: lightyellow!important;
+    }
+    .status1 td {
+        background-color: lightgreen!important;
+    }
+    .status3 td {
+        background-color: palevioletred!important;
+    }
+</style>

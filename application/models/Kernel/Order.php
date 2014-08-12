@@ -18,6 +18,8 @@ class Application_Model_Kernel_Order
     protected $product = null;
 
     const STATUS_GOOD = 1;
+    const STATUS_FAIL = 2;
+    const STATUS_NOT_DONE = 3;
 
     public function __construct($id, $id_product, $price_user, $name, $phone, $text,
                                 $price_current, $delivery_type, $categories = array(),
@@ -76,7 +78,7 @@ class Application_Model_Kernel_Order
     }
 
     public function getStatus(){
-        return $this->status;
+        return (int)$this->status;
     }
 
     public function getDeliveryType(){
@@ -112,11 +114,16 @@ class Application_Model_Kernel_Order
 
     public function getTextStatus()
     {
-        $text = 'new order';
-
+        $text = 'В обработке';
         switch($this->getStatus()) {
             case self::STATUS_GOOD:
-                $text = 'good done order';
+                $text = 'Успешно закрыта';
+                break;
+            case self::STATUS_FAIL:
+                $text = 'отказ';
+                break;
+            case self::STATUS_NOT_DONE:
+                $text = 'не обработан';
                 break;
         }
 
@@ -164,12 +171,13 @@ class Application_Model_Kernel_Order
         }
     }
 
-    public static function getList($page = false, $onPage = false)
+    public static function getList($page = false, $onPage = false, $statistic = false)
     {
         $return = new stdClass();
         $db = Zend_Registry::get('db');
         $select = $db->select()->from('order');
-        $select->order('id_product');
+        if ($statistic)
+            $select->order('id_product');
         $select->order('id DESC');
 
         if ($page !== false) {

@@ -22,7 +22,7 @@ class Admin_OrderController extends Zend_Controller_Action
 
         $this->view->breadcrumbs->add('Список заказов', '');
         $this->view->headTitle()->append('Список заказов');
-        $this->view->orders = Application_Model_Kernel_Order::getList($this->view->page, 30);
+        $this->view->orders = Application_Model_Kernel_Order::getList($this->view->page, 30, (boolean)$this->_getParam('stat'));
     }
 
     public function editAction()
