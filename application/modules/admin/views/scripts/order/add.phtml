@@ -6,13 +6,13 @@
         <tr class="grey">
             <td width="193" class="first">ФИО:</td>
             <td>
-                <?=$this->order->getName(); ?>
+                <input type="text" name="name" value="<?=$this->order->getName(); ?>"/>
             </td>
         </tr>
         <tr class="grey">
             <td width="193" class="first">Телефон:</td>
             <td>
-                <?=$this->order->getPhone(); ?>
+                <input type="text" name="phone" value="<?=$this->order->getPhone(); ?>"/>
             </td>
         </tr>
         <tr class="grey">
@@ -24,7 +24,7 @@
         <tr class="grey">
             <td width="193" class="first">Цена:</td>
             <td>
-                <?=$this->order->getPriceUser(); ?>
+                <input type="text" name="userPrice" value="<?=$this->order->getPriceUser(); ?>"/>
             </td>
         </tr>
         <tr class="grey">
@@ -38,7 +38,7 @@
         <tr class="grey">
             <td width="193" class="first">Доставка:</td>
             <td>
-                <?=$this->order->getDeliveryType(); ?>
+                <input type="text" name="delivery" value="<?=$this->order->getDeliveryType(); ?>"/>
             </td>
         </tr>
         <tr class="">
@@ -46,7 +46,8 @@
             <td>
                 <select name="status">
                     <option value="0" <? if (0==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Новый</option>
-                    <option value="1" <? if (1==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Успешный</option>
+                    <option value="4" <? if (4==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>В работе</option>
+                    <option value="1" <? if (1==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Успешно закрыт</option>
                     <option value="2" <? if (2==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Отказ</option>
                     <option value="3" <? if (3==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Не обработан</option>
                 </select>

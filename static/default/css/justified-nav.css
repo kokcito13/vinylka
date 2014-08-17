@@ -86,7 +86,7 @@ body {
     padding-right: 0;
   }
 
-  .item:nth-child(3) { clear: left;}
+  /*.item:nth-child(3) { clear: left;}*/
 }
 a.btn-block {
     text-decoration: underline;
@@ -117,5 +117,6 @@ a.btn-block:hover {
 
 /* ==== [ Item list ] ==== */
 .item {
-    /*float: left;*/
+    float: left;
+    width: 210px;
 }

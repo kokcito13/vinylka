@@ -20,6 +20,7 @@ class Application_Model_Kernel_Order
     const STATUS_GOOD = 1;
     const STATUS_FAIL = 2;
     const STATUS_NOT_DONE = 3;
+    const STATUS_WORK = 4;
 
     public function __construct($id, $id_product, $price_user, $name, $phone, $text,
                                 $price_current, $delivery_type, $categories = array(),
@@ -114,10 +115,13 @@ class Application_Model_Kernel_Order
 
     public function getTextStatus()
     {
-        $text = 'В обработке';
+        $text = 'Новый';
         switch($this->getStatus()) {
             case self::STATUS_GOOD:
                 $text = 'Успешно закрыта';
+                break;
+            case self::STATUS_WORK:
+                $text = 'В работе';
                 break;
             case self::STATUS_FAIL:
                 $text = 'отказ';
@@ -212,5 +216,33 @@ class Application_Model_Kernel_Order
         } else {
             throw new Exception(self::ERROR_INVALID_ID);
         }
+    }
+
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    public function setPhone($phone)
+    {
+        $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function setDeliveryType($delivery)
+    {
+        $this->delivery_type = $delivery;
+
+        return $this;
+    }
+
+    public function setUserPrice($price)
+    {
+        $this->price_user = $price;
+
+        return $this;
     }
 }
