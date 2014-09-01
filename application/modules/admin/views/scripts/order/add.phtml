@@ -47,6 +47,7 @@
                 <select name="status">
                     <option value="0" <? if (0==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Новый</option>
                     <option value="4" <? if (4==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>В работе</option>
+                    <option value="5" <? if (5==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Отправлено</option>
                     <option value="1" <? if (1==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Успешно закрыт</option>
                     <option value="2" <? if (2==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Отказ</option>
                     <option value="3" <? if (3==$this->order->getStatus()): ?>selected="selected"<? endif; ?>>Не обработан</option>

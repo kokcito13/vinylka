@@ -39,7 +39,7 @@ class AjaxController extends Zend_Controller_Action
                 $where = 'products.idProduct IN (' . join(',', $ids) . ')';
             }
 
-            if (isset($data->status)) {
+            if (isset($data->status) && $data->status) {
                 if (strlen($where) > 2)
                     $where .= ' AND ';
                 $where .= ' `products`.`productStatus` = '.$data->status;

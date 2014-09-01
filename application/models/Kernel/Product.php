@@ -24,7 +24,6 @@ class Application_Model_Kernel_Product extends Application_Model_Kernel_Page
     private $statuses = array(
         0 => 'Предварительный заказ',
         1 => 'На складе',
-        2 => 'В наличии',
         3 => 'Снята с производства'
     );
 
