@@ -21,6 +21,7 @@ class Application_Model_Kernel_Order
     const STATUS_FAIL = 2;
     const STATUS_NOT_DONE = 3;
     const STATUS_WORK = 4;
+    const STATUS_SEND = 5;
 
     public function __construct($id, $id_product, $price_user, $name, $phone, $text,
                                 $price_current, $delivery_type, $categories = array(),
@@ -122,6 +123,9 @@ class Application_Model_Kernel_Order
                 break;
             case self::STATUS_WORK:
                 $text = 'В работе';
+                break;
+            case self::STATUS_SEND:
+                $text = 'Отправленно';
                 break;
             case self::STATUS_FAIL:
                 $text = 'отказ';

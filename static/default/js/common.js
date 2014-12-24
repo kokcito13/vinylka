@@ -105,7 +105,8 @@ commonController = function ()
                     $('#myModalSenks').modal('show');
                     setTimeout(function(){
                         $('#myModalSenks').modal('hide');
-                    }, 10000)
+                    }, 10000);
+                    ga('send', 'event', 'zakaz', 'zakaz', 'zakaz');
                 } else if (data.error) {
                     var html_error = '';
 
@@ -146,6 +147,7 @@ commonController = function ()
                     setTimeout(function(){
                         $('#myModalSenks').modal('hide');
                     }, 10000);
+                    ga('send', 'event', 'zakaz', 'zakaz', 'zakaz');
                 } else if (data.error) {
                     var html_error = '';
 
