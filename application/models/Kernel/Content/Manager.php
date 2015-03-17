@@ -2,14 +2,15 @@
 
 /**
  * Application_Model_Kernel_Content
- * 
+ *
  * Content Manager of all langs
- * 
+ *
  * @author <vlad.melanitski@gmail.com>
  * @package Content
  * @version 1.0
  */
-class Application_Model_Kernel_Content_Manager {
+class Application_Model_Kernel_Content_Manager
+{
 
     private $_idContentPack = null;
 
@@ -23,7 +24,8 @@ class Application_Model_Kernel_Content_Manager {
     const ERROR_CONTENT_LANG_PACK_GIVEN = 'Given content lang have different Content Manager';
 
 
-    public function __construct($idContentPack, array $contentLangs) {
+    public function __construct($idContentPack, array $contentLangs)
+    {
         if (empty($contentLangs)) {
             $langs = Kernel_Language::getAll();
             foreach ($langs as $lang) {
@@ -43,15 +45,17 @@ class Application_Model_Kernel_Content_Manager {
         $this->_idContentPack = $idContentPack;
     }
 
-    public function addContentLanguage($idLanguage, Application_Model_Kernel_Content_Language $content) {
+    public function addContentLanguage($idLanguage, Application_Model_Kernel_Content_Language $content)
+    {
         $this->_content[$idLanguage] = $content;
         if (!is_null($content->getFields())) {
             $this->_content[$idLanguage]->setFields('', '');
         }
     }
 
-    public function setContentLanguage() {
-        
+    public function setContentLanguage()
+    {
+
     }
 
     /**
@@ -59,7 +63,8 @@ class Application_Model_Kernel_Content_Manager {
      * @access public
      * @return Application_Model_Kernel_Content_Manager
      */
-    public function saveContentData() {
+    public function saveContentData()
+    {
         if (is_null($this->_idContentPack)) {
             $db = Zend_Registry::get('db');
             $db->insert('contentPacks', array());
@@ -72,11 +77,13 @@ class Application_Model_Kernel_Content_Manager {
         return $this;
     }
 
-    public function getIdContentPack() {
+    public function getIdContentPack()
+    {
         return $this->_idContentPack;
     }
 
-    public function getContent() {
+    public function getContent()
+    {
         return $this->_content;
     }
 
@@ -84,13 +91,15 @@ class Application_Model_Kernel_Content_Manager {
      * @name setIdContentPack
      * @return void
      */
-    protected function setIdContentPack() {
+    protected function setIdContentPack()
+    {
         foreach ($this->_content as $contentLang) {
             $contentLang->setidContentPack($this->_idContentPack);
         }
     }
 
-    public function setLangContent($langId, $fieldsArray) {
+    public function setLangContent($langId, $fieldsArray)
+    {
         if (isset($this->_content[$langId])) {
             $this->_content[$langId]->setFieldsArray($fieldsArray);
         } else
@@ -98,13 +107,12 @@ class Application_Model_Kernel_Content_Manager {
     }
 
     /**
-     * @name getLangData
-     * @access public
-     * @param string $isoName
+     * @param $isoId
+     * @return array
      * @throws Exception
-     * @return array[]
      */
-    public function getLangContent($isoId) {
+    public function getLangContent($isoId)
+    {
         if (isset($this->_content[$isoId])) {
             return Application_Model_Kernel_Content_Fields::getFieldsByIdContent($this->_content[$isoId]->getId());
         } else
@@ -116,7 +124,8 @@ class Application_Model_Kernel_Content_Manager {
      * @name getLangs
      * @return array[][]
      */
-    public function getContents() {
+    public function getContents()
+    {
         $data = array();
         foreach ($this->_content as $content) {
             $data[$content->getIdLang()] = $this->getLangContent($content->getIdLang());
@@ -125,13 +134,11 @@ class Application_Model_Kernel_Content_Manager {
     }
 
     /**
-     * @name getContentByPageId
-     * @access public
-     * @static
-     * @param int $idPage
-     * @return Application_Model_Kernel_Content
+     * @param $idContentPack
+     * @return Application_Model_Kernel_Content_Manager
      */
-    public static function getById($idContentPack) {
+    public static function getById($idContentPack)
+    {
         $db = Zend_Registry::get('db');
         $select = $db->select()->from('content');
         $select->where('content.idContentPack = ?', intval($idContentPack));
@@ -144,11 +151,13 @@ class Application_Model_Kernel_Content_Manager {
         return new self($idContentPack, $contentList);
     }
 
-    public function getContentId() {
+    public function getContentId()
+    {
         return $this->_idContent;
     }
 
-    public function delete() {
+    public function delete()
+    {
         foreach ($this->_content as $contentLang) {
             $contentLang->delete();
         }
@@ -156,7 +165,8 @@ class Application_Model_Kernel_Content_Manager {
         $db->delete('contentPacks', 'idContentPack = ' . $this->_idContentPack);
     }
 
-    public function validate(Application_Model_Kernel_Exception &$e) {
+    public function validate(Application_Model_Kernel_Exception &$e)
+    {
 //        foreach ($this->_content as $contentLang)
 //            $contentLang->validate($e);
     }

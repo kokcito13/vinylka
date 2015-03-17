@@ -2,7 +2,6 @@
 
 abstract class Application_Model_Kernel_Page implements Application_Model_Kernel_Interface_Sort
 {
-
     protected $_idPage;
     protected $_idRoute;
     protected $_idContentPack;
@@ -10,18 +9,21 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
     protected $_pageStatus;
     protected $_pageType;
     protected $_position;
+
     /**
      * @var Application_Model_Kernel_Routing
      */
     protected $_route = NULL;
+
     /**
      * @var Application_Model_Kernel_Content_Manager
      */
-    protected $_contentManager = null;
+    protected $_contentManager = NULL;
+
     /**
      * @var Application_Model_Kernel_Content_Language
      */
-    protected $_content = null;
+    protected $_content = NULL;
 
     protected $_db;
 
@@ -63,12 +65,12 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
     /**
      * @param Application_Model_Kernel_Content_Manager $contentManager
      * @throws Exception ERROR_CONTENT_MANAGER_GIVEN
-     * @return Application_Model_Kernel_Page
+     * @return $this
      */
     public function setContentManager(Application_Model_Kernel_Content_Manager $contentManager)
     {
         $this->_contentManager = $contentManager;
-        
+
         return $this;
     }
 
@@ -80,6 +82,7 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
         if (is_null($this->_contentManager)) {
             $this->setContentManager(Application_Model_Kernel_Content_Manager::getById($this->_idContentPack));
         }
+
         return $this->_contentManager;
     }
 
@@ -97,7 +100,7 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
 
     /**
      * @param Application_Model_Kernel_Content_Language $contentLang
-     * @return void
+     * @return $this
      */
     public function setContent(Application_Model_Kernel_Content_Language $contentLang)
     {
@@ -109,7 +112,7 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
     /**
      *
      * @param Application_Model_Kernel_Routing $route
-     * @return Application_Model_Kernel_Page
+     * @return $this
      */
     public function setRoute(Application_Model_Kernel_Routing $route)
     {
@@ -124,6 +127,26 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
         return $this->_idRoute;
     }
 
+    /**
+     * @param $id
+     * @return $this
+     */
+    public function setIdContentPack($id)
+    {
+        $this->_idContentPack = intval($id);
+
+        return $this;
+    }
+
+    public function getIdContentPack()
+    {
+        return $this->_idContentPack;
+    }
+
+    /**
+     * @param $position
+     * @return $this
+     */
     public function setPosition($position)
     {
         $this->_position = intval($position);
@@ -133,7 +156,7 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
 
     public function getPosition()
     {
-        return (int)$this->_position;
+        return $this->_position;
     }
 
     /**
@@ -142,19 +165,9 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
     public function getRoute()
     {
         if (is_null($this->_route)) {
-            $this->_route = Application_Model_Kernel_Routing::getById($this->_idRoute);
+            $this->setRoute(Application_Model_Kernel_Routing::getById($this->_idRoute));
         }
         return $this->_route;
-    }
-
-    public static function getRowById($idPage)
-    {
-        $db = Zend_Registry::get('db');
-        $idPage = (int)$idPage;
-        $select = $db->select()->from('pages');
-        $select->where('pages.idPage = ?', $idPage);
-        $select->limit(1);
-        return $db->fetchRow($select);
     }
 
     public function getIdPage()
@@ -174,7 +187,7 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
 
     /**
      * @param int $status
-     * @return Application_Model_Kernel_Page
+     * @return $this
      */
     public function setStatus($status)
     {
@@ -203,6 +216,16 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
         $this->getContentManager()->validate($e);
     }
 
+    public static function getRowById($idPage)
+    {
+        $db = Zend_Registry::get('db');
+        $idPage = (int)$idPage;
+        $select = $db->select()->from('pages');
+        $select->where('pages.idPage = ?', $idPage);
+        $select->limit(1);
+        return $db->fetchRow($select);
+    }
+
     /**
      * Save page data
      * @access protected
@@ -220,14 +243,14 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
             'idContentPack' => $this->_idContentPack,
         );
         $db = $this->_db;
-        $this->getRoute()->save(); //сохраняем роутинг, получаем AI роутинга
-        $this->getContentManager()->saveContentData(); //Сохраняем весь конент через меджер
+        $this->getRoute()->save(); //save Route, get AI for Route
+        $this->getContentManager()->saveContentData(); //save current content by content manager
         if (is_null($this->_idPage)) {
             $this->increasePosition();
-            $this->_idRoute = (int)$this->getRoute()->getId(); //ставим lastAI роутинга
-            $this->_idContentPack = $this->getContentManager()->getIdContentPack(); //ставим AI idContent
-            $data['idRoute'] = $this->_idRoute;
-            $data['idContentPack'] = $this->_idContentPack;
+            $this->setIdRoute($this->getRoute()->getId()); //set last AI route
+            $this->setIdContentPack($this->getContentManager()->getIdContentPack()); //set AI idContent
+            $data['idRoute'] = $this->getIdRoute();
+            $data['idContentPack'] = $this->getIdContentPack();
             $db->insert('pages', $data);
             $this->_idPage = $db->lastInsertId();
             $this->getRoute()->setName('public-page-' . $this->getIdPage());
@@ -274,9 +297,9 @@ abstract class Application_Model_Kernel_Page implements Application_Model_Kernel
         $select->limit(1);
         if (($result = $db->fetchRow($select)) !== false) {
             return Application_Model_Kernel_Routing::getById($result->idRoute)->getUrl();
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     public static function changePosition($idPage, $position)
