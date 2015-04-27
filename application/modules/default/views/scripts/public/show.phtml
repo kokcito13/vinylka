@@ -33,11 +33,9 @@
                             <? if ($this->product->getProductStatus() == 0): ?>
                                 style="
                                     font-weight: bold;;
-                                    /*color: #000;*/
-                                    /*background-color: darkgoldenrod;*/
-                                    /*border-color: #ffff00;*/
                                     "
                             <? endif; ?>
+                           onclick="ga('send', 'pageView', '/knopka-k-zakazy')"
                             >
                             <span class="btn__case"><?=$this->product->getProductStatus()?'Купить':'Заказать'?></span>
                         </a>

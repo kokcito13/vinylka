@@ -90,6 +90,7 @@ commonController = function ()
 
     this.submitOrderForm = function ()
     {
+        ga('send', 'pageView', '/zakaz-otpravlen');
         var errorBlock = $('div.error_block');
         errorBlock.find('div.b-input-i').html('');
         errorBlock.fadeOut();
@@ -107,6 +108,7 @@ commonController = function ()
                         $('#myModalSenks').modal('hide');
                     }, 10000);
                     ga('send', 'event', 'zakaz', 'zakaz', 'zakaz');
+
                 } else if (data.error) {
                     var html_error = '';
 
