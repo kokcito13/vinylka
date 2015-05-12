@@ -168,9 +168,10 @@
                                     </td>
                                     <td>
                                         <? foreach ($this->product->getDeliveryTypes() as $k=>$v): ?>
+                                            <? if ($k==0) continue; ?>
                                             <div class="radio">
                                                 <label>
-                                                    <input type="radio" name="delivery" id="optionsRadios2" value="<?=$k?>" <? if (!$k): ?>checked="checked"<? endif; ?>>
+                                                    <input type="radio" name="delivery" id="optionsRadios2" value="<?=$k?>" <? if ($k==1): ?>checked="checked"<? endif; ?>>
                                                     <?=$v?>
                                                 </label>
                                             </div>
