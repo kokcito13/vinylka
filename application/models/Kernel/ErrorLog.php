@@ -9,12 +9,14 @@ class Application_Model_Kernel_ErrorLog {
 	const ID_SAVE_ERROR = 1;
 	const ID_FIND_CITY = 2;	
 	const ID_PARSE_ERROR = 3;
+	const ID_PAGE_ERROR = 4;
 
 	private static function isIdLog($id) {
 		return in_array($id, array(
 			self::ID_FIND_CITY,
 			self::ID_SAVE_ERROR,
-			self::ID_PARSE_ERROR
+			self::ID_PARSE_ERROR,
+			self::ID_PAGE_ERROR
 		));
 	}
 	

@@ -31,12 +31,13 @@ class ErrorController extends Zend_Controller_Action
 
             ;
 
-            $mail = new Zend_Mail('UTF-8');
-            $mail->setBodyHtml($var);
-            $mail->setFrom('manager@vinylka.com.ua', 'Ошибка на '.$_SERVER['SERVER_NAME']);
-            $mail->addTo('oklosovich@gmail.com', 'Ошибка на '.$_SERVER['SERVER_NAME']);
-            $mail->setSubject('Ошибка на '.$_SERVER['SERVER_NAME']);
-            $mail->send();
+            Application_Model_Kernel_ErrorLog::addLogRow(Application_Model_Kernel_ErrorLog::ID_PAGE_ERROR, $var);
+//            $mail = new Zend_Mail('UTF-8');
+//            $mail->setBodyHtml($var);
+//            $mail->setFrom('manager@vinylka.com.ua', 'Ошибка на '.$_SERVER['SERVER_NAME']);
+//            $mail->addTo('oklosovich@gmail.com', 'Ошибка на '.$_SERVER['SERVER_NAME']);
+//            $mail->setSubject('Ошибка на '.$_SERVER['SERVER_NAME']);
+//            $mail->send();
         }
         $this->view->request = $errors->request;
         $this->view->title   = "404 ошибка - страница не найдена";
