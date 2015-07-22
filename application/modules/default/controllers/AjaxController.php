@@ -176,7 +176,6 @@ class AjaxController extends Zend_Controller_Action
                 $mail->setFrom('manager@vinylka.com.ua', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->addTo('oklosovich@gmail.com', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->addTo('grygorenko.viktoria@gmail.com', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
-                $mail->addTo('glyuda@gmail.com', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->setSubject('Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->send();
 
