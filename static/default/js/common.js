@@ -25,6 +25,7 @@ commonController = function ()
 {
     var args, $form;
     var idCat = 0;
+    var individualStarting = false;
     var self = this;
 
     this.init = function ()
@@ -35,7 +36,20 @@ commonController = function ()
             return false;
         });
         $('div.error_block').hide();
-        $('#last_name_ind').hide();
+        $('#last_name_ind').hide()
+
+        $('#btnIndividual').click(function(){
+            ga("send","pageview","/knopka_individual");
+        });
+
+        $('#myModalIndividual input').change(function(){
+            if (!common.individualStarting) {
+                common.individualStarting = true;
+                ga("send","pageview","/entering_individual");
+            }
+
+            ga("send","pageview","/knopka_individual");
+        });
     }
 
     this.getByStatus = function(ele)
@@ -90,7 +104,7 @@ commonController = function ()
 
     this.submitOrderForm = function ()
     {
-        ga('send', 'pageView', '/zakaz-otpravlen');
+        ga("send","pageview","/success-save");
         var errorBlock = $('div.error_block');
         errorBlock.find('div.b-input-i').html('');
         errorBlock.fadeOut();
@@ -107,8 +121,7 @@ commonController = function ()
                     setTimeout(function(){
                         $('#myModalSenks').modal('hide');
                     }, 10000);
-                    ga('send', 'event', 'zakaz', 'zakaz', 'zakaz');
-
+                    ga("send","pageview","/thankyou");
                 } else if (data.error) {
                     var html_error = '';
 
@@ -133,6 +146,7 @@ commonController = function ()
 
     this.submitIndividualOrder = function(formEl)
     {
+        ga("send","pageview","/knopka_saveing_individual");
         var errorBlock = $('div.error_block');
         errorBlock.find('div.b-input-i').html('');
         errorBlock.fadeOut();
@@ -149,7 +163,7 @@ commonController = function ()
                     setTimeout(function(){
                         $('#myModalSenks').modal('hide');
                     }, 10000);
-                    ga('send', 'event', 'zakaz', 'zakaz', 'zakaz');
+                    ga("send","pageview","/thankyou_individual");
                 } else if (data.error) {
                     var html_error = '';
 
