@@ -16,6 +16,18 @@
     });
 <? $this->headScript()->captureEnd() ?>
 
+
+<?
+
+$this->metaData = '<meta property="og:title" content="'.$this->title.'"/>
+                    <meta property="og:type" content="website"/>
+                    <meta property="og:url" content="http://vinylka.com.ua'.$this->product->getRoute()->getUrl().'"/>
+                    <meta property="og:site_name" content="Vinylka.com.ua"/>
+                    <meta property="og:description" content="'.$this->description.'"/>
+                    <meta property="og:image" content="http://vinylka.com.ua'.$this->product->getPhoto1()->getPath('400', true).'"/>
+';
+?>
+
 <? $this->itemContent = $this->contentPage;?>
 <div class="col-md-12">
     <div class="row">
