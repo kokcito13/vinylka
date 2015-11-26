@@ -204,11 +204,16 @@ class Application_Model_Kernel_Order
         }
     }
 
-    public static function getList($page = false, $onPage = false, $statistic = false)
+    public static function getList($page = false, $onPage = false, $statistic = false, $where = false)
     {
         $return = new stdClass();
         $db = Zend_Registry::get('db');
         $select = $db->select()->from('order');
+
+        if ($where) {
+            $select->where($where);
+        }
+
         if ($statistic)
             $select->order('id_product');
         $select->order('id DESC');
@@ -313,5 +318,26 @@ class Application_Model_Kernel_Order
     public function getCategories()
     {
         return $this->categories;
+    }
+
+    public static function getStatisticByMonth($status = self::STATUS_GOOD)
+    {
+        $sql = "SELECT YEAR( new.Date ) as years , MONTHNAME( new.Date ) as mounths, SUM( price_user ) as prices
+                FROM (
+                  SELECT DATE_FORMAT( FROM_UNIXTIME(  `created_at` ) ,  '%Y-%m-%d %H:%i:%s' ) AS DATE,  `price_user`
+                  FROM  `order`
+                  WHERE status = ".$status."
+                  and YEAR(DATE_FORMAT( FROM_UNIXTIME(  `created_at` ) ,  '%Y-%m-%d %H:%i:%s' )) = YEAR(CURDATE())
+                ) new
+                GROUP BY YEAR( new.Date ) , MONTH( new.Date )
+                ORDER BY years
+                ";
+
+        $db = Zend_Registry::get('db');
+        $db->setFetchMode(Zend_Db::FETCH_OBJ);
+
+        $results = $db->fetchAll($sql);
+
+        return $results;
     }
 }

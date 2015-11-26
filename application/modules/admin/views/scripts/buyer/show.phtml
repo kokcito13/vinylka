@@ -1,0 +1,22 @@
+<?= $this->partial('blocks/menus/top.phtml'); ?>
+
+<h1><?=$this->buyer->getFullName();?></h1>
+<div style="padding-left: 25px">
+    <b>Телефон:</b> <?=$this->buyer->getPhone();?><br/>
+    <b>Емаил:</b> <?=$this->buyer->getEmail();?><br/>
+    <b>Колечество покупок:</b> <?=$this->buyer->getNumberOrders();?>
+</div>
+<table class="zebra edit">
+    <? foreach ($this->buyer->getOrders()->data as $order) : ?>
+        <tr class="grey">
+            <td style="padding-left: 15px"><?=$order->getNormalData()?></td>
+            <td><?=$order->getTextStatus()?></td>
+            <td><?=$order->getPriceUser()?></td>
+            <td>
+                <a href="<?= $this->url(array('id' => $order->getId()), 'admin-order-edit'); ?>"
+                   class="edit" style="float: left; display:block; margin-right: 10px;" title="Редактировать"><img
+                        src="/static/admin/images/edit.png" alt="Edit" width="16" height="16"/></a>
+            </td>
+        </tr>
+    <? endforeach; ?>
+</table>

@@ -1,0 +1,58 @@
+<?= $this->partial('blocks/menus/top.phtml'); ?>
+
+<div>
+    <div id="container"></div>
+</div>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script>
+    var month = [];
+    <? foreach ($this->months as $month): ?>
+        month.push('<?=$month?>');
+    <? endforeach; ?>
+    var goods = [];
+    <? foreach ($this->statistic as $stat): ?>
+        goods.push(<?=$stat?>);
+    <? endforeach; ?>
+    var fails = [];
+    <? foreach ($this->statisticFail as $stat): ?>
+        fails.push(<?=$stat?>);
+    <? endforeach; ?>
+    $(function () {
+        $('#container').highcharts({
+            title: {
+                text: 'Помесячный доход текущего года',
+                x: -20 //center
+            },
+            xAxis: {
+                categories: month
+            },
+            yAxis: {
+                title: {
+                    text: 'Сумма'
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                valueSuffix: ' грн.'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            series: [{
+                name: 'Успешные',
+                data: goods
+            }, {
+                name: 'Не успешные',
+                data: fails
+            }
+            ]
+        });
+    });
+</script>

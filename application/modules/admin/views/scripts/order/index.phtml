@@ -31,7 +31,9 @@
                        class="edit" style="float: left; display:block; margin-right: 10px;" title="Редактировать"><img
                             src="/static/admin/images/edit.png" alt="Edit" width="16" height="16"/></a>
                 </td>
-                <td style="padding-left:10px;"><?=$item->getName();?> - <?=$item->getNormalData()?></td>
+                <td style="padding-left:10px;">
+                    <a href="<?= $this->url(array('id' => $item->getPhone()), 'admin-buyers-show'); ?>"><?=$item->getName();?></a> - <?=$item->getNormalData()?>
+                </td>
                 <td>
                     <?=$item->getTextStatus();?>
                 </td>

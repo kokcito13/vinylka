@@ -1,0 +1,29 @@
+<?= $this->partial('blocks/menus/top.phtml'); ?>
+<table class="zebra">
+    <thead>
+    <tr>
+        <td>Phone</td>
+        <td>Name</td>
+        <td>Email</td>
+        <td>Количество сделок</td>
+        <td></td>
+    </tr>
+    </thead>
+    <tbody>
+    <? $class = 'grey'; ?>
+    <? foreach ($this->buyers as $item): ?>
+        <? ($class === 'grey') ? $class = '' : $class = 'grey'; ?>
+        <tr class="<?= $class; ?>" >
+            <td style="padding-left: 10px;"><?=$item->getPhone()?></td>
+            <td><?=$item->getFullName()?></td>
+            <td><?=$item->getEmail()?></td>
+            <td><?=$item->getNumberOrders()?></td>
+            <td>
+                <a href="<?= $this->url(array('id' => $item->getPhone()), 'admin-buyers-show'); ?>"
+                    title="show"><img
+                        src="/static/admin/images/eye.png" alt="Edit" width="16" height="16"/></a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+    </tbody>
+</table>
