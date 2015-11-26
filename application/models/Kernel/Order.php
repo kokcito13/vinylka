@@ -6,12 +6,23 @@ class Application_Model_Kernel_Order
     protected $id_product;
     protected $name;
     protected $phone;
+
+    /**
+     * @var null|string
+     */
+    protected $email = null;
+
     protected $text;
     protected $price_user;
     protected $price_current;
     protected $delivery_type;
     protected $categories;
-    protected $types;
+
+    /**
+     * @var array
+     */
+    protected $types = array();
+
     protected $created_at;
     protected $status;
 
@@ -25,10 +36,11 @@ class Application_Model_Kernel_Order
 
     public function __construct($id, $id_product, $price_user, $name, $phone, $text,
                                 $price_current, $delivery_type, $categories = array(),
-                                $types = array(), $created_at = false, $status = null)
+                                $types = array(), $created_at = false, $status = null, $email = null)
     {
         $this->name = $name;
         $this->phone = $phone;
+        $this->email = $email;
         $this->text = $text;
 
         $this->id = $id;
@@ -48,12 +60,24 @@ class Application_Model_Kernel_Order
         }
     }
 
-    public static function getSelf($data) {
-        return new self($data->id, $data->id_product, $data->price_user, $data->name, $data->phone, $data->text,
-                        $data->price_current, $data->delivery_type, $data->categories,
-                        $data->types, $data->created_at, $data->status);
-    }
+    public static function getSelf($data)
+    {
+        $data->categories = str_replace('"', '', $data->categories);
+        $data->categories = str_replace('\\', '', $data->categories);
 
+        $data->types = str_replace('"', '', $data->types);
+        $data->types = str_replace('\\', '', $data->types);
+
+        $categories = json_decode($data->categories, true);
+        $types = json_decode($data->types, true);
+
+        $categories = is_array($categories)?$categories:array();
+        $types = is_array($types)?$types:array();
+
+        return new self($data->id, $data->id_product, $data->price_user, $data->name, $data->phone, $data->text,
+                        $data->price_current, $data->delivery_type, $categories,
+                        $types, $data->created_at, $data->status, $data->email);
+    }
 
     public function getId(){
         return $this->id;
@@ -160,6 +184,7 @@ class Application_Model_Kernel_Order
 
             'name'          => $this->name,
             'phone'         => $this->phone,
+            'email'         => $this->email,
             'text'          => $this->text,
 
             'price_current' => $this->price_current,
@@ -248,5 +273,45 @@ class Application_Model_Kernel_Order
         $this->price_user = $price;
 
         return $this;
+    }
+
+    /**
+     * @param string|null $email
+     * @return $this
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function getJson($json)
+    {
+        return json_decode($json, true);
+    }
+
+    /**
+     * @return array
+     */
+    public function getTypes()
+    {
+        return $this->types;
+    }
+
+    /**
+     * @return array
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 }

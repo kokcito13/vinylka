@@ -121,7 +121,6 @@ class AjaxController extends Zend_Controller_Action
                 $mail->setFrom('manager@vinylka.com.ua', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->addTo('oklosovich@gmail.com', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->addTo('grygorenko.viktoria@gmail.com', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
-                $mail->addTo('glyuda@gmail.com', 'Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->setSubject('Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->send();
 
@@ -130,6 +129,7 @@ class AjaxController extends Zend_Controller_Action
                 $order = new Application_Model_Kernel_Order(null, $idProduct, $product->getUserPrice(), $data->name, $data->mob, $data->text,
                                                    $product->getPrice(), $delivery, $ids,
                                                    array(), time());
+                $order->setEmail($data->email);
                 $order->save();
             }
 
@@ -184,6 +184,7 @@ class AjaxController extends Zend_Controller_Action
                 $order = new Application_Model_Kernel_Order(null, 0, 0, $data->name, $data->mob, $data->text,
                                                             0, 0, array(),
                                                             array(), time());
+                $order->setEmail($data->email);
                 $order->save();
             }
 

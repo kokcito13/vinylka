@@ -37,6 +37,7 @@ class Admin_OrderController extends Zend_Controller_Action
         $this->_helper->viewRenderer->setScriptAction('add');
         $this->view->edit = true;
         $this->view->idOrder = (int)$this->_getParam('id');
+
         $this->view->order = Application_Model_Kernel_Order::getById($this->view->idOrder);
 
         if ($this->getRequest()->isPost()) {
@@ -44,6 +45,7 @@ class Admin_OrderController extends Zend_Controller_Action
             try {
                 $this->view->order->setStatus($data->status);
                 $this->view->order->setText($data->text);
+                $this->view->order->setEmail($data->email);
                 $this->view->order->save();
 
                 $this->_redirect($this->view->url(array('page' => 1), 'admin-order-index'));
@@ -74,6 +76,7 @@ class Admin_OrderController extends Zend_Controller_Action
                 $this->view->order->setUserPrice($data->userPrice);
                 $this->view->order->setStatus($data->status);
                 $this->view->order->setText($data->text);
+                $this->view->order->setEmail($data->email);
 
                 $this->view->order->save();
 
