@@ -34,10 +34,10 @@ class PublicController extends Zend_Controller_Action
         $description = $this->view->contentPage['description']->getFieldText();
 
         if (empty($title)) {
-            $title = "Наклейка ".$this->view->contentPage['contentName']->getFieldText(). ' - низкая цена, доставка по Украине и СНГ. Купить виниловую наклейку в интернет магазинe Vinylka.com.ua '.$this->view->contentPage['contentName']->getFieldText().' с доставкой по Украине и СНГ';
+            $title = "Наклейка ".$this->view->contentPage['contentName']->getFieldText(). ' - для макбука с доставкой по Украине в интернет магазинe Vinylka.com.ua.';
         }
         if (empty($description)) {
-            $description = "Характеристики, описание, отзывы наклейки". $this->view->contentPage['contentName']->getFieldText(). ' - узнайте больше на Vinylka.com.ua! Покупайте виниловые наклейки с комфортом! Vinylka.com.ua, (093) 716-76-20.';
+            $description = $this->my_mb_ucfirst($this->view->contentPage['contentName']->getFieldText()). ' наклейка (виниловая) для макбука (Apple Macbook) или iPad - на Vinylka.com.ua! Покупайте виниловые черные или цветные наклейки на apple девайсы с комфортом! Vinylka.com.ua.';
         }
 
         $this->view->title = $title;
@@ -74,5 +74,10 @@ class PublicController extends Zend_Controller_Action
         $remarketing->setProductId($product_id);
         $remarketing
             ->update();
+    }
+
+    function my_mb_ucfirst($str) {
+        $fc = mb_strtoupper(mb_substr($str, 0, 1));
+        return $fc.mb_substr($str, 1);
     }
 }
