@@ -42,6 +42,8 @@ class Admin_OrderController extends Zend_Controller_Action
         if ($this->getRequest()->isPost()) {
             $data = (object)$this->getRequest()->getPost();
             try {
+                $this->view->order->setName($data->name);
+                $this->view->order->setPhone($data->phone);
                 $this->view->order->setStatus($data->status);
                 $this->view->order->setText($data->text);
                 $this->view->order->setUserPrice($data->userPrice);
