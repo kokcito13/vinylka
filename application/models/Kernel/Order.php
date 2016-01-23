@@ -320,14 +320,18 @@ class Application_Model_Kernel_Order
         return $this->categories;
     }
 
-    public static function getStatisticByMonth($status = self::STATUS_GOOD)
+    public static function getStatisticByMonth($status = self::STATUS_GOOD, $year = null)
     {
+        if (!$year) {
+            $year = date('Y');
+        }
+
         $sql = "SELECT YEAR( new.Date ) as years , MONTHNAME( new.Date ) as mounths, SUM( price_user ) as prices
                 FROM (
                   SELECT DATE_FORMAT( FROM_UNIXTIME(  `created_at` ) ,  '%Y-%m-%d %H:%i:%s' ) AS DATE,  `price_user`
                   FROM  `order`
                   WHERE status = ".$status."
-                  and YEAR(DATE_FORMAT( FROM_UNIXTIME(  `created_at` ) ,  '%Y-%m-%d %H:%i:%s' )) = YEAR(CURDATE())
+                  and YEAR(DATE_FORMAT( FROM_UNIXTIME(  `created_at` ) ,  '%Y-%m-%d %H:%i:%s' )) = ".$year."
                 ) new
                 GROUP BY YEAR( new.Date ) , MONTH( new.Date )
                 ORDER BY years

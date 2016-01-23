@@ -94,8 +94,10 @@ class Admin_OrderController extends Zend_Controller_Action
 
     public function statisticAction()
     {
-        $statistic = Application_Model_Kernel_Order::getStatisticByMonth();
-        $statisticFail = Application_Model_Kernel_Order::getStatisticByMonth(Application_Model_Kernel_Order::STATUS_FAIL);
+        $year = (int)$this->_getParam('year');
+
+        $statistic = Application_Model_Kernel_Order::getStatisticByMonth(Application_Model_Kernel_Order::STATUS_GOOD, $year);
+        $statisticFail = Application_Model_Kernel_Order::getStatisticByMonth(Application_Model_Kernel_Order::STATUS_FAIL, $year);
 
         $this->view->statistic = array();
         $this->view->statisticFail = array();
