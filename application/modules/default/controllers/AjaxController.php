@@ -124,6 +124,10 @@ class AjaxController extends Zend_Controller_Action
                 $mail->setSubject('Заказ товара на '.$_SERVER['SERVER_NAME']);
                 $mail->send();
 
+                if (!empty($data->email) && filter_var($data->email, FILTER_VALIDATE_EMAIL)) {
+                    $this->sendEmailToUser($data, $delivery,$product, $productContent);
+                }
+
                 $response['success'] = true;
 
                 $order = new Application_Model_Kernel_Order(null, $idProduct, $product->getUserPrice(), $data->name, $data->mob, $data->text,
@@ -192,5 +196,24 @@ class AjaxController extends Zend_Controller_Action
 
             return false;
         }
+    }
+
+    public function sendEmailToUser($data, $delivery,$product, $productContent)
+    {
+        $view = new Zend_View(array('basePath'=>APPLICATION_PATH.'/modules/default/views'));
+
+        $view->data = $data;
+        $view->delivery = $delivery;
+        $view->product = $product;
+        $view->productContent = $productContent;
+
+        $html = $view->render('block/order_user_mail.phtml');
+
+        $mail = new Zend_Mail('UTF-8');
+        $mail->setBodyHtml($html);
+        $mail->setFrom('manager@vinylka.com.ua', 'Заказ товара '.$productContent['contentName']->getFieldText().' на vinylka.com.ua');
+        $mail->addTo($data->email, 'Заказ товара '.$productContent['contentName']->getFieldText().' на vinylka.com.ua');
+        $mail->setSubject('Заказ товара '.$productContent['contentName']->getFieldText().' на vinylka.com.ua');
+        $mail->send();
     }
 }

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="keywords"/>
+    <meta name="description" content="description"/>
+    <meta http-equiv="content-language" content="ru"/>
+    <meta name="language" content="ru"/>
+</head>
+
+<body bgcolor="#fff" style="background-color:#fff; margin: 0">
+<table cellpadding="0" cellspacing="0" width="700" border="0" style="margin:0 auto;background-color:#fff" bgcolor="#fff">
+    <tr>
+        <td valign="top">
+            <table cellpadding="0" cellspacing="0" border="0" width="600" style="margin:0 auto">
+                <tr>
+                    <td valign="top" style="padding:30px 0 23px 0;text-align:center;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:14px;line-height:14px">
+                        <a href="http://vinylka.com.ua">
+                            <img src="http://vinylka.com.ua/static/default/img/mail/logo.png" border="0" alt="" width="79" height="80" style="vertical-align:top"/>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-weight: 300;padding:0 38px 22px 38px;text-align:center;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:22px">
+                        Привет, <span style="font-weight: 400"><?=$this->data->name;?></span>, cпасибо за заказ!
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 auto;background-color:#e0f2f1" bgcolor="#e0f2f1">
+                            <tr>
+                                <td valign="top" style="font-weight: 300;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:14px;line-height:14px;padding:18px 38px 14px 38px">
+                                    В течение рабочего дня наш сотрудник с вами свяжется для подтверждения заказа.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" style="font-weight: 300;padding:0 38px 23px 38px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:14px;line-height:14px">
+                                    Напомним, команда <a href="http://vinylka.com.ua">Vinylka.com.ua</a> работает с понедельника по пятницу с 10 до 19 часов.
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="padding: 11px 38px 10px 38px;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 auto;background-color:#fff" bgcolor="#fff">
+                            <tr>
+                                <td width="108" valign="top" style="font-weight: 300;width:108px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:14px;line-height:14px;padding:18px 10px 17px 0; border-bottom: 1px solid #ebebeb">
+                                    Фото
+                                </td>
+                                <td width="300" valign="top" style="font-weight: 300;width: 300px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:14px;line-height:14px;padding:18px 10px 17px 0; border-bottom: 1px solid #ebebeb">
+                                    Наименование
+                                </td>
+                                <td width="108" valign="top" style="font-weight: 300;width:108px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:14px;line-height:14px;padding:18px 10px 17px 0; border-bottom: 1px solid #ebebeb">
+                                    Стоимость
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="108" valign="top" style="padding:19px 10px 0 0;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:14px;line-height:14px; border-bottom: 1px solid #ebebeb">
+                                    <a href="<?=$_SERVER['SERVER_NAME'].$this->product->getRoute()->getUrl();?>">
+                                        <img alt="<?=$this->productContent['contentName']->getFieldText();?>" src="http://vinylka.com.ua<?=$this->product->getPhoto1()->getPath('76:53')?>" border="0" height="53" width="76">
+                                    </a>
+                                </td>
+                                <td width="300" valign="top" style="padding:14px 10px 0 0;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:20px; border-bottom: 1px solid #ebebeb">
+                                    <a href="<?=$_SERVER['SERVER_NAME'].$this->product->getRoute()->getUrl();?>">
+                                        <?=$this->productContent['contentName']->getFieldText();?>
+                                    </a>
+                                </td>
+                                <td width="108" valign="top" style="padding:14px 10px 0 0;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:20px; border-bottom: 1px solid #ebebeb">
+                                    <?=$this->product->getUserPrice();?> грн
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" valign="top" style="text-align: right;font-weight: 600; padding:18px 20px 16px 0;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:20px">
+                                    Итого:
+                                </td>
+                                <td width="108" valign="top" style="font-weight: 600; padding:18px 10px 16px 0;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:20px;">
+                                    <?=$this->product->getUserPrice();?> грн
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="padding: 0 38px 41px 38px;">
+                        <table cellpadding="0" cellspacing="0" border="0" width="526" style="margin:0 auto;background-color:#fff" bgcolor="#fff">
+                            <tr>
+                                <td  width="183" valign="top" style="font-weight: 300;width:183px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    <span style="display: block; width: 183px">ФИО  получателя:</span>
+                                </td>
+                                <td valign="top" style="width: 323px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    <?=$this->data->name;?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="183" valign="top" style="font-weight: 300;width:183px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    <span style="display: block; width: 183px">Телефон:</span>
+                                </td>
+                                <td valign="top" style="width: 323px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    <?=$this->data->mob;?>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="183" valign="top" style="font-weight: 300;width:183px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    <span style="display: block; width: 183px">Модель девайса:</span>
+                                </td>
+                                <td valign="top" style="width: 323px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    Не указан
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="183" valign="top" style="font-weight: 300;width:183px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    <span style="display: block; width: 183px">Способ доставки:</span>
+                                </td>
+                                <td valign="top" style="width: 323px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    Новая Почта
+                                    <span style="font-weight: 300;font-size: 15px; padding: 15px 0 0 0; line-height: 15px; display: block;">
+                                        (Заказы от 300 грн -  доставка 0 грн, заказы до 300грн - 30 грн, оплачивается получателем)
+                                    </span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="183" valign="top" style="font-weight: 300;width:183px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    <span style="display: block; width: 183px">Информация о заказе:</span>
+                                </td>
+                                <td valign="top" style="width: 323px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    <span style="word-break: break-all"><?=$this->data->text;?></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="183" valign="top" style="font-weight: 300;width:183px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    <span style="display: block; width: 183px">Способ оплаты:</span>
+                                </td>
+                                <td valign="top" style="width: 323px;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px;padding:7px 10px 6px 0">
+                                    Не указан
+                                    <span style="font-weight: 300;font-size: 15px; padding: 15px 0 0 0; line-height: 15px; display: block;">
+                                        <a href="http://vinylka.com.ua/delivery_and_payment" style="text-decoration: underline; color: #1c2833">Наложенный платёж</a> - оплачивается получателем на отделении Новой Почты.
+                                    </span>
+                                    <span style="font-weight: 300;font-size: 15px; padding: 15px 0 0 0; line-height: 15px; display: block;">
+                                        <a href="http://vinylka.com.ua/delivery_and_payment" style="text-decoration: underline; color: #1c2833">На карту Приват Банка</a> - номер карты сообщим по телефону.
+                                    </span>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="padding:0 38px 13px 38px;text-align:left;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:18px;line-height:18px">
+                        Как изменить заказ?
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-weight: 300;padding:0 38px 32px 38px;text-align:left;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:14px;line-height:14px">
+                        Напишите нам на почту <a style="text-decoration: none; color: #1c2833;font-weight: 600" href="mailto:manager@vinylka.com.ua">manager@vinylka.com.ua</a>  или звоните по телефону
+                        <span style="font-weight: 600">(099) 929-08-03</span> чтобы изменить состав или задать вопрос по заказу.
+                    </td>
+                </tr>
+                <tr>
+                    <td valign="top" style="font-weight: 300;padding:0 38px 29px 38px;text-align:left;color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:14px;line-height:14px">
+                        Спасибо, что покупаете в нашем интернет-магазине!<br>
+                        Ваш <a href="http://vinylka.com.ua/" style="text-decoration: none; color: #325eab">Vinylka.com.ua</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <table cellpadding="0" cellspacing="0" border="0" width="100%" style="margin:0 auto;background-color:#e0f2f1" bgcolor="#e0f2f1">
+                            <tr>
+                                <td valign="top" style="color:#1c2833;font-family:'Helvetica Neue','Tahoma',Verdana,Arial,sans-serif;font-size:16px;line-height:22px;padding:26px 38px 29px 38px">
+                                    Присоединяйтесь к нам в соц.сетях, отмечайте на фото с тегом <span style="font-size: 20px; font-weight: 600">#vinylkacomua</span> и получайте <span style="font-size: 20px; font-weight: 600">скидку -10%</span> на второй заказ
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top" style="text-align: center; padding: 0 0 41px 0">
+                                    <a href="https://www.instagram.com/vinylka.com.ua/" style="margin-right:13px;display:inline-block;vertical-align:top;width:41px;height:40px;background-color:#ffffff;background-image:url('http://vinylka.com.ua/static/default/img/mail/inst-ico.png');background-position:0 0;background-repeat:no-repeat;">
+                                        <img width="41" border="0" height="40" src="http://vinylka.com.ua/static/default/img/mail/inst-ico.png" alt="instagram" style="vertical-align:top;background-color:#ffffff;"></a>
+                                    <a href="https://www.facebook.com/vinylka.com.ua/?ref=email" style="margin-right:14px;display:inline-block;vertical-align:top;width:40px;height:40px;background-color:#ffffff;background-image:url('http://vinylka.com.ua/static/default/img/mail/fb-ico.png');background-position:0 0;background-repeat:no-repeat;">
+                                        <img width="40" border="0" height="40" src="http://vinylka.com.ua/static/default/img/mail/fb-ico.png" alt="facebook" style="vertical-align:top;background-color:#ffffff;"></a>
+                                    <a href="https://vk.com/vinylkacomua" style="display:inline-block;vertical-align:top;width:40px;height:40px;background-color:#ffffff;background-image:url('http://vinylka.com.ua/static/default/img/mail/vk-ico.png');background-position:0 0;background-repeat:no-repeat;">
+                                        <img width="40" border="0" height="40" src="http://vinylka.com.ua/static/default/img/mail/vk-ico.png" alt="vk" style="vertical-align:top;background-color:#ffffff;"></a>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+</body>
+</html>
