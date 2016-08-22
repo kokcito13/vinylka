@@ -60,6 +60,7 @@ $this->metaData = '<meta property="og:title" content="'.$this->title.'"/>
                                     "
                             <? endif; ?>
                             id="btnBuy"
+                           onclick="fbq('track', 'AddToCart');"
                             >
                             <span class="btn__case"><?=$this->product->getProductStatus()?'Купить':'Заказать'?></span>
                         </a>
